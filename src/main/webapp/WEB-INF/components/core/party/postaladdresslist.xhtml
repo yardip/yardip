@@ -1,0 +1,26 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml">
+        <ui:param name="dataView" value="#{dataView}" />
+        <ui:param name="selectListener" value="#{selectListener}" />
+
+        <ui:define name="columns">
+            <p:column headerText="#{string['party.contact.purposes.label']}" >
+                <h:outputText value="#{data.purpose}" />
+            </p:column>
+
+            <p:column headerText="#{string['common.default.label']}" class="text-center" >
+                <h:outputText rendered="#{data.defaulted}" value="#{string['common.yes.label']}" />
+                <h:outputText rendered="#{not data.defaulted}" value="#{string['common.no.label']}" />
+            </p:column>
+
+            <p:column headerText="#{string['party.contact.address.label']}" colspan="2" >
+                <h:outputText escape="false" value="#{data.contactMechanism.value}" class="white-space-normal" />
+            </p:column>
+        </ui:define>
+    </ui:decorate>
+</ui:composition>
+

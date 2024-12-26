@@ -1,0 +1,12 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:commandButton icon="pi pi-plus" immediate="true"
+                     disabled="#{disabled}"
+                     rendered="#{viewPage.isUserHasRoles(dataView.createPermission)}"
+                     class="ui-button-flat"                             
+                     actionListener="#{dataView.onCreate}"
+                     oncomplete="refreshContent()" 
+                     update="#{updateListener} :messages" />
+
+</ui:composition>

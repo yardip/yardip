@@ -1,0 +1,11 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui">
+    
+    <p:commandButton icon="#{icon ne null ? icon : 'pi pi-pencil'}" immediate="true"
+                     disabled="#{not dataView.selector.onSelection}" 
+                     class="ui-button-flat"
+                     rendered="#{viewPage.isUserHasRoles(dataView.updatePermission)}"
+                     actionListener="#{dataView.onEdit}"
+                     oncomplete="refreshContent()" 
+                     update="#{updateListener} :messages" />
+</ui:composition>

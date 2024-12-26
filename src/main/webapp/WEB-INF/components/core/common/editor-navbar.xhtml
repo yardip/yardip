@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:jsf="http://xmlns.jcp.org/jsf" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="jakarta.tags.core">
+
+    <h:form class="block flex-grow-0 flex flex-nowrap align-items-center surface-300 border-0 border-bottom-1 border-300 px-2 py-1">
+        <div class="flex flex-nowrap align-items-center gap-2 mr-2">
+            <ui:insert name="page-title">
+                <h:outputText value="#{primaryTitle}" class="ui-widget text-color font-medium text-2xl ml-2" />
+                <c:choose><c:when test="#{not empty secondaryTitle}"> -- <span class="font-italic font-normal text-xl">#{secondaryTitle}</span></c:when></c:choose>
+            </ui:insert>
+        </div>
+        <div class="flex flex-nowrap justify-content-end align-items-center flex-grow-1 gap-2">
+            <p:commandButton icon="pi pi-check" type="button"
+                             immediate="true" onclick="save()" 
+                             class="rounded-button ui-button-outlined"/>
+            <p:commandButton icon="pi pi-times" type="button"
+                             onclick="cancel()" immediate="true"
+                             class="rounded-button ui-button-outlined" />
+        </div>
+    </h:form>
+    
+</ui:composition>

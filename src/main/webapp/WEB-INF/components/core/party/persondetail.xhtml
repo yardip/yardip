@@ -1,0 +1,220 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html" >
+
+    <div class="grid w-full p-4">
+        <div class="col-12 md:col-6">
+            <h:form>
+                <ui:decorate template="/WEB-INF/components/core/party/personform.xhtml" >
+                    <ui:param name="form" value="#{editor.form}" />
+                    <ui:param name="required" value="#{editor.form.required}" />
+
+                    <ui:define name="actions">
+                        <p:commandButton icon="pi pi-check" action="#{editor.updateParty}" class="ui-button-flat" />
+                    </ui:define>
+                </ui:decorate>
+            </h:form>
+        </div>
+
+        <div class="col-12 md:col-6">
+            <h:form>
+                <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+                    <ui:param name="title" value="Daftar Alamat" />
+                    <ui:param name="dataView" value="#{editor.postalAddressList}" />
+                    <ui:param name="contentId" value="#{dataView.name}" />
+
+                    <ui:define name="actions">
+                        <h:panelGroup id="actions" layout="block">
+                            <p:commandButton icon="pi pi-tag" immediate="true"
+                                             actionListener="#{dataView.makeSelectionAsDefault}" 
+                                             disabled="#{dataView.selections.isEmpty()}" 
+                                             update="#{contentId}" class="ui-button-flat" />
+                            <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml"/>
+                        </h:panelGroup>
+                    </ui:define>
+
+                    <ui:define name="fields">
+                        <ui:include src="/WEB-INF/components/core/party/postaladdresslist.xhtml">
+                            <ui:param name="selectListener" value="@form:actions" />
+                            <ui:param name="height" value="250" />
+                        </ui:include>
+                    </ui:define>
+
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/components/core/base/pager-alt.xhtml" >
+                            <ui:param name="pager" value="#{dataView.pager}" />
+                        </ui:include>
+                    </ui:define>
+                </ui:decorate>
+            </h:form>
+        </div>
+
+        <div class="col-12 md:col-6">
+            <h:form>
+                <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+                    <ui:param name="title" value="Daftar Nomor Telepon" />
+                    <ui:param name="dataView" value="#{editor.telecommunicationNumberList}" />
+                    <ui:param name="contentId" value="#{dataView.name}" />
+
+                    <ui:define name="actions">
+                        <h:panelGroup id="telecommunication-actions" layout="block">
+                            <p:commandButton icon="pi pi-tag" immediate="true"
+                                             actionListener="#{dataView.makeSelectionAsDefault}" 
+                                             disabled="#{dataView.selections.isEmpty()}" 
+                                             update="#{contentId}" class="ui-button-flat" />
+                            <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml"/>
+                        </h:panelGroup>
+                    </ui:define>
+
+                    <ui:define name="fields">
+                        <ui:include src="/WEB-INF/components/core/party/telecommunicationnumberlist.xhtml">
+                            <ui:param name="selectListener" value="@form:telecommunication-actions" />
+                            <ui:param name="height" value="250" />
+                        </ui:include>
+                    </ui:define>
+
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/components/core/base/pager-alt.xhtml" >
+                            <ui:param name="pager" value="#{dataView.pager}" />
+                        </ui:include>
+                    </ui:define>
+                </ui:decorate>
+            </h:form>
+        </div>
+
+        <div class="col-12 md:col-6">
+            <h:form>
+                <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+                    <ui:param name="title" value="Daftar Alamat Elektronik" />
+                    <ui:param name="dataView" value="#{editor.electronicAddressList}" />
+                    <ui:param name="contentId" value="#{dataView.name}" />
+
+                    <ui:define name="actions">
+                        <h:panelGroup id="actions" layout="block">
+                            <p:commandButton icon="pi pi-tag" immediate="true"
+                                             actionListener="#{dataView.makeSelectionAsDefault}" 
+                                             disabled="#{dataView.selections.isEmpty()}" 
+                                             update="#{contentId}"
+                                             class="ui-button-flat" />
+                            <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml"/>
+                        </h:panelGroup>
+                    </ui:define>
+
+                    <ui:define name="fields">
+                        <ui:include src="/WEB-INF/components/core/party/electronicaddresslist.xhtml">
+                            <ui:param name="selectListener" value="@form:actions" />
+                            <ui:param name="height" value="250" />
+                        </ui:include>
+                    </ui:define>
+
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/components/core/base/pager-alt.xhtml" >
+                            <ui:param name="pager" value="#{dataView.pager}" />
+                        </ui:include>
+                    </ui:define>
+                </ui:decorate>
+            </h:form>
+        </div>
+
+        <div class="col-12 md:col-6">
+            <h:form>
+                <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+                    <ui:param name="title" value="Daftar Tanda Pengenal" />
+                    <ui:param name="dataView" value="#{editor.identityList}" />
+                    <ui:param name="contentId" value="#{dataView.name}" />
+
+                    <ui:define name="actions">
+                        <h:panelGroup id="actions" layout="block">
+                            <p:commandButton icon="pi pi-tag" immediate="true"
+                                             actionListener="#{dataView.makeSelectionAsDefault}" 
+                                             disabled="#{dataView.selections.isEmpty()}" 
+                                             update="#{contentId}" class="ui-button-flat" />
+                            <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml"/>
+                            <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml"/>
+                        </h:panelGroup>
+                    </ui:define>
+
+                    <ui:define name="fields">
+                        <ui:include src="/WEB-INF/components/core/party/personidentitylist.xhtml">                            
+                            <ui:param name="selectListener" value="@form:actions" />
+                            <ui:param name="height" value="250" />
+                        </ui:include>
+                    </ui:define>
+
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/components/core/base/pager.xhtml" >
+                            <ui:param name="pager" value="#{dataView.pager}" />
+                        </ui:include>
+                    </ui:define>
+                </ui:decorate>
+            </h:form>
+        </div>
+
+        <ui:remove>
+        <div class="col-12 md:col-6">
+            <h:form>
+                <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+                    <ui:param name="title" value="Daftar Kategori" />
+                    <ui:param name="dataView" value="#{editor.classificationList}" />
+                    <ui:param name="contentId" value="#{dataView.name}" />
+
+                    <ui:define name="actions">
+                        <h:panelGroup id="actions" layout="block">
+                        <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml" />
+                        <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml"/>
+                        </h:panelGroup>
+                    </ui:define>
+
+                    <ui:define name="fields">
+                        <ui:include src="/WEB-INF/components/core/party/partyclassificationlist.xhtml">                            
+                            <ui:param name="selectListener" value="@form:actions" />
+                            <ui:param name="height" value="250" />
+                        </ui:include>
+                    </ui:define>
+
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/components/core/base/pager-alt.xhtml" >
+                            <ui:param name="pager" value="#{dataView.pager}" />
+                        </ui:include>
+                    </ui:define>
+                </ui:decorate>
+            </h:form>
+        </div>            
+        </ui:remove>
+
+        <div class="col-12 md:col-6">
+            <h:form>
+                <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+                    <ui:param name="title" value="Daftar Role" />
+                    <ui:param name="dataView" value="#{editor.roleList}" />
+                    <ui:param name="contentId" value="#{dataView.name}" />
+
+                    <ui:define name="fields">
+                        <ui:include src="/WEB-INF/components/core/party/partyrolelist.xhtml"> 
+                            <ui:param name="height" value="250" />
+                        </ui:include>
+                    </ui:define>
+
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/components/core/base/pager-alt.xhtml" >
+                            <ui:param name="pager" value="#{dataView.pager}" />
+                        </ui:include>
+                    </ui:define>
+                </ui:decorate>
+            </h:form>
+        </div>
+
+        <ui:insert name="role-form" />
+
+    </div>
+
+</ui:composition>

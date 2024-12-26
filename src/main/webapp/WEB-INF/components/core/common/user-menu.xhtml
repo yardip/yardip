@@ -1,0 +1,24 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="jakarta.faces.facelets" 
+    xmlns:p="http://primefaces.org/ui">
+
+    <p:menuButton icon="pi pi-user" value="#{request.userPrincipal.toString()}"  buttonStyleClass="ui-button-flat" >
+        <p:menuitem value="Ubah Password"
+                    action="#{viewPage.gotoChangePassword}" 
+                    rendered="#{rolesChecker.isUserHasRoles('can_login')}"
+                    icon="pi pi-key" />
+        <p:menuitem value="User"
+                    action="#{viewPage.gotoUsers}" 
+                    icon="pi pi-user" />
+        <p:menuitem value="Pengaturan"
+                    action="#{viewPage.gotoConfigs}"
+                    rendered="#{rolesChecker.isUserHasRoles('manage_configs')}"
+                    icon="pi pi-cog" />
+        <p:menuitem value="Keluar"
+                    action="#{loginPage.logout}" ajax="false"
+                    rendered="#{rolesChecker.isUserHasRoles('can_login')}"
+                    icon="pi pi-sign-out" />
+    </p:menuButton>
+
+</ui:composition>

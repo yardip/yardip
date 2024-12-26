@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html">
+
+    <p:card class="border-1 border-300" rendered="#{rendered ne null ? rendered : true}">
+
+        <f:facet name="title">
+            <h:outputText value="#{title}" />
+        </f:facet>        
+
+        <div class="flex justify-content-end gap-2">
+            <ui:insert name="actions" />
+        </div>
+
+        <ui:insert name="fields" />
+
+        <f:facet name="footer">
+            <div class="flex justify-content-end gap-2">
+                <ui:insert name="footer" />
+            </div>
+        </f:facet>
+
+    </p:card>
+
+</ui:composition>

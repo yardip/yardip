@@ -1,0 +1,53 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html">
+
+    <p:dataTable id="#{tableId ne null ? tableId : dataView.name}" widgetVar="#{dataView.name}"
+                 value="#{dataView.fetchedItems}" var="data"
+                 rowKey="#{data.id}" rowIndexVar="idx"
+                 selectionMode="#{dataView.selectionMode}"                 
+                 selection="#{dataView.selectionMode eq 'single' ? dataView.selection : dataView.selections}"
+                 editable="${editable ne null ? editable : false}" editMode="cell" editInitEvent="dblclick" 
+                 scrollable="true" scrollHeight="325" rowStyleClass="#{rowStyle}"
+                 resizableColumns="true" stripedRows="true" showGridlines="true"
+                 emptyMessage="#{string['common.hint.emptyData']}" >
+
+        <p:ajax event="rowSelect"
+                process="@this"
+                oncomplete="updateAddress()"
+                update="#{selectListener}" />
+        <p:ajax event="rowUnselect"
+                process="@this"
+                oncomplete="updateAddress()"
+                update="#{selectListener}" />
+        <p:ajax event="contextMenu"
+                process="@this"
+                oncomplete="updateAddress()" 
+                update="@form:context-menu #{selectListener}" />
+        <p:ajax event="cellEdit" immediate="true"
+                listener="#{dataView.onCellEdit}" />
+
+        <ui:insert name="prefix-columns" />
+        <ui:insert name="columns" />
+        <ui:insert name="suffix-columns" />
+
+    </p:dataTable>
+    
+    <p:contextMenu id="context-menu" for="#{tableId ne null ? tableId : dataView.name}">
+        <ui:insert name="crud-context-menu">
+            <ui:insert name="crud-create">
+                <ui:include src="/WEB-INF/components/core/base/menu-create.xhtml" />
+            </ui:insert>
+            <ui:insert name="crud-update">
+                <ui:include src="/WEB-INF/components/core/base/menu-update.xhtml" />
+            </ui:insert>
+            <ui:insert name="crud-delete">
+                <ui:include src="/WEB-INF/components/core/base/menu-delete.xhtml" />
+            </ui:insert>
+        </ui:insert>
+        <ui:insert name="context-menu" />
+    </p:contextMenu>
+    
+
+</ui:composition>
+

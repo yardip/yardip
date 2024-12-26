@@ -1,0 +1,63 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="jakarta.faces.facelets" 
+    xmlns:h="jakarta.faces.html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="jakarta.faces.core"
+    xmlns:c="jakarta.tags.core">
+
+    <style>
+        .filter-container {
+            display: flex!important;
+            align-items: center!important;
+        }
+        .filter-content {
+            display: block;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            font-size: .8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            border: thin solid #607d8b;
+            border-radius: 1.25rem;
+            background-color: #607d8b;
+            padding: .5rem;
+        }
+    </style>
+    
+    <ui:param name="filter" value="#{filter}" />
+
+    <ui:remove>
+    <ui:include src="#{filterContent}" />
+    </ui:remove>
+
+    <p:commandButton id="#{filter.name}" immediate="true" icon="#{filter.filtering ? 'pi pi-filter-fill' : 'pi pi-filter'}"
+                     styleClass="ui-button-flat" />
+    <p:overlayPanel for="#{filter.name}" widgetVar="#{filter.name}" dynamic="true" my="right top" at="right bottom" class="w-full">
+
+        <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+            <ui:param name="title" value="Filter" />
+
+            <ui:define name="fields">
+                <p:scrollPanel mode="native" class="flex flex-column gap-4">
+                    <ui:include src="#{filterUi}" />
+                </p:scrollPanel>
+            </ui:define>
+
+            <ui:define name="footer">
+                <p:commandButton actionListener="#{filter.doFilter}"
+                                 oncomplete="refreshContent(); PF('#{filter.name}').hide();"
+                                 update="@form" 
+                                 icon="pi pi-check"                                 
+                                 class="rounded-button ui-button-outlined ui-button-success mr-4" />
+                <p:commandButton actionListener="#{filter.doUnfilter}"
+                                 oncomplete="refreshContent(); PF('#{filter.name}').hide()"
+                                 update="@form" 
+                                 icon="pi pi-trash"                                 
+                                 class="rounded-button ui-button-outlined ui-button-warning" />
+            </ui:define>
+        </ui:decorate>
+    </p:overlayPanel>
+
+</ui:composition>
+

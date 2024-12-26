@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html">
+
+    <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+        <ui:param name="title" value="Nomor Telpon" />
+
+        <ui:define name="fields">
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="telecommunication-number-purposes" value="#{string['party.contact.purposes.label']}"  indicateRequired="#{required}" />
+                <p:selectCheckboxMenu id="telecommunication-number-purposes" value="#{form.purposes}"
+                                      converter="TelecommunicationNumberPurposeTypeConverter" 
+                                      dynamic="true" multiple="true" required="#{required}" 
+                                      requiredMessage="Telecommunication Number Purposes is required"
+                                      label="Pilih" updateLabel="true">  
+                    <f:selectItems  value="#{form.purposeTypeList.fetchedItems}" var="t"
+                                    itemLabel="#{t.remarks}" itemValue="#{t}" />
+                </p:selectCheckboxMenu>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="country-code" value="#{string['party.telecommunicationNumber.country.code.label']}" />
+                <p:inputNumber id="country-code" value="#{form.entity.contactMechanism.countryCode}"
+                               thousandSeparator="" decimalPlaces="0" leadingZero="keep" />
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="area-code" value="#{string['party.telecommunicationNumber.area.code.label']}" />
+                <p:inputNumber id="area-code" value="#{form.entity.contactMechanism.areaCode}"
+                               thousandSeparator="" decimalPlaces="0" leadingZero="keep" />
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="phonenumber" value="#{string['party.telecommunicationNumber.phone.label']}" indicateRequired="#{required}" />
+                <p:inputNumber id="phonenumber" required="#{required}" value="#{form.entity.contactMechanism.contactNumber}"
+                               thousandSeparator="" decimalPlaces="0" leadingZero="keep"
+                               requiredMessage="Telecommunication Number Phone Number is required" />
+            </div>
+
+        </ui:define>
+
+    </ui:decorate>
+
+</ui:composition>

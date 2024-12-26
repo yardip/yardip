@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+        <ui:param name="title" value="Informasi Umum" />
+
+
+        <ui:define name="fields">
+
+            <ui:insert name="personform-prefix" />
+
+            <ui:insert name="name-prefix">
+
+                <div class="field ui-fluid">
+                    <p:outputLabel for="prefix-title" value="Gelar Depan" />
+                    <p:inputText id="prefix-title" value="#{form.entity.prefixTitle}"/>
+                </div>
+
+            </ui:insert>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="first-name" value="#{string['person.firstName.label']}" />
+                <p:inputText id="first-name" value="#{form.entity.firstName}"
+                             required="true" requiredMessage="First Name is required"/>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="last-name" value="#{string['person.lastName.label']}" />
+                <p:inputText id="last-name" value="#{form.entity.lastName}" />
+            </div>
+
+            <ui:insert name="name-suffix">
+
+                <div class="field ui-fluid">
+                    <p:outputLabel for="suffix-title" value="Gelar Belakang" />
+                    <p:inputText id="suffix-title" value="#{form.entity.suffixTitle}"/>
+                </div>
+
+            </ui:insert>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="date-of-birth" value="#{string['person.dateOfBirth.label']}" />
+                <p:datePicker id="date-of-birth" value="#{form.entity.dateOfBirth}"
+                              yearRange="1920:2050" monthNavigator="true" yearNavigator="true"   />
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="gender" value="#{string['person.gender.label']}" />
+                <p:selectOneMenu id="gender" value="#{form.entity.gender}"
+                                 converter="GenderTypeConverter" >
+                    <f:selectItems value="#{genderTypeList.fetchedItems}" var="item"
+                                   itemLabel="#{item.label}" itemValue="#{item}" />
+                </p:selectOneMenu>  
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="marital-status" value="#{string['person.maritalStatus.label']}" />
+                <p:selectOneMenu id="marital-status" value="#{form.entity.maritalStatus}"
+                                  converter="MaritalStatusTypeConverter" > 
+                    <f:selectItems value="#{maritalStatusTypeList.fetchedItems}" var="item"
+                                   itemLabel="#{item.label}" itemValue="#{item}" />
+                </p:selectOneMenu>
+            </div>
+
+            <ui:insert name="personform-suffix" />
+
+        </ui:define>
+    </ui:decorate>
+
+</ui:composition>

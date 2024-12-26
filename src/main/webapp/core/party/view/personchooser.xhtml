@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                template="/WEB-INF/templates/chooser-page.xhtml" >
+
+    <f:metadata>
+
+        <ui:param name="title" value="#{string['application.label.personChooser']}" />
+        
+        <ui:param name="viewPage" value="#{personChooserPage}" />
+        <ui:param name="dataView" value="#{viewPage.dataView}" />
+
+        <ui:include src="/WEB-INF/components/core/base/meta/page.xhtml"/>
+        <ui:include src="/WEB-INF/components/core/party/meta/party-filterui.xhtml" />
+        <ui:include src="/WEB-INF/components/core/base/meta/pager.xhtml" />
+        <ui:include src="/WEB-INF/components/core/base/meta/selection.xhtml">
+            <ui:param name="converter" value="PersonListConverter" />
+        </ui:include>
+    </f:metadata>
+
+    <ui:define name="filter">
+        <ui:include src="/WEB-INF/components/core/base/filter.xhtml" >
+            <ui:param name="filterUi" value="/WEB-INF/components/core/party/party-filterui.xhtml" />
+            <ui:param name="filtered" value="#{dataView.filtered}" />
+        </ui:include>
+    </ui:define>
+
+    <ui:define name="pager">
+        <ui:include src="/WEB-INF/components/core/base/pager.xhtml" >
+            <ui:param name="stat" value="#{true}" />
+            <ui:param name="pagerListener" value=":data-frm" />
+        </ui:include>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="data-frm">
+            <ui:include src="/WEB-INF/components/core/party/party-list.xhtml" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>

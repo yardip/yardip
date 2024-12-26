@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html" 
+                xmlns:f="jakarta.faces.core">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml">
+        <ui:param name="dataView" value="#{dataView}" />
+        <ui:param name="selectListener" value="#{selectListener}" />
+
+        <ui:define name="columns">
+            <p:column headerText="Role" >
+                <h:outputText value="#{data.partyRoleType.name}" />
+            </p:column>
+            <p:column headerText="From" >
+                <h:outputText value="#{data.fromDate}">
+                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Thru" >
+                <h:outputText value="#{data.thruDate}" >
+                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </p:column>
+        </ui:define>
+    </ui:decorate>
+
+</ui:composition>

@@ -1,0 +1,9 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:f="jakarta.faces.core">        
+
+
+    <f:viewParam name="#{label}" value="#{dataView.selections}"
+                 converter="#{converter}" />
+
+</ui:composition>
+

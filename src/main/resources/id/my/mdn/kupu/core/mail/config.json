@@ -1,0 +1,42 @@
+[
+    {
+        "key": "SMTPHost",
+        "value": "",
+        "remarks": "SMTP Host"
+    },
+    {
+        "key": "SMTPPort",
+        "value": "",
+        "remarks": "SMTP Port"
+    },
+    {
+        "key": "SMTPAuth",
+        "value": "",
+        "remarks": "Enable SMTP Authentiction"
+    },
+    {
+        "key": "STARTTLS",
+        "value": "",
+        "remarks": "Enable STARTTLS"
+    },
+    {
+        "key": "AuthUser",
+        "value": "",
+        "remarks": "User account for server authentication"
+    },
+    {
+        "key": "AuthPassword",
+        "value": "",
+        "remarks": "Password of AuthUser for server authentication"
+    },
+    {
+        "key": "DefaultSender",
+        "value": "",
+        "remarks": "Default sender"
+    },
+    {
+        "key": "DefaultSenderLabel",
+        "value": "",
+        "remarks": "Default label"
+    }
+]

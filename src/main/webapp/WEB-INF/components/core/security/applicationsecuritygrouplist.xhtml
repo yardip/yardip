@@ -1,0 +1,14 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+        <ui:define name="columns">
+            <p:column headerText="Grup">             
+                <h:outputText value="#{data.organization.name}" />
+            </p:column>
+        </ui:define>
+    </ui:decorate>
+
+</ui:composition>
+

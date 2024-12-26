@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
+    
+    <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+        <ui:param name="title" value="Informasi Umum" />
+
+
+        <ui:define name="fields">
+            <ui:insert name="organizationform-prefix" />
+            
+            <div class="field ui-fluid">
+                <p:outputLabel for="name" value="#{string['common.name.label']}" />
+                <p:inputText id="name" value="#{form.entity.name}"
+                             required="true" requiredMessage="Name is required"/>
+            </div>
+            
+            <ui:insert name="organizationform-suffix" />
+        </ui:define>
+    </ui:decorate>
+
+</ui:composition>

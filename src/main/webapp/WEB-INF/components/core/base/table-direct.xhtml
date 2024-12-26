@@ -1,0 +1,18 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable id="#{dataView.name}" widgetVar="#{dataView.name}"
+                 value="#{dataView.fetchedItems}" var="data" class="#{styleClass}"
+                 scrollable="true" size="small"
+                 resizableColumns="true"  showGridlines="true"
+                 rendered="#{rendered ne null ? rendered : true}" 
+                 emptyMessage="#{string['common.hint.emptyData']}" >
+
+        <ui:insert name="prefix-columns" />
+        <ui:insert name="columns" />
+        <ui:insert name="suffix-columns" />
+
+    </p:dataTable>
+
+</ui:composition>
+

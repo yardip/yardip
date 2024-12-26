@@ -1,0 +1,68 @@
+{
+    "acls": [
+        {
+            "acl": {
+                "name": "can_login",
+                "description": "Dapat login"
+            }
+        },
+        {
+            "acl": {
+                "name": "manage_universe",
+                "description": "Akses seluruh bagian aplikasi"
+            }
+        },
+        {
+            "acl": {
+                "name": "manage_configs",
+                "description": "Dapat mengubah konfigurasi aplikasi"
+            }
+        },
+        {
+            "acl": {
+                "name": "manage_security",
+                "description": "Mengatur user dan group"
+            }
+        },
+        {
+            "acl": {
+                "name": "manage_report_templates",
+                "description": "Mengatur template cetak"
+            }
+        }
+    ],
+
+    "groups": [     
+        {
+            "group": {
+                "name": "User",
+                "acls": [
+                    "can_login"
+                ]
+            }
+        },
+        {
+            "group": {
+                "name": "Administrator",
+                "acls": [
+                    "manage_universe"
+                ]
+            }
+        }
+    ],
+    
+    "users": [
+        {
+            "user": {
+                "first-name": "The",
+                "last-name": "Administrator",
+                "username": "admin",
+                "password": "admin",
+                "groups": [
+                    "User",
+                    "Administrator"
+                ]
+            }
+        }
+    ]
+}

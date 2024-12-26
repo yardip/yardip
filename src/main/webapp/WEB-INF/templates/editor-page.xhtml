@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/page.xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:c="jakarta.tags.core">
+
+    <ui:define name="navbar">
+        <ui:include src="/WEB-INF/components/core/common/editor-navbar.xhtml" />
+    </ui:define>
+    
+    <ui:define name="crud-create" />
+    <ui:define name="crud-update" />
+    <ui:define name="crud-delete" />
+
+    <ui:define name="content">
+        <h:form id="editor-frm" class="flex flex-grow-1 align-items-stretch" enctype="multipart/form-data" >
+            <p:remoteCommand name="save" validateClient="true"
+                             actionListener="#{viewPage.save}"
+                             update="#{saveListener} :messages" /> 
+            <p:remoteCommand name="cancel" immediate="true" actionListener="#{viewPage.cancel}"/> 
+            <ui:insert name="form" />
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="pager" />
+
+</ui:composition>
+

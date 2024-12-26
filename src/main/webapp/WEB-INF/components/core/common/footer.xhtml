@@ -1,0 +1,15 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:ui="jakarta.faces.facelets">
+
+    <h:form id="pager-frm" class="flex">
+        <ui:insert name="pager">
+            <ui:include src="/WEB-INF/components/core/base/pager.xhtml" >
+                <ui:param name="pager" value="#{dataView.pager}" />
+                <ui:param name="pagerListener" value=":data-frm" />
+            </ui:include>
+        </ui:insert>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,13 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:panelGrid columns="2">
+        <p:outputLabel for="role" value="Role" />
+        <p:inputText id="role" value="#{dataView.filter.role}" />
+        
+        <p:outputLabel for="name" value="Name" />
+        <p:inputText id="name" value="#{dataView.filter.name}" />
+    </p:panelGrid>
+
+</ui:composition>
+

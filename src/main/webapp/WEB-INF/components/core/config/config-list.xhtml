@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets" 
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+
+        <ui:define name="columns">
+
+            <p:column headerText="Variabel">              
+                <h:outputText value="#{data.key}" />
+            </p:column>
+
+            <p:column headerText="Remarks">                
+                <h:outputText value="#{data.remarks}" />
+            </p:column>
+
+            <p:column headerText="Value">                
+                <h:outputText value="#{data.value}" rendered="#{!dataView.isEditing(data)}" />
+                <h:panelGroup layout="block" id="value-editor" rendered="#{dataView.isEditing(data)}" >
+                    <ui:include src="/WEB-INF/components/#{dataView.filter.module}/config-editor.xhtml" />
+                </h:panelGroup>
+            </p:column>
+
+            <p:column headerText="Edit">
+                <div  class="w-full flex gap-1 justify-content-center">
+                    <p:commandButton icon="pi pi-pencil" immediate="true"
+                                     rendered="#{dataView.editedValue ne data}"
+                                     disabled="#{(dataView.editedValue ne null) and (dataView.editedValue ne data)}"
+                                     actionListener="#{dataView.toggleEdit(data)}"
+                                     class="ui-button-flat"
+                                     update=":data-frm" />
+                    <p:commandButton icon ="pi pi-check"
+                                     rendered="#{data eq dataView.editedValue}" 
+                                     action="#{dataView.saveEdit}"                                                
+                                     class="ui-button-flat"
+                                     update=":data-frm" />
+                    <p:commandButton icon ="pi pi-times" immediate="true"
+                                     rendered="#{data eq dataView.editedValue}" 
+                                     actionListener="#{dataView.toggleEdit(data)}"                                       
+                                     class="ui-button-flat"
+                                     update=":data-frm" />
+                </div>
+            </p:column>
+
+        </ui:define>
+
+    </ui:decorate>
+
+</ui:composition>
+

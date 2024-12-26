@@ -1,0 +1,16 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html">
+
+    <p:menuitem value="User" immediate="true"
+                actionListener="#{securityNavigator.open('ApplicationUser')}"
+                icon="pi pi-user" />
+    <p:menuitem value="Group" immediate="true"
+                actionListener="#{securityNavigator.open('ApplicationSecurityGroup')}"
+                icon="pi pi-users" />
+    <p:menuitem value="Test Mail" immediate="true"
+                actionListener="#{mailer.test}"
+                icon="pi pi-envelope" />
+</ui:composition>
+

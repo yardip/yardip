@@ -1,0 +1,49 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html">
+
+    <p:treeTable id="#{dataView.name}" widgetVar="#{dataView.name}"
+                 value="#{dataView.rootNode}" var="data" propagateSelectionDown="false" propagateSelectionUp="false"
+                 selectionMode="#{dataView.selectionMode}" 
+                 selection="#{dataView.selectionMode eq 'single' ? dataView.nodeSelection : dataView.nodeSelections}"
+                 scrollable="true" scrollHeight="#{height}" 
+                 emptyMessage="#{string['common.hint.emptyData']}"  >
+ 
+        <p:ajax event="select"
+                process="@this"
+                oncomplete="updateAddress()" 
+                update="#{selectListener}" />
+        <p:ajax event="unselect"
+                process="@this"
+                oncomplete="updateAddress()" 
+                update="#{selectListener}" />
+        <p:ajax event="contextMenu"
+                process="@this"
+                oncomplete="updateAddress()" 
+                update="@form:context-menu #{selectListener}" />
+
+        <ui:insert name="prefix-columns" />
+        <ui:insert name="columns" />
+        <ui:insert name="suffix-columns" />
+
+    </p:treeTable>
+    
+    <p:contextMenu id="#{dataView.name}-context-menu" for="#{dataView.name}" >
+        <ui:insert name="crud-context-menu">
+            <ui:insert name="crud-create">
+                <ui:include src="/WEB-INF/components/core/base/menu-create.xhtml"/>
+            </ui:insert>
+            <ui:insert name="crud-update">
+                <ui:include src="/WEB-INF/components/core/base/menu-update.xhtml"/>
+            </ui:insert>
+            <ui:insert name="crud-delete">
+                <ui:include src="/WEB-INF/components/core/base/menu-delete.xhtml" />
+            </ui:insert>
+        </ui:insert>
+        <ui:insert name="context-menu" />
+    </p:contextMenu>
+
+    
+
+</ui:composition>
+

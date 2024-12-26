@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="in_ID" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+    
+    <f:view locale="id" >
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />            
+            <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}" />
+            <title>#{title}</title>
+            <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+            
+            <ui:insert name="styles">
+                <style>
+                    .ui-datatable-scrollable-header-box, .ui-datatable-scrollable-body {
+                        display: flex!important;
+                        flex-direction: column!important;
+                    }
+                    .ui-datatable-scrollable-header-box table, .ui-datatable-scrollable-body table {
+                        width: auto!important
+                    }
+                </style>
+            </ui:insert>
+            <ui:insert name="jscript" />           
+
+            <h:outputScript>
+                function addressBarUpdate(url) {
+                window.history.pushState(null, null, url);
+                }
+            </h:outputScript>
+
+        </h:head>
+        <h:body class="m-0">
+
+            <div class="flex flex-column justify-content-between align-items-stretch h-screen">
+                <h:form>
+                    <p:remoteCommand name="updateAddress" actionListener="#{viewPage.updateAddressBar}"
+                                     oncomplete="addressBarUpdate(args.url)"  />
+                </h:form>
+
+                <!-- Main Nav -->
+                <ui:include src="/WEB-INF/components/core/common/navbar.xhtml" />
+
+                <!-- Content -->
+                <p:splitter class="flex flex-grow-1 overflow-hidden" stateKey="split" stateStorage="local">
+                    <p:splitterPanel class="flex flex-column overflow-hidden" >
+                        <div id="master-nav" class="flex p-1 surface-50 border-1 border-200 align-items-center gap-2">
+                            <ui:insert name="master-title">
+                                <h:outputText class="block flex-grow-1 font-medium ml-2" value="#{masterTitle}" />
+                            </ui:insert>
+                            <ui:insert name="master-tools" >
+                                <h:form>
+                                    <p:commandButton icon="pi pi-question-circle" class="ui-button-flat" />
+                                </h:form>
+                            </ui:insert>
+                        </div>  
+                        <ui:insert name="master-header" />                      
+                        <p:scrollPanel mode="native" class="flex flex-column flex-grow-1 p-0 m-0 border-1 overflow-hidden">
+                            <ui:insert name="master" />
+                        </p:scrollPanel>
+                    </p:splitterPanel>
+                    <p:splitterPanel class="flex flex-column overflow-hidden">
+                        <div id="detail-nav" class="flex p-1 surface-50 border-1 border-200 align-items-center gap-2">
+                            <ui:insert name="detail-title">
+                                <h:outputText class="block flex-grow-1 font-medium ml-2" value="#{detailSubtitle}" />
+                            </ui:insert>
+                            <ui:insert name="detail-tools" >
+                                <h:form>
+                                    <p:commandButton icon="pi pi-question-circle" class="ui-button-flat" />
+                                </h:form>
+                            </ui:insert>
+                        </div>
+                        <ui:insert name="detail-header" />
+                        <p:scrollPanel mode="native" class="flex flex-column flex-grow-1 p-0 m-0 border-1 overflow-hidden">
+                            <ui:insert name="detail" />
+                        </p:scrollPanel>
+                    </p:splitterPanel>
+                    <p:splitterPanel class="flex flex-column overflow-hidden">
+                        <div id="properties-nav" class="flex p-1 surface-50 border-1 border-200 align-items-center gap-2">
+                            <ui:insert name="properties-title">
+                                <h:outputText class="block flex-grow-1 font-medium ml-2" value="#{propertiesSubtitle}" />
+                            </ui:insert>
+                            <ui:insert name="properties-tools" >
+                                <h:form>
+                                    <p:commandButton icon="pi pi-question-circle" class="ui-button-flat" />
+                                </h:form>
+                            </ui:insert>
+                        </div>
+                        <ui:insert name="properties-header" />
+                        <p:scrollPanel mode="native" class="flex flex-column flex-grow-1 p-0 m-0 border-1 overflow-hidden">
+                            <ui:insert name="properties" />
+                        </p:scrollPanel>
+                    </p:splitterPanel>
+                </p:splitter>
+
+            </div>
+
+            <p:growl id="messages" showDetail="true"  />
+
+        </h:body>
+    </f:view>
+</html>
+

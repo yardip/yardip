@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core" >
+
+        <f:viewParam name="cs" value="#{viewPage.classificationList.selections}" converter="PartyClassificationListConverter" />
+        <f:viewParam name="cp" value="#{viewPage.classificationList.pager.pageSize}" converter="LongConverter" />
+        <f:viewParam name="co" value="#{viewPage.classificationList.pager.offset}" converter="LongConverter" />
+    
+        <f:viewParam name="is" value="#{viewPage.identityList.selections}" converter="PersonIdentityListConverter" />
+        <f:viewParam name="ip" value="#{viewPage.identityList.pager.pageSize}" converter="LongConverter" />
+        <f:viewParam name="io" value="#{viewPage.identityList.pager.offset}" converter="LongConverter" />
+
+        <f:viewParam name="ps" value="#{viewPage.postalAddressList.selections}" converter="PartyContactMechanismListConverter" />
+        <f:viewParam name="pp" value="#{viewPage.postalAddressList.pager.pageSize}" converter="LongConverter" />
+        <f:viewParam name="po" value="#{viewPage.postalAddressList.pager.offset}" converter="LongConverter" />
+
+        <f:viewParam name="ts" value="#{viewPage.telecommunicationNumberList.selections}" converter="PartyContactMechanismListConverter" /> 
+        <f:viewParam name="tp" value="#{viewPage.telecommunicationNumberList.pager.pageSize}" converter="LongConverter" />
+        <f:viewParam name="to" value="#{viewPage.telecommunicationNumberList.pager.offset}" converter="LongConverter" />
+
+        <f:viewParam name="es" value="#{viewPage.electronicAddressList.selections}" converter="PartyContactMechanismListConverter" />
+        <f:viewParam name="ep" value="#{viewPage.electronicAddressList.pager.pageSize}" converter="LongConverter" />
+        <f:viewParam name="eo" value="#{viewPage.electronicAddressList.pager.offset}" converter="LongConverter" />
+
+        <f:viewParam name="rs" value="#{viewPage.roleList.selections}" converter="PartyRoleListConverter" />
+        <f:viewParam name="rp" value="#{viewPage.roleList.pager.pageSize}" converter="LongConverter" />
+        <f:viewParam name="ro" value="#{viewPage.roleList.pager.offset}" converter="LongConverter" />
+</ui:composition>

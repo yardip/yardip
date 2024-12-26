@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+
+    <f:view >
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />            
+            <link rel="shortcut icon" type="image/x-icon" 
+                  href="#{resource['images/favicon.ico']}" />
+            <title>#{config.getString('config.AppName')} | #{title}</title>
+            <h:outputStylesheet library="webjars" 
+                                name="primeflex/3.3.1/primeflex.min.css" />
+            <ui:insert name="styles">
+                <style>
+                    .ui-datatable-scrollable-header-box,
+                    .ui-datatable-scrollable-body {
+                        display: flex!important;
+                        flex-direction: column!important;
+                    }
+                    .ui-datatable-scrollable-header-box table,
+                    .ui-datatable-scrollable-body table {
+                        width: auto!important
+                    }
+                </style>
+            </ui:insert> 
+            <h:outputScript>
+                <ui:insert name="vars" >
+                    var masterContent = "#{masterDataView.name}";
+                    var detailContent = "#{detailDataView.name}";
+                </ui:insert>
+                function addressBarUpdate(url) {
+                window.history.pushState(null, null, url);
+                }
+                function resizeMaster(value, index, array) {
+                if(!PrimeFaces.widgets[masterContent] || PF(masterContent).scrollBody == undefined) return; 
+                var container = $('#master-container');
+                var tableId = '#' + PF(masterContent).id.replace(':', '\\:');
+                var tableHead = $(tableId + '_head')
+                var scrollHeight = container.height() - tableHead.height() - 4;
+                var scrollBody = PF(masterContent).scrollBody;
+                scrollBody.css('max-height', scrollHeight + 'px');
+                }
+                function resizeDetail(value, index, array) {
+                if(!PrimeFaces.widgets[detailContent] || PF(detailContent).scrollBody == undefined) return; 
+                var container = $('#detail-container');
+                var tableId = '#' + PF(detailContent).id.replace(':', '\\:');
+                var tableHead = $(tableId + '_head')
+                var scrollHeight = container.height() - tableHead.height() - 4;
+                var scrollBody = PF(detailContent).scrollBody;
+                scrollBody.css('max-height', scrollHeight + 'px');
+                }
+                function resizeContainer() {
+                resizeMaster();
+                resizeDetail();
+                }
+            </h:outputScript>   
+            <h:outputScript name="locales/locale-#{theApp.localization}.js" library="primefaces" />
+            <ui:insert name="jscript" />    
+        </h:head>
+        <h:body class="m-0">
+
+            <h:form>
+                <p:remoteCommand name="updateAddress" actionListener="#{viewPage.updateAddressBar}"
+                                 oncomplete="addressBarUpdate(args.url)"  />
+            </h:form>
+
+            <h:form>
+                <p:remoteCommand  name="refreshContent" action="#{viewPage.updateAddressBar}"
+                                  oncomplete="addressBarUpdate(args.url);resizeContainer();" 
+                                  update="#{masterContentId} :master-tools-frm :master-filter-frm :master-pager-frm #{detailContentId} :detail-tools-frm :detail-filter-frm :detail-pager-frm" />
+            </h:form>
+
+            <h:form>
+                <p:remoteCommand  name="refreshMaster" action="#{viewPage.updateAddressBar}"
+                                  oncomplete="addressBarUpdate(args.url);resizeMaster();" 
+                                  update="#{masterContentId} :master-tools-frm :master-filter-frm :master-pager-frm" />
+            </h:form>
+
+            <h:form>
+                <p:remoteCommand  name="refreshDetail" action="#{viewPage.updateAddressBar}"
+                                  oncomplete="addressBarUpdate(args.url);resizeDetail()" 
+                                  update="#{detailContentId} :detail-tools-frm :detail-filter-frm :detail-pager-frm" />
+            </h:form>
+            
+            <ui:insert name="other-nonview" />
+
+            <div class="flex flex-column justify-content-between align-items-stretch h-screen">
+
+                <!-- Main Nav -->
+                <ui:insert name="navbar">
+                    <ui:include src="/WEB-INF/components/core/common/navbar.xhtml" />
+                </ui:insert>
+
+                <!-- Panels -->
+                <p:splitter class="flex flex-grow-1 overflow-hidden" stateKey="split" stateStorage="local">
+                    <p:splitterPanel class="flex flex-column align-items-stretch overflow-hidden" >
+                        <div id="master-nav" class="#{master_notitle ? 'hidden' : 'flex p-1 surface-200 border-bottom-1 border-right-1 border-300 align-items-center gap-2'}">
+                            <div class="flex flex-nowrap align-items-center gap-2 mr-2">
+                                <ui:insert name="master-title">
+                                    <h:outputText class="ui-widget font-medium ml-2 text-xl" value="#{masterTitle}" />
+                                </ui:insert>
+                            </div>
+                        </div>
+                        <div class="#{master_notool ? 'hidden' : 'flex flex-wrap justify-content-between align-items-center border-bottom-1 border-gray-300 surface-200 p-1'}">
+                            <h:form id="master-tools-frm" class="flex flex-wrap justify-content-start" enctype="multipart/form-data">
+                                <ui:insert name="master-tools" >
+                                    <ui:insert name="crud-create">
+                                        <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml" >
+                                            <ui:param name="dataView" value="#{masterDataView}" />
+                                        </ui:include>
+                                    </ui:insert>
+                                    <ui:insert name="crud-update">
+                                        <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml" >
+                                            <ui:param name="dataView" value="#{masterDataView}" />
+                                        </ui:include>
+                                    </ui:insert>
+                                    <ui:insert name="crud-delete">
+                                        <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml" >
+                                            <ui:param name="dataView" value="#{masterDataView}" />
+                                        </ui:include>
+                                    </ui:insert>
+                                </ui:insert>
+                                <ui:insert name="other-master-tools" />
+                            </h:form>
+                            <h:form id="master-filter-frm" class="flex flex-wrap justify-content-start" >
+                                <ui:insert name="master-filter"> 
+                                    <ui:include src="/WEB-INF/components/core/base/filter.xhtml" >
+                                        <ui:param name="filter" value="#{masterFilter}" />
+                                        <ui:param name="name" value="#{masterFilterName}" />
+                                        <ui:param name="filterUi" value="#{masterFilterUi}" />
+                                        <ui:param name="filterListener" value="#{masterFilterListener}" />
+                                    </ui:include>
+                                </ui:insert>
+                            </h:form>
+                        </div> 
+                        <div id="master-container" class="flex-grow-1 flex flex-column overflow-hidden">                     
+                            <p:scrollPanel mode="native" class="flex flex-column flex-grow-1 p-0 m-0 border-right-1 border-300 overflow-x-hidden">
+                                <ui:insert name="master" />
+                            </p:scrollPanel>
+                        </div>
+                        <div id="master-footer" class="flex justify-content-start p-1 surface-200 border-top-1 border-right-1 border-300 align-items-center gap-2">
+                            <h:form class="block flex-grow-1">
+                                <ui:insert name="master-footer-tools" />
+                            </h:form>
+                            <h:form id="master-pager-frm" class="flex">
+                                <ui:insert name="master-pager">
+                                    <ui:include src="/WEB-INF/components/core/base/pager.xhtml" >
+                                        <ui:param name="pager" value="#{masterDataView.pager}" />
+                                        <ui:param name="pagerListener" value="#{masterContentId}" />
+                                    </ui:include>
+                                </ui:insert>
+                            </h:form>
+                        </div>
+                    </p:splitterPanel>
+                    <p:splitterPanel class="flex flex-column align-items-stretch overflow-hidden">
+                        <div id="detail-nav" class="#{detail_notitle ? 'hidden' : 'flex p-1 surface-200 border-bottom-1 border-left-1 border-300 align-items-center gap-2'}">
+                            <div class="flex flex-nowrap align-items-center gap-2 mr-2">
+                                <ui:insert name="detail-title">
+                                    <h:outputText class="ui-widget font-medium ml-2 text-xl" value="#{detailTitle}" />
+                                </ui:insert>
+                            </div>
+                        </div>
+                        <h:panelGroup id="detail-panel" layout="block" class="#{detail_notool ? 'hidden' : 'flex flex-wrap justify-content-between align-items-center border-bottom-1 border-gray-300 surface-200 p-1'}">
+                            <h:form id="detail-tools-frm" class="flex flex-wrap justify-content-start gap-2">
+                                <ui:insert name="detail-tools" >
+                                    <ui:insert name="crud-create">
+                                        <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml" >
+                                            <ui:param name="dataView" value="#{detailDataView}" />
+                                            <ui:param name="disabled" value="#{not masterDataView.selector.onSelection}" />
+                                        </ui:include>
+                                    </ui:insert>
+                                    <ui:insert name="crud-update">
+                                        <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml" >
+                                            <ui:param name="dataView" value="#{detailDataView}" />
+                                        </ui:include>
+                                    </ui:insert>
+                                    <ui:insert name="crud-delete">
+                                        <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml" >
+                                            <ui:param name="dataView" value="#{detailDataView}" />
+                                        </ui:include>
+                                    </ui:insert>
+                                </ui:insert>
+                                <ui:insert name="other-detail-tools" />
+                            </h:form>
+                            <h:form id="detail-filter-frm" class="flex flex-wrap justify-content-start gap-2">
+                                <ui:insert name="detail-filter">                                    
+                                    <ui:include src="/WEB-INF/components/core/base/filter.xhtml" >
+                                        <ui:param name="filter" value="#{detailFilter}" />
+                                        <ui:param name="name" value="#{detailFilterName}" />
+                                        <ui:param name="filterUi" value="#{detailFilterUi}" />
+                                        <ui:param name="filterListener" value="#{detailFilterListener}" />
+                                    </ui:include>
+                                </ui:insert>
+                            </h:form>
+                        </h:panelGroup>
+                        <div id="detail-container" class="flex-grow-1 flex flex-column overflow-hidden"> 
+                            <p:scrollPanel mode="native" class="flex flex-column flex-grow-1 p-0 m-0  border-left-1 border-300 overflow-x-hidden">
+                                <ui:insert name="detail" />
+                            </p:scrollPanel>
+                        </div>
+                        <div id="detail-footer" class="flex justify-content-start p-1 surface-200 border-top-1 border-right-1 border-300 align-items-center gap-2">
+                            <h:form class="block flex-grow-1">
+                                <ui:insert name="detail-footer-tools" />
+                            </h:form>
+                            <h:form id="detail-pager-frm" class="flex">
+                                <ui:insert name="detail-pager">
+                                    <ui:include src="/WEB-INF/components/core/base/pager.xhtml" >
+                                        <ui:param name="pager" value="#{detailPager}" />
+                                        <ui:param name="pagerListener" value="#{detailContentId}" />
+                                    </ui:include>
+                                </ui:insert>
+                            </h:form>
+                        </div> 
+                    </p:splitterPanel>
+                </p:splitter>
+
+            </div>
+
+            <ui:insert name="dialogs" />
+
+            <p:blockUI id="master-blocker" block="master-frm" widgetVar="masterBlocker"  >
+                <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
+            </p:blockUI>
+
+            <p:blockUI id="detail-blocker" block="detail-frm" widgetVar="detailBlocker" styleClass="bg-bluegray-100"  >
+                <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
+            </p:blockUI>
+
+            <p:growl id="messages" skipDetailIfEqualsSummary="true"  />
+            
+            <ui:insert name="bscript">
+                <h:outputScript>
+                    $(document).ready(resizeContainer);
+                </h:outputScript>
+            </ui:insert>
+
+        </h:body>
+
+
+    </f:view>
+</html>

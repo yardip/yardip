@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="jakarta.tags.core">
+
+    <ui:remove>
+    <p:commandButton class="ui-button rounded-button ui-button-outlined"  icon="pi pi-arrow-left"
+                     action="#{viewPage.up}" />
+    </ui:remove>
+    <div class="ui-widget text-2xl font-bold flex-grow-1">            
+        #{primaryTitle}<c:choose><c:when test="#{not empty secondaryTitle}"> -- <span class="font-italic font-normal text-xl">#{secondaryTitle}</span></c:when></c:choose>
+    </div>
+
+</ui:composition>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view locale="id" >
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />            
+            <link rel="shortcut icon" type="image/x-icon" 
+                  href="#{resource['images/favicon.ico']}" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+            <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+            <title>#{config.getString('config.AppName')} | #{title}</title>
+            <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+
+            <ui:insert name="styles">
+                <style>
+                    .ui-datatable-scrollable-body {
+                        overflow-x: hidden;
+                    }
+                    .noheader th {
+                        display: none;
+                    }
+                </style>
+            </ui:insert>
+            <h:outputScript>
+                <ui:insert name="vars" >
+                    var content = "#{dataView.name}";
+                </ui:insert>
+                function addressBarUpdate(url) {
+                window.history.pushState(null, null, url);
+                }
+                function resizeContainer() {                              
+                if(!PrimeFaces.widgets[content] || PF(content).scrollBody == undefined) return; 
+                var container = $('#container');
+                var tableId = '#' + PF(content).id.replace(':', '\\:');
+                var tableHead = $(tableId + '_head')
+                var scrollHeight = container.height() - tableHead.height() - 4;
+                var scrollBody = PF(content).scrollBody;
+                scrollBody.css('max-height', scrollHeight + 'px');
+
+                }
+            </h:outputScript>    
+            <h:outputScript name="locales/locale-#{theApp.localization}.js" library="primefaces" />
+            <ui:insert name="jscript" />
+        </h:head>
+        <h:body class="m-0">
+
+            <h:form>
+                <p:remoteCommand  name="updateAddress" action="#{viewPage.updateAddressBar}"
+                                  oncomplete="addressBarUpdate(args.url)" />
+            </h:form>
+
+            <h:form>
+                <p:remoteCommand  name="refreshContent" action="#{viewPage.updateAddressBar}"
+                                  oncomplete="addressBarUpdate(args.url);resizeContainer();" 
+                                  update="#{contentId} :tools-frm :pager-frm" />
+            </h:form>
+
+            <div class="flex flex-column justify-content-between align-items-stretch h-screen">
+
+                <!-- Main Nav -->
+                <ui:insert name="navbar">
+                    <ui:include src="/WEB-INF/components/core/common/navbar.xhtml" />
+                </ui:insert>
+
+                <!-- Toolbar -->
+                <div class="#{notool ? 'hidden' : 'flex justify-content-between border-bottom-1 border-gray-300 align-items-center surface-200 gap-1 p-1'} ">
+                    <h:form id="tools-frm" class="flex flex-wrap gap-1 flex-grow-1">
+                        <div class="flex gap-2 flex-grow-1">
+                            <ui:insert name="tools" >
+                                <ui:insert name="crud-create">
+                                    <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml" />
+                                </ui:insert>
+                                <ui:insert name="crud-update">
+                                    <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml" />
+                                </ui:insert>
+                                <ui:insert name="crud-delete">
+                                    <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml" />
+                                </ui:insert>
+                            </ui:insert>
+                            <ui:insert name="other-tools" />
+                        </div>
+                    </h:form>
+                    <h:form>
+                        <ui:insert name="overlay-filter" />
+                    </h:form>
+                </div>
+                <div class="#{nofilter ? 'hidden' : ''}">
+                    <h:form id="filter-frm" class="flex flex-grow-1 flex-wrap justify-content-start border-bottom-1 border-gray-300 align-items-center surface-200 gap-1 p-1">
+                        <ui:insert name="filter"/>
+                    </h:form>
+                </div>         
+
+                <!-- Content -->
+                <div id="container" class="flex-grow-1 flex flex-column overflow-hidden">                    
+                    <p:scrollPanel mode="native" class="flex flex-column flex-grow-1 p-0 m-0 border-0">
+                        <ui:insert name="content" />
+                    </p:scrollPanel>
+                </div>
+
+                <!-- Footer -->
+                <div id="footer" class="#{'flex flex-nowrap justify-content-between surface-200 border-top-1 border-gray-300 align-items-center gap-2 p-1'}">
+                    <h:form id="footer-tools-frm" class="flex-grow-1 flex">
+                        <ui:insert name="footer-tools" >
+                            <p:button icon="pi pi-info" class="ui-button-flat" />
+                        </ui:insert>
+                    </h:form>
+                    <h:form id="pager-frm" class="flex">
+                        <ui:insert name="pager">
+                            <ui:include src="/WEB-INF/components/core/base/pager.xhtml" >
+                                <ui:param name="pager" value="#{dataView.pager}" />
+                                <ui:param name="pagerListener" value="#{contentId}" />
+                            </ui:include>
+                        </ui:insert>
+                    </h:form>
+                </div>     
+
+            </div>
+
+            <p:growl id="messages" skipDetailIfEqualsSummary="true"   />
+        </h:body>
+        <h:outputScript>
+            $(document).ready(resizeContainer);
+        </h:outputScript>
+    </f:view>
+</html>
+

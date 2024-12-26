@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html">
+
+    <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+        <ui:param name="title" value="Alamat Elektronik" />
+
+        <ui:define name="fields">
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="electronic-address-purposes" value="#{string['party.contact.purposes.label']}" />
+                <p:selectCheckboxMenu id="electronic-address-purposes" value="#{form.purposes}" 
+                                      converter="ElectronicAddressPurposeTypeConverter" 
+                                      dynamic="true" multiple="true" label="Pilih" updateLabel="true"
+                                      required="#{required}" requiredMessage="Electronic Address Purposes are required" >
+                    <f:selectItems  value="#{form.purposeTypeList.fetchedItems}" var="t"
+                                    itemLabel="#{t.remarks}" itemValue="#{t}" />
+                </p:selectCheckboxMenu>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="address" value="#{string['party.electronicAddress.address.label']}" />
+                <p:inputText id="address" class="" required="#{required}"
+                             label="#{string['party.electronicAddress.address.label']}" requiredMessage="Electronic Address Address is required"
+                             value="#{form.entity.contactMechanism.addressString}" />
+            </div>
+
+        </ui:define>
+
+    </ui:decorate>
+
+</ui:composition>

@@ -1,0 +1,7 @@
+[
+    {
+        "key": "encryption_salt",
+        "value": "smtp.gmail.com",
+        "remarks": "Encryption Salt"
+    }
+]

@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <h:form class="block flex-grow-0 flex flex-nowrap align-items-center surface-300 border-0 border-bottom-1 border-300 px-2 py-1">
+        <div class="flex flex-nowrap align-items-center gap-2 mr-2">
+            <ui:insert name="parent-nav">
+                <p:commandButton action="#{systemNavigator.open('Home', '')}" immediate="true" ajax="false"
+                                 icon="pi pi-home" class="text-xl ui-button-flat" />
+            </ui:insert>
+            <ui:insert name="page-title">
+                <h:outputText value="#{title}" 
+                              class="ui-widget text-color font-medium text-2xl ml-2" />
+            </ui:insert>
+        </div>
+        <div class="flex flex-nowrap justify-content-end align-items-center flex-grow-1 gap-2">
+            <p:menuButton value="#{request.userPrincipal.toString()}"  
+                          icon="pi pi-user"  buttonStyleClass="ui-button-flat" 
+                          menuStyleClass="w-max" >
+                <ui:insert name="user-menu" />
+                <p:menuitem value="Ubah Password"
+                            action="#{securityNavigator.open('PasswordEditor', viewPage)}" 
+                            rendered="#{viewPage.isUserHasRoles('can_login')}"
+                            icon="pi pi-key" />
+                <p:menuitem value="User"
+                            rendered="#{viewPage.isUserHasRoles('manage_security','manage_universe')}"
+                            action="#{securityNavigator.open('User', viewPage)}"
+                            icon="pi pi-user" />
+                <p:menuitem value="Pengaturan"
+                            action="#{viewPage.gotoConfigs}"
+                            rendered="#{viewPage.isUserHasRoles('manage_configs','manage_universe')}"
+                            icon="pi pi-cog" />
+                <p:separator />
+                <ui:insert name="logout-menu">
+                    <p:menuitem value="Keluar" action="#{loginPage.logout}" 
+                                ajax="false" icon="pi pi-sign-out"
+                                rendered="#{viewPage.isUserHasRoles('can_login')}" />
+                </ui:insert>
+            </p:menuButton>
+
+            <p:menuButton  icon="pi pi-bars" buttonStyleClass="ui-button-flat" 
+                           menuStyleClass="w-max" >                
+                <ui:insert name="module-menu"/>
+            </p:menuButton>
+        </div>
+    </h:form>
+
+</ui:composition>

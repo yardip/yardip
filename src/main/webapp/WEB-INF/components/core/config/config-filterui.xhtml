@@ -1,0 +1,13 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core">
+
+    <p:panelGrid columns="2">
+        <p:outputLabel for="module" value="Module" />
+        <p:selectOneMenu id="module" value="#{dataView.filter.module}" >
+            <f:selectItems value="#{theApp.moduleInfos}" />
+        </p:selectOneMenu>
+    </p:panelGrid>
+
+</ui:composition>
+

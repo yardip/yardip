@@ -1,0 +1,8 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:f="jakarta.faces.core">
+
+    <f:viewParam name="psz" value="#{pager.pageSize}" converter="LongConverter" />
+    <f:viewParam name="ofs" value="#{pager.offset}" converter="LongConverter" />
+
+</ui:composition>
+

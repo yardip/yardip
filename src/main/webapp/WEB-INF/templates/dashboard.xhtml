@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view locale="id" >
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />            
+            <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}" />
+            <title>#{config.getString('config.AppName')}</title>
+            <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+            <style>
+                .ui-scrollpanel {
+                    border: none!important;
+                }
+                .ui-card-header {
+                    background-color: aliceblue;
+                }
+                .ui-card-content{
+                    display: none;
+                }
+            </style>
+            <ui:insert name="styles" />  
+            <h:outputScript name="locales/locale-#{theApp.localization}.js" library="primefaces" />
+            <ui:insert name="jscript" />
+        </h:head>
+        <h:body class="m-0">
+            <div class="flex flex-column align-items-stretch h-screen">
+                <h:form class="block flex p-1 align-items-center bg-gray-200 border-bottom-1 border-300">
+                    <div class="flex flex-grow-1 align-items-center gap-2 ml-2">                               
+                        <h:outputText value="#{title}" class="ui-widget text-color font-medium text-lg" />
+                    </div>
+                    <div class="flex align-items-center gap-2 mr-4">
+                        <p:menuButton value="#{request.userPrincipal.toString()}"  
+                                      icon="pi pi-user"  buttonStyleClass="ui-button-flat" 
+                                      menuStyleClass="w-max" >
+                            <ui:insert name="user-menu" />
+                            <p:menuitem value="Ubah Password"
+                                        action="#{securityNavigator.open('PasswordEditor', request.contextPath)}" 
+                                        rendered="#{rolesChecker.isUserHasRoles('can_login')}"
+                                        icon="pi pi-key" />
+                            <p:menuitem value="User"
+                                        action="#{securityNavigator.open('ApplicationUser', request.contextPath)}"
+                                        rendered="#{rolesChecker.isUserHasRoles('manage_security','manage_universe')}"
+                                        icon="pi pi-user" />
+                            <p:menuitem value="Pengaturan"
+                                        action="#{viewPage.gotoConfigs}"
+                                        rendered="#{rolesChecker.isUserHasRoles('manage_configs','manage_universe')}"
+                                        icon="pi pi-cog" />
+                            <p:separator />
+                            <p:menuitem value="Keluar" action="#{loginPage.logout}" 
+                                        ajax="false" icon="pi pi-sign-out"
+                                        rendered="#{rolesChecker.isUserHasRoles('can_login')}" />
+                        </p:menuButton>
+                    </div>
+                </h:form>
+                <div class="flex flex-column flex-grow-1 overflow-hidden">
+                    <p:scrollPanel mode="native" class="flex flex-column flex-grow-1 px-4 py-8 m-0 bg-bluegray-100">
+                        <div class="flex flex-wrap justify-content-center gap-4">
+                            <ui:repeat value="#{moduleInfos}" var="info">
+                                <div class="flex justify-content-center">
+                                    <div class="flex flex-column surface-card align-items-center border-1 border-round border-300 shadow-3 hover:shadow-6" style="width: 128px">
+                                        <div>
+                                            <p:graphicImage  url="resources/images/#{info.name}.svg" width="120" height="120" />
+                                        </div>
+                                        <div class="flex justify-content-center align-items-center text-md font-medium text-center p-2" style="height: 32px">
+                                            <p:link href="#{dashboard.itemPath(info)}" value="#{string[info.label]}" shape="rect"
+                                                    class="no-underline text-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </p:scrollPanel>
+                </div>
+            </div>
+        </h:body>
+    </f:view>    
+
+</html>

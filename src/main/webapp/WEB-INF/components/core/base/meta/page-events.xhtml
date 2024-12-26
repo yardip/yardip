@@ -1,0 +1,16 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:f="jakarta.faces.core"> 
+
+    <f:event type="postRestoreView" listener="#{viewPage.onPostRestoreViewEvent}" />
+    <f:event type="preApplyRequestValues" listener="#{viewPage.onPreApplyRequestValuesEvent}" />
+    <f:event type="postApplyRequestValues" listener="#{viewPage.onPostApplyRequestValuesEvent}" />
+    <f:event type="preValidate" listener="#{viewPage.onPreValidateEvent}" />
+    <f:event type="postValidate" listener="#{viewPage.onPostValidateEvent}" />
+    <f:event type="preUpdateModelValues" listener="#{viewPage.onPreUpdateModelValuesEvent}" />
+    <f:event type="postUpdateModelValues" listener="#{viewPage.onPostUpdateModelValuesEvent}" />
+    <f:event type="preInvokeApplication" listener="#{viewPage.onPreInvokeApplicationEvent}" />
+    <f:event type="postInvokeApplication" listener="#{viewPage.onPostInvokeApplicationEvent}" />
+    <f:event type="preRenderView" listener="#{viewPage.onPreRenderViewEvent}" />
+
+</ui:composition>
+

@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <div class="col-12 md:col-6 lg:col-4">
+        <ui:include src="/WEB-INF/components/core/party/organizationform.xhtml" >
+            <ui:param name="form" value="#{editor.organizationForm}" />
+            <ui:param name="required" value="#{editor.organizationForm.required}" />
+        </ui:include>
+    </div>
+
+    <ui:insert name="postaladdress-form">
+        <div class="col-12 md:col-6 lg:col-4">
+            <ui:include src="/WEB-INF/components/core/party/postaladdressform.xhtml" >
+                <ui:param name="form" value="#{editor.postalAddressForm}" />
+                <ui:param name="required" value="#{editor.postalAddressForm.required}" />
+            </ui:include>
+        </div>
+    </ui:insert>
+
+    <ui:insert name="telecommunicationnumber-form">
+        <div class="col-12 md:col-6 lg:col-4">
+            <ui:include src="/WEB-INF/components/core/party/telecommunicationnumberform.xhtml" >
+                <ui:param name="form" value="#{editor.telecommunicationNumberForm}" />
+                <ui:param name="required" value="#{editor.telecommunicationNumberForm.required}" />
+            </ui:include>
+        </div>
+    </ui:insert>
+
+    <ui:insert name="electronicaddress-form">
+        <div class="col-12 md:col-6 lg:col-4">
+            <ui:include src="/WEB-INF/components/core/party/electronicaddressform.xhtml" >
+                <ui:param name="form" value="#{editor.electronicAddressForm}" />
+                <ui:param name="required" value="#{editor.electronicAddressForm.required}" />
+            </ui:include> 
+        </div>
+    </ui:insert>
+
+
+</ui:composition>

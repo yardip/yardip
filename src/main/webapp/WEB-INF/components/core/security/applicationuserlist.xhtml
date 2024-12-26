@@ -1,0 +1,32 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+        <ui:param name="height" value="500" />
+
+        <ui:define name="columns">
+
+            <p:column headerText="Nama">                
+                <h:outputText value="#{data.person.name}" />
+            </p:column>
+
+            <p:column headerText="User">                
+                <h:outputText value="#{data.username}" />
+            </p:column>
+
+            <p:column headerText="Group">                
+                <h:outputText value="#{data.groupList}" class="white-space-normal" />
+            </p:column>
+
+        </ui:define>
+
+        <ui:define name="context-menu">
+            <p:menuitem icon="pi pi-key" value="Group" immediate="true"
+                        actionListener="#{viewPage.openGroupChooser}" />
+        </ui:define>
+
+    </ui:decorate>
+
+</ui:composition>
+

@@ -1,0 +1,8 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:f="jakarta.faces.core">        
+
+    <f:viewParam name="role" value="#{dataView.filter.role}" converter="QueryStringConverter" />
+    <f:viewParam name="name" value="#{dataView.filter.name}" converter="QueryStringConverter" />
+
+</ui:composition>
+

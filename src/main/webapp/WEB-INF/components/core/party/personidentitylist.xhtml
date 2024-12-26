@@ -1,0 +1,21 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml">
+        <ui:param name="dataView" value="#{dataView}" />
+        <ui:param name="selectListener" value="#{selectListener}" />
+
+        <ui:define name="columns">
+            <p:column headerText="#{string['person.identity.type.label']}" >
+                <h:outputText value="#{data.idType.remarks}" />
+            </p:column>
+
+            <p:column headerText="#{string['person.identity.code.label']}" class="text-center" >
+                <h:outputText value="#{data.code}" />
+            </p:column>
+        </ui:define>
+    </ui:decorate>
+</ui:composition>
+

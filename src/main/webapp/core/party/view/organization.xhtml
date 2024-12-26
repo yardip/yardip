@@ -1,0 +1,45 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/page.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html">
+
+    <f:metadata>
+        <ui:param name="subtitle" value="#{string['application.label.organization']}" />
+
+        <ui:param name="viewPage" value="#{organizationPage}" />
+        <ui:param name="dataView" value="#{organizationPage.partyList}" />
+
+        <ui:include src="/WEB-INF/components/core/base/meta/page.xhtml"/>
+        
+
+        <f:viewParam name="s" value="#{dataView.selections}"
+                     converter="PartyListConverter" />
+        <ui:param name="selectListener" value=":crud-frm :tools-frm" />
+
+        <ui:include src="/WEB-INF/components/core/base/meta/filter.xhtml">
+            <ui:param name="filterListener" value=":data-frm" />
+        </ui:include>
+
+        <ui:include src="/WEB-INF/components/core/base/meta/pager.xhtml">
+            <ui:param name="pagerListener" value=":data-frm" />
+        </ui:include>
+
+        <ui:include src="/WEB-INF/components/core/base/meta/filterui.xhtml" />
+
+    </f:metadata>
+
+    <ui:define name="main-nav">
+        <ui:include src="/WEB-INF/components/core/party/main-nav.xhtml" />
+    </ui:define>
+
+    <ui:define name="filter-content">
+        <ui:include src="/WEB-INF/components/core/party/party-filter.xhtml" />
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="data-frm">
+            <ui:include src="/WEB-INF/components/core/party/party-list.xhtml" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>

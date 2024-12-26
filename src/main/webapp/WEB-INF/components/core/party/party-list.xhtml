@@ -1,0 +1,30 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html" >
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+
+        <ui:define name="columns">
+
+            <p:column headerText="#{string['application.label.internalReference']}" class="text-center">
+                <h:outputText value="#{data.id}" />
+            </p:column>
+
+            <p:column headerText="#{string['application.label.name']}" class="text-center">
+                <h:outputText value="#{data.name}" />
+            </p:column>
+
+            <p:column headerText="#{string['application.label.roles']}" class="text-center">
+                <h:outputText value="#{data.partyRoles}" />
+            </p:column>
+
+            <p:column headerText="#{string['application.label.classifications']}" class="text-center">
+                <h:outputText value="#{data.partyClassifications}" />
+            </p:column>
+
+
+        </ui:define>
+
+    </ui:decorate>
+
+</ui:composition>

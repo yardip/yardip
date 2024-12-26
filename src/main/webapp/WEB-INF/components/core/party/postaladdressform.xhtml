@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html">
+
+    <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+        <ui:param name="title" value="Alamat Postal" />
+
+        <ui:define name="fields">
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="postal-address-purposes" value="#{string['party.contact.purposes.label']}" />
+                <p:selectCheckboxMenu id="postal-address-purposes" value="#{form.purposes}"
+                                      converter="PostalAddressPurposeTypeConverter"
+                                      dynamic="true" multiple="true" label="Pilih" updateLabel="true"
+                                      required="#{required}"  requiredMessage="Address Purposes is required" >
+                    <f:selectItems  value="#{form.purposeTypeList.fetchedItems}" var="t"
+                                    itemLabel="#{t.remarks}" itemValue="#{t}" />
+                </p:selectCheckboxMenu>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="country" value="#{string['party.postalAddress.country.label']}" />
+                <p:selectOneMenu id="country" style="min-width: auto!important"
+                                 value="#{form.entity.contactMechanism.country}" var="i"  
+                                 converter="CountryConverter" 
+                                 filter="true" filterMatchMode="contains" >                        
+                    <f:selectItem itemLabel="#{string['common.select.hint.label']}" itemDisabled="true" itemValue="#{null}" />
+                    <f:selectItems value="#{form.countryList.fetchedItems}" var="item"
+                                   itemLabel="#{item.name}" itemValue="#{item}" />
+                    <p:column>
+                        <h:outputText value="#{i.name}" />
+                    </p:column>
+                    <p:ajax event="valueChange" listener="#{form.onCountryChanged}" update="region district subDistrict urban postalCode :messages" />
+                </p:selectOneMenu> 
+            </div>  
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="region" value="#{string['party.postalAddress.region.label']}" />
+                <p:selectOneMenu id="region"  style="min-width: auto!important"
+                                 value="#{form.entity.contactMechanism.region}" 
+                                 converter="RegionConverter" var="i"
+                                 filter="true" filterMatchMode="contains" >                       
+                    <f:selectItem itemLabel="#{string['common.select.hint.label']}" itemDisabled="true" itemValue="#{null}" />
+                    <f:selectItems value="#{form.regionList.fetchedItems}" var="item"
+                                   itemLabel="#{item.name}" itemValue="#{item}" />
+                    <p:column>
+                        <h:outputText value="#{i.name}" />
+                    </p:column>
+                    <p:ajax event="valueChange" listener="#{form.onRegionChanged}" update="district subDistrict urban postalCode :messages" />
+                </p:selectOneMenu>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="district" value="#{string['party.postalAddress.district.label']}" />
+                <p:selectOneMenu id="district"  style="min-width: auto!important"
+                                 value="#{form.entity.contactMechanism.district}" 
+                                 converter="DistrictConverter" var="i"
+                                 filter="true" filterMatchMode="contains" >                        
+                    <f:selectItem itemLabel="#{string['common.select.hint.label']}" itemDisabled="true" itemValue="#{null}" />
+                    <f:selectItems value="#{form.districtList.fetchedItems}" var="item"
+                                   itemLabel="#{item.name}" itemValue="#{item}" />
+                    <p:column>
+                        <h:outputText value="#{i.name}" />
+                    </p:column>
+                    <p:ajax event="valueChange" listener="#{form.onDistrictChanged}" update="subDistrict urban postalCode :messages" />
+                </p:selectOneMenu>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="subDistrict" value="#{string['party.postalAddress.subdistrict.label']}" />
+                <p:selectOneMenu id="subDistrict"  style="min-width: auto!important"
+                                 value="#{form.entity.contactMechanism.subDistrict}" 
+                                 converter="SubDistrictConverter" var="i"
+                                 filter="true" filterMatchMode="contains" >                       
+                    <f:selectItem itemLabel="#{string['common.select.hint.label']}" itemDisabled="true" itemValue="#{null}" />
+                    <f:selectItems value="#{form.subDistrictList.fetchedItems}" var="item" 
+                                   itemLabel="#{item.name}" itemValue="#{item}" />
+                    <p:column>
+                        <h:outputText value="#{i.name}" />
+                    </p:column>
+                    <p:ajax event="valueChange" listener="#{form.onSubDistrictChanged}" update="urban postalCode :messages" />
+                </p:selectOneMenu>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="urban" value="#{string['party.postalAddress.urban.label']}" />
+                <p:selectOneMenu id="urban"  style="min-width: auto!important"
+                                 value="#{form.entity.contactMechanism.urban}" 
+                                 converter="UrbanConverter" var="i"
+                                 filter="true" filterMatchMode="contains" >                      
+                    <f:selectItem itemLabel="#{string['common.select.hint.label']}" itemDisabled="true" itemValue="#{null}" />                      
+                    <f:selectItems value="#{form.urbanList.fetchedItems}" var="item" itemLabel="#{item.name}" itemValue="#{item}" />
+                    <p:column>
+                        <h:outputText value="#{i.name}" />
+                    </p:column>
+                    <p:ajax event="valueChange" listener="#{form.onUrbanChanged}" update="postalCode :messages" />
+                </p:selectOneMenu>  
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="building" value="#{string['party.postalAddress.building.label']}" />
+                <p:inputText id="building" value="#{form.entity.contactMechanism.building}" />   
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="street" value="#{string['party.postalAddress.street.label']}" />
+                <p:inputTextarea id="street" value="#{form.entity.contactMechanism.street}"
+                                 required="#{required}" requiredMessage="Address Street is required" /> 
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="postalCode" value="#{string['party.postalAddress.postalcode.label']}" />
+                <p:inputText id="postalCode" readonly="true" value="#{form.zip}" /> 
+            </div>
+
+        </ui:define>
+
+    </ui:decorate>
+
+</ui:composition>

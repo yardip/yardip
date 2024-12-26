@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+    <f:view>
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+            <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}" />
+            <title>#{config.getString('config.AppName')} | #{title}</title>
+            <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+            <ui:insert name="styles" />  
+            <h:outputScript name="locales/locale-#{theApp.localization}.js" library="primefaces" />
+            <ui:insert name="jscript" />
+        </h:head>
+
+        <h:body class="m-0 bg-gray-300" style="background-image: url('#{externalContext.requestContextPath}/resources/images/login.svg')">
+
+            <div class="flex flex-column h-screen justify-content-center">
+                <h:form class="align-self-center">
+                    <p:card class="w-20rem flex flex-column align-items-center px-3" style="border: 4px solid var(--gray-400); border-radius: 8px">
+                        <facet name="header">
+                            <div class="w-full flex justify-content-center">
+                            <ui:insert name="logo">
+                                <p:graphicImage library="images" name="kupu.jpg" class="w-18rem mb-5" />
+                            </ui:insert>
+                            </div>
+                        </facet>
+                        <div class="ui-input-icon-left field w-full">
+                            <i class="pi pi-user" />
+                            <p:inputText id="username" value="#{loginPage.username}"
+                                         class="w-full" />
+                        </div>
+                        <div class="ui-input-icon-left field w-full">
+                            <i class="pi pi-key" />
+                            <p:inputText id="password" type="password"
+                                         value="#{loginPage.password}" 
+                                         class="w-full" />
+                        </div>
+                        <div class="flex justify-content-center mt-2">
+                            <p:commandButton value="Masuk"
+                                             action="#{loginPage.login}"
+                                             ajax="false" />
+                        </div>
+                    </p:card>
+                </h:form>
+            </div>
+
+            <p:growl id="messages" showDetail="true"   />
+
+        </h:body>
+    </f:view>
+</html>
+

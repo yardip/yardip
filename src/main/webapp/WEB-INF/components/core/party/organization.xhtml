@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
+
+    <div class="form-group">
+        <p:outputLabel for="name" value="#{string['application.label.name']}" />
+        <p:inputText id="name" value="#{party.name}" class="form-control" />
+    </div>
+
+    <ui:remove>
+        <div class="form-group">
+            <p:outputLabel for="classification" class="block" value="#{string['catalog.label.classifications']}" />
+            <p:chips id="classification" value="#{form.model.types}" 
+                     converter="OrganizationTypeConverter"
+                     inputStyleClass="w-100" >
+                <p:ajax event="click" listener="#{form.partyTypeList.load}" oncomplete="PF('classificationPanel').show('#{component.clientId}')" />
+                <p:ajax event="itemSelect" listener="#{form.partyTypeAggregator.addValue}" update="@this" />
+                <p:ajax event="itemUnselect" listener="#{form.partyTypeAggregator.removeValue}" update="@this" />
+            </p:chips>
+        </div>
+    </ui:remove>
+
+    <ui:remove>
+        <p:overlayPanel widgetVar="classificationPanel"  dynamic="true" >
+            <p:selectOneListbox id="classification-selection" 
+                                value="#{form.partyTypeList.selection}"
+                                converter="OrganizationTypeConverter" var="i"  >
+                <f:selectItems value="#{form.partyTypeList.fetchedItems}" var="item"
+                               itemLabel="#{item.name}" itemValue="#{item}" />
+                <p:column>
+                    <h:outputText value="#{i.name}" />
+                </p:column>
+                <p:ajax event="valueChange" listener="#{form.partyTypeList.onChanged}" update="classification :messages" />
+            </p:selectOneListbox>
+            <ui:remove>
+                <p:commandLink  value="Add type" immediate="true"
+                                oncomplete="PF('createPartyTypeDlg').show()"
+                                update="create-party-type-dlg" />
+            </ui:remove>
+        </p:overlayPanel>
+    </ui:remove>
+
+    <ui:remove>
+        <p:dialog dynamic="true" id="create-party-type-dlg" widgetVar="createPartyTypeDlg" modal="true"
+                  resizable="false" header="#{string['label.addType']}">
+            <h:form id="create-party-type-frm">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="name" value="#{string['label.name']}" />
+                    <p:inputText id="name" value="#{addOrganizationTypeForm.name}" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="#{string['label.save']}" action="#{addOrganizationTypeForm.doAction}"
+                                         oncomplete="PF('createPartyTypeDlg').hide()"
+                                         update=":add-party-frm:classification-selection :messages" />
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:remove>
+
+</ui:composition>

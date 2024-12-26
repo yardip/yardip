@@ -1,0 +1,14 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui" >  
+
+    <ui:decorate template="/WEB-INF/templates/main-nav.xhtml">
+        <ui:param name="title" value="#{string['application.label.party']}" />  
+
+        <ui:define name="primary-nav">
+            <p:link value="#{string['application.label.person']}" class="nav-link active" href="person.xhtml" />
+            <p:link value="#{string['application.label.organization']}" class="nav-link active" href="organization.xhtml" />
+        </ui:define>
+    </ui:decorate>
+
+</ui:composition>
+

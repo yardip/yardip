@@ -1,0 +1,9 @@
+<ui:composition xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:menuitem icon="pi pi-pencil" value="#{string['common.update.label']}"
+                rendered="#{viewPage.isUserHasRoles(dataView.updatePermission)}"
+                disabled="#{not dataView.selector.onSelection}" 
+                update="#{updateListener}" oncomplete="refreshContent()"
+                immediate="true" actionListener="#{dataView.onEdit}" />
+</ui:composition>

@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core">
+    <p:commandButton icon="pi pi-trash" immediate="true"
+                     rendered="#{viewPage.isUserHasRoles(dataView.deletePermission)}"
+                     disabled="#{not dataView.selector.onSelection}"
+                     onclick="PF('#{dataView.name}deleteDlg').show()"
+                     class="ui-button-flat" />
+
+    <p:dialog header="Konfirmasi" widgetVar="#{dataView.name}deleteDlg" 
+              modal="true" closable="true" dynamic="true">
+        <p>Data akan dihapus !</p>
+        <f:facet name="footer">
+            <p:commandButton type="button" value="Batal" 
+                             onclick="PF('#{dataView.name}deleteDlg').hide()" />
+            <p:commandButton value="Lanjut" 
+                             actionListener="#{dataView.onDelete}"
+                             oncomplete="PF('#{dataView.name}deleteDlg').hide();refreshContent()" 
+                             update="#{updateListener} :messages" />
+        </f:facet>
+    </p:dialog>
+
+</ui:composition>

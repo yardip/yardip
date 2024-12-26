@@ -1,0 +1,59 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:ui="jakarta.faces.facelets" 
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="jakarta.faces.core">
+
+    <h:panelGroup id="#{pager.name}" layout="block" class="flex align-items-center" rendered="#{rendered ne null ? rendered : true}">
+        <p:outputLabel value="Data: #{pager.itemsCount}" /> 
+        <p:spacer width="8" />
+        <p:selectOneMenu value="#{pager.pageSize}" converter="LongConverter" > 
+            <f:selectItems value="#{pager.pageSizeOptions}" var="size" 
+                           itemValue="#{size}" />
+            <p:ajax listener="#{pager.onPaging}" oncomplete="updateAddress()"
+                    update="#{contentId}" ignoreAutoUpdate="false" />
+        </p:selectOneMenu>
+
+        <p:commandButton actionListener="#{pager.first}"
+                         disabled="#{pager.atStart}"
+                         oncomplete="updateAddress()" 
+                         update="#{contentId}" ignoreAutoUpdate="false"
+                         icon="pi pi-angle-double-left" class="ui-button-flat" >
+            <p:autoUpdate />
+        </p:commandButton>
+
+        <p:commandButton  actionListener="#{pager.previous}"
+                          disabled="#{pager.atStart}" ignoreAutoUpdate="false"
+                          oncomplete="updateAddress()"  update="#{contentId}"
+                          icon="pi pi-angle-left" class="ui-button-flat"  >
+            <p:autoUpdate />
+        </p:commandButton>
+
+        <p:selectOneMenu value="#{pager.offset}" converter="LongConverter" > 
+            <f:selectItems value="#{pager.pageOptions}" var="page" 
+                           itemValue="#{page}" />
+            <p:ajax listener="#{pager.onPaging}" ignoreAutoUpdate="false"
+                    oncomplete="updateAddress()"
+                    update="#{contentId}"  />
+            <p:autoUpdate />
+        </p:selectOneMenu>
+
+        <p:commandButton actionListener="#{pager.next}" 
+                         disabled="#{pager.atEnd}"
+                         oncomplete="updateAddress()"
+                         update="#{contentId}"  ignoreAutoUpdate="false"
+                         icon="pi pi-angle-right" class="ui-button-flat" >
+            <p:autoUpdate />
+        </p:commandButton>
+
+        <p:commandButton actionListener="#{pager.last}"
+                         disabled="#{pager.atEnd}"
+                         oncomplete="updateAddress()"
+                         update="#{contentId}" ignoreAutoUpdate="false"
+                         icon="pi pi-angle-double-right" class="ui-button-flat" >
+            <p:autoUpdate />
+        </p:commandButton>
+    </h:panelGroup>
+
+</ui:composition>

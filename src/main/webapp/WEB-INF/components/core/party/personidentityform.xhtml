@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html">
+
+    <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+        <ui:param name="title" value="Tanda Pengenal" />
+
+        <ui:define name="fields">
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="idtype" value="Jenis" />
+                <p:selectOneMenu id="idtype" required="#{required}"
+                                 value="#{form.entity.idType}"
+                                  converter="PersonIdentityTypeConverter"  label="Type" >                        
+                    <f:selectItem itemLabel="#{string['common.select.hint.label']}" itemDisabled="true" itemValue="#{null}" />
+                    <f:selectItems value="#{personIdentityTypeList2.fetchedItems}" var="item"
+                                   itemLabel="#{item.remarks}" itemValue="#{item}" />
+                </p:selectOneMenu>
+            </div>
+
+            <div class="field ui-fluid">
+                <p:outputLabel for="code" value="Kode" />
+                <p:inputText id="code" value="#{form.entity.code}" required="#{required}"
+                             label="#{string['application.label.personalId']}" 
+                             requiredMessage="Personal ID is required" />
+            </div>
+
+        </ui:define>
+
+    </ui:decorate>
+</ui:composition>
