@@ -18,7 +18,7 @@ import jakarta.inject.Singleton;
  * @author Arief Prihasanto <aphasan57 at gmail.com>
  */
 @Singleton
-@FacesConverter(value = "AccountingPeriodConverter", managed = true)
+@FacesConverter(value = "AccountingPeriodListConverter", managed = true)
 public class AccountingPeriodListConverter extends SelectionsConverter<AccountingPeriod> {
     
     @Inject
