@@ -56,6 +56,14 @@ public abstract class AbstractMutableTree<E extends HierarchicalEntity<E>>
 
     protected abstract void createInternal(E entity);
 
+    public E getSelected() {
+        if (getSelectionMode().equals(Selector.SINGLE)) {
+            return getSelection();
+        } else {
+            return getSelections() != null ? getSelections().getLast() : null;
+        }
+    }
+
     @Override
     public void setEditor(PageCaller editor) {
         this.editor = editor;
