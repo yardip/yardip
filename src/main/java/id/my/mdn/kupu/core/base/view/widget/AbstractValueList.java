@@ -223,7 +223,6 @@ public abstract class AbstractValueList<E>
     }
 
     public void onFilter(Object obj) {
-        System.out.println("SELEK NOTIPAI KONTEK: " + obj);
         doFilter();
     }
 

@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/child-page.xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="tools"/>
+    
+    <ui:define name="filter">
+        <ui:insert name="report-params"/>
+        
+        <div class="formgroup-inline">
+            <p:commandButton id="btn-refresh" icon="pi pi-refresh" immediate="true"
+                             class="ui-button-flat"                             
+                             actionListener="#{viewPage.prepareReport}"
+                             onclick="PF('blocker').show()"
+                             update=":data-frm" />
+        </div>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="data-frm" class="flex-grow-1 flex align-items-stretch">
+            <pe:documentViewer value="#{reportStreamer.pdf}" 
+                               rendered="#{not reportingJobQueue.emptyJob}"
+                               style="border: none!important" />
+        </h:form>
+        <p:blockUI id="blocker" block="data-frm" widgetVar="blocker"  >
+            <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
+        </p:blockUI>
+
+        <p:poll interval="2" listener="#{viewPage.pollForCompleteness}"
+                autoStart="false" widgetVar="poll" async="true"  />
+    </ui:define>
+
+    <ui:define name="other-nonview">
+        <h:form>            
+            <p:remoteCommand name="loadReport"
+                             actionListener="#{viewPage.prepareReport}"
+                             onstart="PF('blocker').show()" 
+                             update=":data-frm"  />
+        </h:form>
+    </ui:define> 
+
+    <ui:define name="pager"/>  
+
+    <ui:define name="bscript">  
+        <h:outputScript>
+            function doThat() {
+            loadReport();
+            resizeContainer();
+            }
+            $(document).ready(doThat)
+        </h:outputScript>
+    </ui:define>
+    
+</ui:composition>

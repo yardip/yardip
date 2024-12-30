@@ -11,15 +11,12 @@
         <ui:param name="secondaryTitle" value="Baru" /> 
 
         <ui:param name="viewPage" value="#{businessEntityEditorPage}" />
+        <ui:include src="/WEB-INF/components/core/base/meta/page.xhtml"/>
 
         <ui:param name="notool" value="true" />
-        <ui:param name="nofilter" value="true"/>
+        <ui:param name="nofilter" value="true"/>            
 
-        <ui:include src="/WEB-INF/components/core/base/meta/page.xhtml"/>  
-
-            
-
-        <f:viewParam name="entity" value="#{viewPage.entity}" converter="BusinessEntityConverter" transient="true" />
+        <f:viewParam name="entity" value="#{viewPage.entity}" converter="BusinessEntityConverter" />
         <f:viewParam name="parent" value="#{viewPage.parent}" converter="BusinessEntityConverter" />
 
         <f:viewAction action="#{viewPage.load}" />
