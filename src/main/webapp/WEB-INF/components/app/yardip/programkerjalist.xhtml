@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:c="jakarta.tags.core">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+
+        <ui:define name="columns">
+
+            <p:column headerText="Kegiatan" styleClass="text-center">
+                <div class="text-left">
+                    <h:outputText class="white-space-normal font-semibold" value="#{data.uraian}" />
+                </div>
+            </p:column>
+
+            <p:column headerText="Target (Rp)" styleClass="text-center">
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold" value="#{data.target.abs()}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column headerText="Realisasi (Rp)" styleClass="text-center">
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold" value="#{data.realisasi.abs()}"  >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column headerText="Capaian (%)" styleClass="text-center">
+                <h:outputText class="white-space-normal font-semibold" value="#{data.capaian}" >
+                    <f:convertNumber pattern="###" locale="in_ID" />
+                </h:outputText>
+            </p:column>
+
+        </ui:define>
+
+    </ui:decorate>
+
+
+</ui:composition>

@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/page.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <ui:param name="title" value="Buku Kas" />
+
+        <ui:param name="viewPage" value="#{transaksiPage}" /> 
+
+        <ui:include src="/WEB-INF/components/core/base/meta/page.xhtml"/>
+        
+        <ui:param name="dataView" value="#{viewPage.dataList}" /> 
+        <ui:param name="selector" value="#{dataView.selector}" />
+        <ui:param name="pager" value="#{dataView.pager}" />
+        <ui:param name="contentId" value=":data-frm:#{dataView.name}" />
+        
+        <ui:include src="/WEB-INF/components/core/base/meta/pager.xhtml" />
+
+        <ui:param name="nofilter" value="true" /> 
+
+        <f:viewParam name="s" value="#{dataView.selections}" 
+                     converter="RangkumanTransaksiListConverter" />
+
+        <f:viewParam name="ps" value="#{viewPage.periodList.selection}" converter="AccountingPeriodConverter" />
+        <f:viewParam name="yr" value="#{viewPage.year}" converter="IntegerConverter" />
+        <f:viewParam name="ttrx" value="#{viewPage.jenisTransaksiList.selection}" converter="JenisTransaksiConverter" />
+
+        <f:viewAction action="#{viewPage.postInit}" />
+
+    </f:metadata>
+
+    <ui:define name="styles">
+        <style>
+            .ui-selectonemenu-item-group {
+                text-align: center;
+                font-style: italic;
+            }
+            .ui-inputwrapper-filled input {
+                width: 100%!important
+            }
+            .field {
+                margin-bottom: 0;
+            }
+            body .ui-datatable .ui-datatable-scrollable-body {
+                outline: 0 none;
+                /*overflow-y: scroll;*/
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="module-menu">
+        <ui:include src="/WEB-INF/components/app/yardip/module-menu.xhtml" />
+    </ui:define>
+
+    <ui:define name="other-tools">
+        <p:commandButton icon="pi pi-print" actionListener="#{viewPage.prepareReport}"
+                         immediate="true" class="ui-button-flat" /> 
+
+        <p:selectOneMenu id="entity" value="#{viewPage.businessEntity}" converter="BusinessEntityConverter"
+                         rendered="#{rolesChecker.isUserHasRoles('manage_entitas_all')}" >                    
+            <f:selectItem itemLabel="Pilih Entitas" itemValue="#{null}" />
+            <f:selectItems value="#{viewPage.businessEntityList.fetchedItems}" var="item"
+                           itemLabel="#{item.organization.name}" itemValue="#{item}" />
+            <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangeBusinessEntity}" 
+                    update="year period" oncomplete="refreshContent()" />
+        </p:selectOneMenu>  
+
+        <p:selectOneMenu id="year" value="#{viewPage.year}" converter="IntegerConverter"  >                    
+            <f:selectItem itemLabel="Pilih Tahun" itemValue="#{null}" />
+            <f:selectItems value="#{viewPage.yearList}" var="item"
+                           itemValue="#{item}" />
+            <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangeYear}" 
+                    update="period" oncomplete="refreshContent()" />
+        </p:selectOneMenu>  
+
+        <p:selectOneMenu id="period" value="#{viewPage.periodList.selection}" converter="AccountingPeriodConverter"  >                    
+            <f:selectItem itemLabel="Pilih Periode" itemValue="#{null}" />
+            <f:selectItems value="#{viewPage.periodList.fetchedItems}" var="item"
+                           itemLabel="#{item.name}" itemValue="#{item}" />
+            <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangePeriod}" 
+                    oncomplete="refreshContent()" />
+        </p:selectOneMenu>
+        
+        <p:selectOneMenu id="jenis" value="#{viewPage.jenisTransaksiList.selection}" converter="JenisTransaksiConverter" >                    
+            <f:selectItem itemLabel="Semua Transaksi" itemValue="#{null}" />
+            <f:selectItems value="#{viewPage.jenisTransaksiList.fetchedItems}" var="item"
+                           itemLabel="#{item.label}" itemValue="#{item}" />
+            <p:ajax event="valueChange" listener="#{viewPage.onChangeJenis}" 
+                    oncomplete="refreshContent()" />
+        </p:selectOneMenu>  
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="data-frm" class="flex-grow-1 flex align-items-stretch">
+            <ui:decorate template="/WEB-INF/components/app/yardip/transaksilist_#{viewPage.distinctKasCount}.xhtml">
+                <ui:param name="selectListener" value=":tools-frm" />
+                <ui:param name="rowStyle" value="#{(data.id eq '0') or (data.id eq '00') ? 'surface-300' : null}" />
+
+                <ui:define name="context-menu">
+                    <p:menuitem value="Salin" icon="pi pi-copy" 
+                                actionListener="#{viewPage.copyTransaksi}"
+                                immediate="true" />
+                    <p:menuitem value="Lihat Bukti Kas" icon="pi pi-eye" 
+                                actionListener="#{viewPage.viewBuktiKas}"
+                                immediate="true" />
+                </ui:define>
+            </ui:decorate>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

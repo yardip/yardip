@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/explorer.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:pe="http://primefaces.org/ui/extensions" >
+
+    <f:metadata>
+        <ui:param name="primaryTitle" value="Bukti Kas" />
+
+        <ui:param name="viewPage" value="#{buktiKasPage}" />
+
+        <ui:param name="master_notitle" value="true" />
+        <ui:param name="masterDataView" value="#{viewPage.masterDataView}" />
+        <ui:param name="masterContentId" value=":master-frm:#{masterDataView.name}" /> 
+        <ui:param name="masterSelector" value="#{masterDataView.selector}" />
+        <ui:param name="masterFilter" value="#{masterDataView.filter}" />
+        <ui:param name="masterFilterName" value="filterBuktiKas" />
+        <ui:param name="masterFilterUi" value="/WEB-INF/components/core/base/filterui.xhtml" />
+        <ui:param name="masterFilterListener" value="#{masterContentId} :master-pager-frm" />
+
+        <f:viewParam name="ms" value="#{masterDataView.selections}" converter="BuktiKasListConverter" />
+
+        <ui:param name="detail_notitle" value="true" />
+        <ui:param name="detail_notool" 
+                  value="#{(masterDataView.selection.contentType eq 'application/pdf') or (masterDataView.selection.contentType eq null)}" />
+
+        <f:viewParam name="trx" value="#{viewPage.transaksi}" converter="TransaksiConverter" />
+
+        <f:viewAction action="#{viewPage.load}"  />
+    </f:metadata>
+
+    <ui:define name="navbar">
+        <ui:include src="/WEB-INF/components/core/common/child-navbar.xhtml" />
+    </ui:define>
+
+    <ui:define name="crud-create">
+        <p:fileUpload listener="#{viewPage.onUploadBuktiKas}" 
+                      mode="simple" skinSimple="true" dragDropSupport="false"  styleClass="ui-button-flat"
+                      chooseIcon="pi pi-upload" label="Unggah" multiple="true" auto="true" process="@this"
+                      update=":master-frm:dataTbl" class="fileupload">
+            <p:validateFile sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpeg|jpg|png|pdf|doc|docx|xls|xlsx)$/" />
+        </p:fileUpload>
+    </ui:define>
+    
+    <ui:define name="crud-update" />
+    
+    <ui:define name="master-filter" />
+
+    <ui:define name="master">
+        <h:form id="master-frm" >
+            <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+                <ui:param name="dataView" value="#{viewPage.masterDataView}" />
+                <ui:param name="styleClass" value="flex-grow-1" />
+                <ui:param name="rendered" value="true" />
+                <ui:param name="selectListener" value=":master-tools-frm :detail-frm :detail-panel" />
+                <ui:define name="columns">
+                    <p:column headerText="Dokumen">
+                        <h:outputText value="#{data.name}" />
+                    </p:column>
+                </ui:define>
+                <ui:define name="crud-context-menu" />
+            </ui:decorate>
+        </h:form>        
+    </ui:define>
+
+    <ui:define name="master-pager"/>
+
+    <ui:define name="detail-tools"/>
+    <ui:define name="other-detail-tools">     
+        <p:commandButton icon="pi pi-replay"
+                         class="ui-button-flat"
+                         onclick="PF('rotateAndResizeWidget').rotateLeft(90);return false;"/>
+        <p:commandButton icon="pi pi-refresh"
+                         class="ui-button-flat"
+                         onclick="PF('rotateAndResizeWidget').rotateRight(90);return false;"/>
+        <p:commandButton icon="pi pi-search-plus"
+                         class="ui-button-flat"
+                         onclick="PF('rotateAndResizeWidget').scale(1.05);return false;"/>
+        <p:commandButton icon="pi pi-search-minus"
+                         class="ui-button-flat"
+                         onclick="PF('rotateAndResizeWidget').scale(0.95);return false;"/>
+        <p:commandButton icon="pi pi-print" class="ui-button-flat" type="button">
+            <p:printer target=":detail-frm:docContent" />
+        </p:commandButton>
+    </ui:define>
+
+    <ui:define name="detail-filter"/>
+
+    <ui:define name="detail">
+        <h:form id="detail-frm" class="flex-grow-1 flex">
+            <h:panelGroup layout="block" rendered="#{masterDataView.selection.contentType ne 'application/pdf'}" class="flex flex-grow-1">
+                <p:graphicImage id="docContent" url="#{request.contextPath}/ws/bk/#{masterDataView.selection.id}" stream="false" class="w-full" />
+                <pe:imageRotateAndResize id="rotateAndResize" for="docContent" widgetVar="rotateAndResizeWidget" />
+            </h:panelGroup>
+            <h:panelGroup layout="block" rendered="#{masterDataView.selection.contentType eq 'application/pdf'}" class="flex flex-grow-1">
+                <pe:documentViewer zoom="page-width" url="#{request.contextPath}/ws/bk/#{masterDataView.selection.id}" />
+            </h:panelGroup>
+        </h:form>        
+    </ui:define>
+
+    <ui:define name="detail-pager" />
+
+</ui:composition>

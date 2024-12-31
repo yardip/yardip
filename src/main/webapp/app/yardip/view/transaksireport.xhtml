@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/reporting-page.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <f:metadata>
+        <ui:param name="primaryTitle" value="Cetak Buku Kas" />
+
+        <ui:param name="notool" value="true" />
+
+        <ui:param name="viewPage" value="#{transaksiReportPage}" />
+
+        <f:viewParam name="ps" value="#{viewPage.periodList.selection}" converter="AccountingPeriodConverter" />
+        <f:viewParam name="yr" value="#{viewPage.year}" converter="IntegerConverter" />
+
+        <f:viewAction action="#{viewPage.postInit}" />
+    </f:metadata> 
+
+    <ui:define name="styles">
+        <style>
+            .field {
+                margin-bottom: 0;
+            }
+        </style>
+    </ui:define> 
+
+    <ui:define name="report-params">
+        
+        <h:panelGroup class="flex gap-1 flex-nowrap align-items-center flex-shrink-0"
+                      rendered="#{rolesChecker.isUserHasRoles('manage_entitas_all')}">
+            <p:selectOneMenu id="entity" value="#{viewPage.businessEntity}" 
+                             converter="BusinessEntityConverter" >                    
+                <f:selectItem itemLabel="Pilih Entitas" itemValue="#{null}" />
+                <f:selectItems value="#{viewPage.businessEntityList.fetchedItems}" var="item"
+                               itemLabel="#{item.organization.name}" itemValue="#{item}" />
+                <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangeBusinessEntity}" 
+                        update="@form" oncomplete="refreshContent()" />
+            </p:selectOneMenu>  
+        </h:panelGroup>
+
+
+        <div class="flex gap-1 flex-nowrap align-items-center flex-shrink-0">
+            <p:outputLabel for="year" value="Tahun" />
+            <p:selectOneMenu id="year" value="#{viewPage.year}" converter="IntegerConverter"  >                    
+                <f:selectItem itemLabel="Pilih Tahun" itemValue="#{null}" />
+                <f:selectItems value="#{viewPage.yearList}" var="item"
+                               itemValue="#{item}" />
+                <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangeYear}" 
+                        update="period" oncomplete="refreshContent()" />
+            </p:selectOneMenu>  
+        </div>
+
+        <div class="flex gap-1 flex-nowrap align-items-center flex-shrink-0">
+            <p:outputLabel for="period" value="Periode" />
+            <p:selectOneMenu id="period" value="#{viewPage.periodList.selection}"
+                             converter="AccountingPeriodConverter" >                    
+                <f:selectItem itemLabel="Pilih Periode" itemValue="#{null}" />
+                <f:selectItems value="#{viewPage.periodList.fetchedItems}" var="item"
+                               itemLabel="#{item.name}" itemValue="#{item}" />
+                <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangePeriod}" 
+                        oncomplete="refreshContent()" />
+            </p:selectOneMenu>
+        </div>
+        
+        <div class="flex gap-1 flex-nowrap align-items-center flex-shrink-0 flex-grow-1">
+            <p:outputLabel for="keperluan" value="Keperluan" />
+            <p:selectOneMenu id="keperluan" value="#{viewPage.jenisLaporan}" 
+                             converter="JenisLaporanTransaksiConverter" 
+                             class="flex ui-inputgroup" >                    
+                <f:selectItem itemLabel="Pilih Jenis Laporan" itemValue="#{null}" />
+                <f:selectItems value="#{jenisLaporanTransaksiList.fetchedItems}" var="item"
+                               itemLabel="#{item.label}" itemValue="#{item}" />
+                <p:ajax event="valueChange" process="@this" update="@form" />
+            </p:selectOneMenu>
+            <p:selectOneMenu value="#{viewPage.positionList.selection}" 
+                             converter="PositionConverter" 
+                             rendered="#{viewPage.jenisLaporan.name() eq 'SERAH_TERIMA'}" 
+                             class="flex ui-inputgroup" >                    
+                <f:selectItem itemLabel="Pilih Jabatan" itemValue="#{null}" />
+                <f:selectItems value="#{viewPage.positionList.fetchedItems}" var="item"
+                               itemLabel="#{item.name}" itemValue="#{item}" />
+                <p:ajax process="@this" />
+            </p:selectOneMenu> 
+            <p:inputText value="#{viewPage.keperluan}" placeholder="Tulis uraian disini..."
+                         class="flex-grow-1" >
+                <p:ajax event="keyup" process="@this" />
+            </p:inputText>
+        </div>
+    </ui:define> 
+
+</ui:composition>

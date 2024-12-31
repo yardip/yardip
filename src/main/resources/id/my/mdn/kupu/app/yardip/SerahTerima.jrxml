@@ -1,0 +1,78 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0  -->
+<jasperReport name="rutin" language="java" columnCount="1" pageWidth="879" pageHeight="842" orientation="Landscape" columnWidth="879" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="526959e1-5584-4436-abea-4ebe044397cb">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="periodeAkhir" class="java.lang.String"/>
+	<parameter name="signerEmployment1" class="java.lang.String"/>
+	<parameter name="signerEmployment2" class="java.lang.String"/>
+	<parameter name="signerPosition3" class="java.lang.String"/>
+	<parameter name="signerEmployment3" class="java.lang.String"/>
+	<parameter name="lokasi" class="java.lang.String"/>
+	<query language="sql"><![CDATA[]]></query>
+	<summary height="115" splitType="Stretch">
+		<element kind="frame" uuid="4806f23a-78f8-4229-a9d0-7a77b92ff0a0" x="92" y="0" width="695" height="115">
+			<element kind="frame" uuid="bfdcb8e5-a05c-4233-a86c-4666b08eadc9" x="214" y="0" width="130" height="115">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+				<element kind="frame" uuid="1fc65707-083f-49a3-871d-5f6d7d3829ab" x="0" y="0" width="130" height="24">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+					<element kind="staticText" uuid="593cef22-c104-4fd6-8515-2983e8c74351" x="0" y="0" width="130" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Yang Menyerahkan]]></text>
+					</element>
+				</element>
+				<element kind="frame" uuid="5d7b22ae-3444-4aac-849c-78fa2fc3acdc" x="0" y="24" width="130" height="91">
+					<element kind="textField" uuid="69159d90-b200-44ab-9f77-a81a6a95b25d" x="0" y="67" width="130" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$P{signerEmployment1}]]></expression>
+					</element>
+					<element kind="staticText" uuid="058c9381-dd36-4843-ae9c-081c72b7a7bc" x="0" y="0" width="130" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Pejabat Lama]]></text>
+					</element>
+				</element>
+			</element>
+			<element kind="frame" uuid="a7004639-0b5d-442b-b724-9c47cdc094c4" x="0" y="0" width="130" height="115">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+				<element kind="frame" uuid="02b051d1-ebef-4e61-bdfd-57c1b6839ac8" x="0" y="0" width="130" height="24">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+					<element kind="staticText" uuid="a7235645-24e7-4c9f-a162-e1cb1b8278e3" x="0" y="0" width="130" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Yang Menerima]]></text>
+					</element>
+				</element>
+				<element kind="frame" uuid="0241aedd-63c4-4ec4-a828-bcb3512671fc" x="0" y="24" width="130" height="91">
+					<element kind="textField" uuid="7e5554ac-cb78-4544-b0fc-baf7e3f06463" x="0" y="67" width="130" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$P{signerEmployment2}]]></expression>
+					</element>
+					<element kind="staticText" uuid="922b1c92-0739-483d-b7be-c56a00d971e9" x="0" y="0" width="130" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Pejabat Baru]]></text>
+					</element>
+				</element>
+			</element>
+			<element kind="frame" uuid="bdc8b5d8-d483-453b-9808-03d0908f2d48" x="440" y="0" width="251" height="115">
+				<element kind="frame" uuid="04013baf-5167-429f-a54d-66f0007898a4" x="0" y="0" width="230" height="24">
+					<element kind="textField" uuid="a6328c4b-073f-4bfb-8af6-614e34b3f0e4" x="0" y="0" width="100" height="24" fontName="Roboto" bold="true" hTextAlign="Right" vTextAlign="Middle">
+						<expression><![CDATA[$P{lokasi}]]></expression>
+					</element>
+					<element kind="textField" uuid="a0294101-bcc9-48e8-988a-7260c0fd8777" x="110" y="0" width="120" height="24" fontName="Roboto" bold="true" hTextAlign="Left" vTextAlign="Middle">
+						<expression><![CDATA[$P{periodeAkhir}]]></expression>
+					</element>
+					<element kind="staticText" uuid="34f9dcc7-267f-408a-b984-7a8c8c1ac98c" x="100" y="0" width="10" height="24" fontName="Roboto" bold="true" hTextAlign="Left" vTextAlign="Middle">
+						<text><![CDATA[,]]></text>
+					</element>
+				</element>
+				<element kind="frame" uuid="baacda7f-41f9-46fd-a07c-2794eacbd7f9" x="0" y="24" width="250" height="91">
+					<element kind="textField" uuid="ac3989da-6251-49c8-80b4-e3d6122ca902" x="0" y="67" width="250" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$P{signerEmployment3}]]></expression>
+					</element>
+					<element kind="textField" uuid="a3e2e29a-7e9e-4576-9100-bb928bae0e0b" x="0" y="0" width="250" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$P{signerPosition3}]]></expression>
+					</element>
+				</element>
+			</element>
+		</element>
+	</summary>
+</jasperReport>

@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:c="jakarta.tags.core">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+
+        <ui:define name="columns">
+
+            <p:columnGroup type="header">
+                <p:row>
+                    <p:column rowspan="2" headerText="Tgl" class="text-center" width="25" />
+                    <p:column rowspan="2" headerText="Uraian" class="text-center" width="20%" />
+                    <p:column rowspan="2" headerText="BK" class="text-center" width="25" />
+                    <p:column rowspan="2" headerText="Debit" class="text-center" />
+                    <p:column rowspan="2" headerText="Kredit" class="text-center" />
+                    <ui:repeat value="#{viewPage.distinctKasByName}" var="name">
+                        <p:column headerText="#{name}" class="text-center" colspan="2" />
+                    </ui:repeat>
+                </p:row>
+                <p:row>
+                    <ui:repeat value="#{viewPage.distinctKasByName}" var="name">
+                        <p:column headerText="Debit" class="text-center" />
+                        <p:column headerText="Kredit" class="text-center" />
+                    </ui:repeat>
+                </p:row>
+            </p:columnGroup>
+
+            <p:column class="text-center">
+                <h:outputText value="#{data.trxDate}" class="white-space-normal font-semibold text-xs">
+                    <f:convertDateTime type="localDate" 
+                                       pattern="dd" />
+                </h:outputText>
+            </p:column>
+
+            <p:column>
+                <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.uraian}" />
+            </p:column>
+
+            <p:column class="text-center">
+                <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.trxDocId}" />
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.amountDebit}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.amountCredit.abs()}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNDebit(0)}"  >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNCredit(0).abs()}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNDebit(1)}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNCredit(1).abs()}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNDebit(2)}"  >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNCredit(2).abs()}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNDebit(3)}"  >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+            <p:column>
+                <div class="text-right">
+                    <h:outputText class="white-space-normal font-semibold text-xs" value="#{data.getKasNCredit(3).abs()}" >
+                        <f:convertNumber pattern="###,##0.00" locale="in_ID" type="currency" />
+                    </h:outputText>
+                </div>
+            </p:column>
+
+        </ui:define>
+
+    </ui:decorate>
+
+
+</ui:composition>

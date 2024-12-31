@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:c="jakarta.tags.core">
+
+    <ui:decorate template="/WEB-INF/components/core/base/table.xhtml" >
+
+        <ui:define name="columns">
+
+            <p:column headerText="Nama" styleClass="text-center">
+                <div class="text-left">
+                    <h:outputText class="white-space-normal font-semibold" value="#{data.name}" />
+                </div>
+            </p:column>
+
+            <p:column headerText="Rekening" styleClass="text-center">
+                    <h:outputText class="white-space-normal font-semibold" value="#{data.identifier}" />
+            </p:column>
+
+            <p:column headerText="Tgl. Buka" styleClass="text-center">
+                <h:outputText class="font-semibold" value="#{data.fromDate}" >
+                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="Tgl. Tutup" styleClass="text-center">
+                <h:outputText class="font-semibold" value="#{data.thruDate}" >
+                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </p:column>
+
+        </ui:define>
+
+    </ui:decorate>
+
+
+</ui:composition>

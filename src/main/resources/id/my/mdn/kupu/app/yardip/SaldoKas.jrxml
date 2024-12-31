@@ -1,0 +1,56 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0  -->
+<jasperReport name="SaldoKas" language="java" columnCount="1" pageWidth="439" pageHeight="842" orientation="Landscape" columnWidth="439" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="14d4be08-ec1f-43a0-ae81-763a166aa5a0">
+	<field name="name" class="java.lang.String"/>
+	<field name="identifier" class="java.lang.String"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<variable name="totalKas" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amount}]]></expression>
+	</variable>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<element kind="frame" uuid="2b0e4c27-3ab9-418d-be8c-517c8819a68b" x="0" y="0" width="438" height="20">
+				<element kind="textField" uuid="cc2e027a-ceb0-4f1d-9527-7cf31d91ac72" x="0" y="0" width="100" height="20" fontName="Courier New" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<expression><![CDATA[$F{name}]]></expression>
+				</element>
+				<element kind="textField" uuid="c410538f-aa9e-4889-9e8e-bf04ab0c083d" x="100" y="0" width="180" height="20" fontName="Courier New" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<expression><![CDATA[$F{identifier}]]></expression>
+				</element>
+				<element kind="textField" uuid="871a0542-7873-477f-a62f-f80639557acb" x="300" y="0" width="138" height="20" fontName="Courier New" pattern="###,##0.00" bold="true" hTextAlign="Right" vTextAlign="Top">
+					<expression><![CDATA[$F{amount}]]></expression>
+				</element>
+				<element kind="staticText" uuid="6e6a6bba-f4a4-47a5-819a-bc914e52174b" x="281" y="0" width="20" height="20" fontName="Courier New" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<text><![CDATA[Rp. ]]></text>
+				</element>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<summary height="20">
+		<element kind="frame" uuid="b73c8926-b4f0-4aeb-9c7d-882a641ec5af" x="0" y="0" width="438" height="20">
+			<element kind="staticText" uuid="caf79c57-22b7-4980-95b4-871109e6d7c9" x="100" y="0" width="170" height="20" fontName="Courier New" bold="true" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[Jumlah:]]></text>
+			</element>
+			<element kind="frame" uuid="e146724e-63b8-4183-b314-b373ba89fe55" x="281" y="0" width="157" height="20">
+				<element kind="textField" uuid="ab464af1-9e6e-4bd8-9bd5-2f095089a4ab" x="19" y="0" width="138" height="20" fontName="Courier New" pattern="###,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA[$V{totalKas}]]></expression>
+				</element>
+				<element kind="staticText" uuid="82e58131-484b-4298-b4db-26f97c7709f0" x="0" y="0" width="20" height="20" fontName="Courier New" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Rp. ]]></text>
+				</element>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+			</element>
+			<box>
+				<topPen lineWidth="0.75" lineStyle="Double"/>
+				<bottomPen lineWidth="0.0" lineStyle="Double"/>
+			</box>
+		</element>
+	</summary>
+</jasperReport>

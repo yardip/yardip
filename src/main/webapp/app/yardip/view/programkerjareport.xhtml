@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/reporting-page.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <f:metadata>
+        <ui:param name="primaryTitle" value="Cetak Program Kerja" />
+
+        <ui:param name="notool" value="true" />
+
+        <ui:param name="viewPage" value="#{programKerjaReportPage}" />
+        <ui:param name="filter" value="#{viewPage.filter}" />
+
+        <f:viewParam name="ps" value="#{viewPage.periodList.selection}" converter="AccountingPeriodConverter" />
+        <f:viewParam name="tp" value="#{filter.content.jenisTransaksi}" converter="JenisTransaksiConverter" />
+        <f:viewParam name="yr" value="#{viewPage.year}" converter="IntegerConverter" />
+
+    </f:metadata> 
+
+    <ui:define name="report-params">
+
+        <h:panelGroup layout="block" rendered="#{rolesChecker.isUserHasRoles('manage_entitas_all')}"                  
+                      class="flex gap-1 flex-nowrap align-items-center flex-shrink-0">
+            <p:outputLabel for="entity" value="Entitas" />
+            <p:selectOneMenu id="entity" value="#{viewPage.businessEntity}" 
+                             converter="BusinessEntityConverter" >
+                <f:selectItem itemLabel="Pilih Entitas" itemValue="#{null}" />
+                <f:selectItems value="#{viewPage.businessEntityList.fetchedItems}" var="item"
+                               itemLabel="#{item.organization.name}" itemValue="#{item}" />
+                <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangeBusinessEntity}" 
+                        update="year period" oncomplete="refreshContent()" />
+            </p:selectOneMenu> 
+        </h:panelGroup>
+
+        <div class="flex gap-1 flex-nowrap align-items-center flex-shrink-0">
+            <p:outputLabel for="year" value="Tahun" />
+            <p:selectOneMenu id="year" value="#{viewPage.year}" converter="IntegerConverter"  >  
+                <f:selectItems value="#{viewPage.yearList}" var="item"
+                               itemValue="#{item}" />
+                <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangeYear}" 
+                        update="period" oncomplete="refreshContent()" />
+            </p:selectOneMenu>  
+        </div>
+
+        <div class="flex gap-1 flex-nowrap align-items-center flex-shrink-0">
+            <p:outputLabel for="period" value="Periode" />
+            <p:selectOneMenu id="period" value="#{viewPage.periodList.selection}"
+                             converter="AccountingPeriodConverter" 
+                             class="flex ui-inputgroup" >                    
+                <f:selectItem itemLabel="Pilih Periode" itemValue="#{null}" />
+                <f:selectItems value="#{viewPage.periodList.fetchedItems}" var="item"
+                               itemLabel="#{item.name}" itemValue="#{item}" />
+                <p:ajax event="valueChange" process="@this" listener="#{viewPage.onChangePeriod}" 
+                        oncomplete="refreshContent()" />
+            </p:selectOneMenu> 
+        </div>
+
+        <div class="flex gap-1 flex-nowrap align-items-center flex-shrink-0">
+            <p:outputLabel for="jenis" value="Jenis" />
+            <p:selectOneMenu id="jenis" value="#{filter.content.jenisTransaksi}"
+                             converter="JenisTransaksiConverter" 
+                             class="flex ui-inputgroup" >                    
+                <f:selectItem itemLabel="Pilih Jenis Transaksi" itemValue="#{null}" />
+                <f:selectItems value="#{viewPage.jenisTransaksiList.fetchedItems}" var="item"
+                               itemLabel="#{item.label}" itemValue="#{item}" />
+                <p:ajax listener="#{filter.onFiltering}" oncomplete="refreshContent()" />
+            </p:selectOneMenu> 
+        </div>
+    </ui:define>
+
+</ui:composition>

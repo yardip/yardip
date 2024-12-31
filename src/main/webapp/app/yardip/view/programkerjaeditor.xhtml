@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/editor-page.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html">
+
+    <f:metadata>
+        <ui:param name="primaryTitle" value="Editor Program Kerja" />
+
+        <ui:param name="viewPage" value="#{programKerjaEditorPage}" />
+        <ui:include src="/WEB-INF/components/core/base/meta/page.xhtml"/> 
+
+        <ui:param name="notool" value="true" />
+        <ui:param name="nofilter" value="true"/>
+
+        <f:viewParam name="tp" value="#{viewPage.jenisTransaksi}" converter="JenisTransaksiConverter" />
+        <f:viewParam name="entity" value="#{viewPage.entity}" converter="PosTransaksiConverter" />
+
+        <f:viewAction action="#{viewPage.load}" />
+    </f:metadata>
+
+    <ui:define name="form">       
+
+        <div class="grid w-full p-3">
+            <div class="col-12 lg:col-4 gap-3">
+                <ui:decorate template="/WEB-INF/components/core/base/form.xhtml">
+
+                    <ui:define name="fields">
+
+                        <div class="field ui-fluid">
+                            <p:outputLabel for="uraian" value="Uraian" />
+                            <p:inputTextarea id="uraian" value="#{viewPage.entity.uraian}"
+                                             required="true" requiredMessage="Uraian tidak boleh kosong" /> 
+                        </div>
+
+                        <div class="field ui-fluid">
+                            <p:outputLabel for="jenis" value="Jenis Transaksi" />
+                            <p:selectOneMenu id="jenis" value="#{viewPage.entity.trxType}" converter="JenisTransaksiConverter"
+                                             required="true" requiredMessage="Pilih Jenis Transaksi" >                    
+                                <f:selectItem itemLabel="Pilih Jenis Transaksi" itemValue="#{null}" />
+                                <f:selectItems value="#{viewPage.jenisTransaksiList.fetchedItems}" var="item"
+                                               itemLabel="#{item.label}" itemValue="#{item}" />
+                                <p:ajax event="valueChange" process="@this" />
+                            </p:selectOneMenu>  
+                        </div>
+
+                        <div class="field ui-fluid">
+                            <p:outputLabel for="fromDate" value="Mulai berlaku" />
+                            <p:datePicker id="fromDate" value="#{viewPage.entity.fromDate}"
+                                          showOnFocus="false" showIcon="true"
+                                          tabindex="0" focusOnSelect="true"
+                                          class="flex" required="true" 
+                                          requiredMessage="Tanggal tidak boleh kosong"  >
+                                <p:ajax event="dateSelect" process="@this" />
+                            </p:datePicker>
+                        </div>
+
+                        <div class="field ui-fluid">
+                            <p:outputLabel for="thruDate" value="Akhir berlaku" />
+                            <p:datePicker id="thruDate" value="#{viewPage.entity.thruDate}"
+                                          showOnFocus="false" showIcon="true"
+                                          tabindex="0" focusOnSelect="true"
+                                          class="flex"  >
+                                <p:ajax event="dateSelect" process="@this" />
+                            </p:datePicker>
+                        </div>                        
+                        
+                        <div class="field ui-fluid">
+                            <p:outputLabel for="target" value="Target" />
+                            <p:inputNumber id="target" value="#{viewPage.entity.target}" decimalPlaces="2" class="flex-grow-1" />
+                        </div>
+                    </ui:define>
+
+                </ui:decorate>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

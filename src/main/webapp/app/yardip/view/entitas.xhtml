@@ -1,0 +1,200 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/explorer.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata> 
+
+        <ui:param name="viewPage" value="#{entitasPage}" />        
+
+        <ui:include src="/WEB-INF/components/core/base/meta/page-events.xhtml"/>
+
+        <ui:param name="title" value="Yayasan Rumpun Diponegoro" />
+
+        <ui:param name="masterTitle" value="Entitas" />        
+        <ui:param name="masterDataView" value="#{viewPage.entityTree}" />
+        <ui:param name="masterContentId" value=":master-frm:#{masterDataView.name}" /> 
+        <ui:param name="masterSelector" value="#{masterDataView.selector}" />
+        <ui:param name="masterFilter" value="#{masterDataView.filter}" />
+        <ui:param name="masterFilterName" value="filterEntitas" />
+        <ui:param name="masterFilterUi" value="/WEB-INF/components/core/base/filterui.xhtml" />
+        <ui:param name="masterFilterListener" value="#{masterContentId} :master-pager-frm" />
+
+        <ui:param name="detailTitle" value="Data" />
+        <ui:param name="detailDataView" value="#{viewPage.positionTree}" />
+        <ui:param name="detailContentId" value=":detail-frm:#{detailDataView.name}" />  
+        <ui:param name="detailSelector" value="#{detailDataView.selector}" />
+        <ui:param name="detail_notool" value="true" />
+
+        <f:viewParam name="es" value="#{masterDataView.selection}" converter="BusinessEntityConverter" /> 
+        <f:viewParam name="as" value="#{detailDataView.selection}" converter="PositionConverter" />
+
+    </f:metadata>
+
+    <ui:define name="styles">
+        <style>
+            body .ui-datatable .ui-datatable-scrollable-body {
+                outline: 0 none;
+                overflow-y: scroll;
+            }
+            body .ui-treetable .ui-treetable-scrollable-body {
+                outline: 0 none;
+                overflow-y: auto!important;
+                overflow-x: hidden!important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="crud-update" />
+
+    <ui:define name="master">
+        <h:form id="master-frm">
+            <ui:decorate template="/WEB-INF/components/core/base/tree-table.xhtml" >
+                <ui:param name="dataView" value="#{masterDataView}" />
+                <ui:param name="selectListener" value=":master-tools-frm :logo-frm :general-frm :postal-frm :detail-frm :messages" />
+                <ui:param name="height" value="350" />
+
+                <ui:define name="columns">
+                    <p:column headerText="#{string['common.name.label']}">
+                        <h:outputText value="#{data.party.name}" class="font-bold" />
+                    </p:column>
+                </ui:define>
+
+                <ui:define name="crud-update" />
+            </ui:decorate>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="master-pager">
+
+    </ui:define>
+
+    <ui:define name="detail-tools">
+
+    </ui:define>
+
+    <ui:define name="detail-filter">
+
+    </ui:define>
+
+    <ui:define name="detail">
+        <div class="flex-grow-1 flex">
+            <h:panelGroup layout="block" class="flex-grow-1 grid p-4">
+                <div class="col-3">
+                    <h:form id="logo-frm" enctype="multipart/form-data"> 
+                        <p:card class="border-1" rendered="#{masterSelector.selection ne null}">
+                            <f:facet name="title">
+                                <h:outputText value="Logo" />
+                            </f:facet>
+                            <p:graphicImage id="logo" url="#{request.contextPath}/ws/entitas/#{masterSelector.selection.organization.id}"
+                                            class="w-full" cache="false" />
+                            <f:facet name="footer">
+                                <div class="w-full flex justify-content-center">
+                                    <p:fileUpload id="upload" mode="simple" chooseIcon="pi pi-upload"
+                                                  label="Unggah" skinSimple="true" auto="true"
+                                                  process="@this" update="@form:logo"
+                                                  listener="#{viewPage.handleLogoUpload}" />
+                                </div>
+                            </f:facet>
+                        </p:card>
+                    </h:form>
+                </div>
+
+                <div class="col-9">
+                    <div class="grid">
+                        <div class="col-12">
+                            <h:form id="general-frm">
+                                <p:card class="border-1" rendered="#{masterSelector.selection ne null}">
+                                    <f:facet name="title">
+                                        <h:outputText value="Data Umum" />
+                                    </f:facet>
+                                    <div class="field">
+                                        <p:outputLabel for="name" value="Nama" />
+                                        <p:inputText id="name" value="#{masterDataView.selection.party.name}" class="w-full" />
+                                    </div>
+                                </p:card>
+                            </h:form>
+                        </div>
+                        <div class="col-12">
+                            <h:form id="postal-frm">
+                                <ui:decorate template="/WEB-INF/components/core/party/postaladdressform.xhtml" >
+                                    <ui:param name="form" value="#{viewPage.postalAddressForm}" />
+                                    <ui:param name="rendered" value="#{masterSelector.selection ne null}" />
+
+                                    <ui:define name="footer">                                        
+                                        <p:commandButton value="Perbarui" actionListener="#{viewPage.updatePostalAddress}" />
+                                    </ui:define>
+                                </ui:decorate>
+                            </h:form>
+                        </div>
+                        <div class="col-12">
+                            <h:form id="detail-frm">
+                                <p:card class="border-1" rendered="#{masterSelector.selection ne null}">
+                                    <f:facet name="header">
+                                        <div class="flex flex-wrap justify-content-between align-items-center" style="padding: 1rem;">
+                                            <div class="flex flex-nowrap align-items-center gap-2 mr-2">
+                                                <h:outputText value="Struktur Manajemen" 
+                                                              class="ui-card-title ml-2" />
+                                            </div>
+                                            <h:panelGroup layout="block" id="struk-tools" class="flex flex-wrap justify-content-start">
+                                                <ui:include src="/WEB-INF/components/core/base/crud-create.xhtml" >
+                                                    <ui:param name="dataView" value="#{detailDataView}" />
+                                                </ui:include>
+                                                <ui:include src="/WEB-INF/components/core/base/crud-update.xhtml" >
+                                                    <ui:param name="dataView" value="#{detailDataView}" />
+                                                </ui:include>
+                                                <ui:include src="/WEB-INF/components/core/base/crud-delete.xhtml" >
+                                                    <ui:param name="dataView" value="#{detailDataView}" />
+                                                </ui:include>
+                                            </h:panelGroup>
+                                        </div> 
+                                    </f:facet>
+                                    <ui:decorate template="/WEB-INF/components/core/base/tree-table.xhtml" >
+                                        <ui:param name="dataView" value="#{detailDataView}" />
+                                        <ui:param name="selectListener" value=":detail-frm:struk-tools :messages" />
+                                        <ui:param name="height" value="150" />
+
+                                        <ui:define name="columns">
+                                            <p:column headerText="Jabatan">
+                                                <h:outputText value="#{data.name}" />
+                                            </p:column>
+                                            <p:column headerText="Pejabat">
+                                                <h:outputText value="#{viewPage.getCurrentEmployee(data)}" class="font-italic" />
+                                            </p:column>
+                                        </ui:define>
+
+                                        <ui:define name="context-menu">
+                                            <p:menuitem icon="pi pi-lock-open" 
+                                                        value="Buat Akun Masuk" 
+                                                        immediate="true"
+                                                        actionListener="#{viewPage.createAppUser}"
+                                                        update=":messages" />
+                                            <p:menuitem icon="pi pi-lock" 
+                                                        value="Hapus Akun Masuk" 
+                                                        immediate="true"
+                                                        actionListener="#{viewPage.removeAppUser}"
+                                                        update=":messages" />
+                                            <p:menuitem icon="pi pi-star-fill" 
+                                                        value="Pejabat Baru" 
+                                                        immediate="true"
+                                                        actionListener="#{viewPage.addEmployment}" />
+                                            <p:menuitem icon="pi pi-history" 
+                                                        value="Daftar Pejabat" 
+                                                        immediate="true"
+                                                        actionListener="#{viewPage.listEmployment}" />
+                                        </ui:define>
+                                    </ui:decorate>
+                                </p:card>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+
+    <ui:define name="detail-pager" />
+
+</ui:composition>

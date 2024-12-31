@@ -1,0 +1,711 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0  -->
+<jasperReport name="Buku" language="java" columnCount="1" pageWidth="935" pageHeight="595" columnWidth="879" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="9ae5a6aa-6eab-4432-bd6c-870ce170089d" summaryNewPage="true">
+	<scriptlet name="BukuKasScriptlet" class="id.my.mdn.kupu.app.yardip.report.BukuKasScriptlet"/>
+	<parameter name="kas0" class="java.lang.String"/>
+	<parameter name="kas1" class="java.lang.String"/>
+	<parameter name="kas2" class="java.lang.String"/>
+	<parameter name="uraian" class="java.lang.String"/>
+	<parameter name="SaldoKas" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="SaldoKasData" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="entitas" class="java.lang.String"/>
+	<parameter name="periode" class="java.lang.String"/>
+	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="Pengesahan" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="PengesahanData" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="periodeAkhir" class="java.lang.String"/>
+	<parameter name="signerPosition1" class="java.lang.String"/>
+	<parameter name="signerEmployment1" class="java.lang.String"/>
+	<parameter name="signerPosition2" class="java.lang.String"/>
+	<parameter name="signerEmployment2" class="java.lang.String"/>
+	<parameter name="signerPosition3" class="java.lang.String"/>
+	<parameter name="signerEmployment3" class="java.lang.String"/>
+	<parameter name="signerPosition4" class="java.lang.String"/>
+	<parameter name="signerEmployment4" class="java.lang.String"/>
+	<parameter name="lokasi" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="trxDate" class="java.lang.String"/>
+	<field name="uraian" class="java.lang.String"/>
+	<field name="trxDocId" class="java.lang.String"/>
+	<field name="amountDebit" class="java.math.BigDecimal"/>
+	<field name="amountCredit" class="java.math.BigDecimal"/>
+	<field name="kasValues" class="java.util.List"/>
+	<variable name="totalAmountDebit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amountDebit}]]></expression>
+	</variable>
+	<variable name="totalAmountKredit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amountCredit}]]></expression>
+	</variable>
+	<variable name="totalKas0Debit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{kasValues}.get(0)]]></expression>
+	</variable>
+	<variable name="totalKas0Kredit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{kasValues}.get(1)]]></expression>
+	</variable>
+	<variable name="totalKas1Debit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{kasValues}.get(2)]]></expression>
+	</variable>
+	<variable name="totalKas1Kredit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{kasValues}.get(3)]]></expression>
+	</variable>
+	<variable name="totalKas2Debit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{kasValues}.get(4)]]></expression>
+	</variable>
+	<variable name="totalKas2Kredit" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{kasValues}.get(5)]]></expression>
+	</variable>
+	<variable name="totalAmount" calculation="System" class="java.math.BigDecimal">
+		<expression><![CDATA[$V{totalAmount}]]></expression>
+	</variable>
+	<variable name="totalKas0" calculation="System" class="java.math.BigDecimal">
+		<expression><![CDATA[$V{totalKas0}]]></expression>
+	</variable>
+	<variable name="totalKas1" calculation="System" class="java.math.BigDecimal">
+		<expression><![CDATA[$V{totalKas1}]]></expression>
+	</variable>
+	<variable name="totalKas2" calculation="System" class="java.math.BigDecimal">
+		<expression><![CDATA[$V{totalKas2}]]></expression>
+	</variable>
+	<variable name="terbilang" calculation="System" class="java.lang.String">
+		<expression><![CDATA[$V{terbilang}]]></expression>
+	</variable>
+	<group name="Group1">
+		<groupFooter>
+			<band height="60">
+				<element kind="frame" uuid="82a6ecd7-245a-414e-9b4d-04702fede4b6" x="0" y="0" width="879" height="60">
+					<element kind="frame" uuid="dbeb4008-2f28-48bb-8fc4-f02386c6ed27" x="0" y="0" width="879" height="30">
+						<element kind="frame" uuid="a4be1d23-c644-4be2-802e-d6f57d1a0f95" stretchType="ContainerHeight" x="0" y="0" width="232" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="staticText" uuid="035c957f-2c21-4037-ba60-062b62185483" x="0" y="0" width="224" height="22" fontName="Roboto" fontSize="8.0" bold="false" hTextAlign="Right" vTextAlign="Middle">
+								<text><![CDATA[Jumlah]]></text>
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="4"/>
+							</element>
+							<box padding="4">
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="47f0bf60-3328-48b2-ae8c-c85c81c4d244" stretchType="ContainerHeight" x="233" y="0" width="646" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="frame" uuid="b0a0ce23-fe53-4833-94fe-83428cf52686" stretchType="ContainerHeight" x="0" y="0" width="163" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="7a6688ed-b893-4f27-9676-a544e93ee839" stretchType="ContainerHeight" x="0" y="0" width="82" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="0f30b3a4-1c56-4d8b-865c-8b9dc03995c9" stretchType="ContainerHeight" x="0" y="0" width="74" height="22" fontName="Roboto" fontSize="8.0" textAdjust="StretchHeight" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalAmountDebit}]]></expression>
+									</element>
+									<box padding="4">
+										<pen lineWidth="0.0"/>
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="dfb6a19f-cfa5-440f-b9d5-01c2d0621cf5" stretchType="ContainerHeight" x="82" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<element kind="textField" uuid="e5f448c0-2151-4381-9ef8-7f6eba60e743" stretchType="NoStretch" x="0" y="0" width="73" height="22" fontName="Roboto" fontSize="8.0" textAdjust="StretchHeight" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalAmountKredit}.abs()]]></expression>
+									</element>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+							</element>
+							<element kind="frame" uuid="cef57bc5-05ed-4e6c-8492-629397fb4e65" stretchType="ContainerHeight" x="163" y="0" width="161" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="3ddccea0-3a9e-45eb-b99d-663c742909b3" stretchType="ContainerHeight" x="0" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="b2cc44e1-5ad6-48df-88a1-e4629cf1d7af" stretchType="ContainerHeight" x="0" y="0" width="73" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas0Debit}]]></expression>
+									</element>
+									<box padding="4">
+										<pen lineWidth="0.0"/>
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="23e34194-397a-4cdd-ba9f-398955c24c36" stretchType="ContainerHeight" x="81" y="0" width="80" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<element kind="textField" uuid="fd893d19-f1f5-4a99-9fa1-f1a984d3e720" stretchType="ContainerHeight" x="0" y="0" width="72" height="22" fontName="Roboto" fontSize="8.0" textAdjust="ScaleFont" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas0Kredit}.abs()]]></expression>
+									</element>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+							</element>
+							<element kind="frame" uuid="27200745-27d2-4d3a-b7e6-364429c61e64" stretchType="ContainerHeight" x="324" y="0" width="161" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="f8a2b048-29ea-47d5-aeee-16025174be15" stretchType="ContainerHeight" x="0" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="a3280ea4-4ca0-4d17-8fa4-32a9bb13d20a" stretchType="ContainerHeight" x="0" y="0" width="73" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas1Debit}]]></expression>
+									</element>
+									<box padding="4">
+										<pen lineWidth="0.0"/>
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="f77054dc-574b-4c8b-aaa4-ad3f91dfc19e" stretchType="ContainerHeight" x="81" y="0" width="80" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<element kind="textField" uuid="63b30a3b-5b58-4cfd-a9aa-7aa91c822134" stretchType="ContainerHeight" x="0" y="0" width="72" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas1Kredit}.abs()]]></expression>
+									</element>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+							</element>
+							<element kind="frame" uuid="76fa034b-8e7a-4eae-8c46-17d4ca50b484" stretchType="ContainerHeight" x="485" y="0" width="161" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="e91c9646-0816-4112-ab19-d687ea653cff" stretchType="ContainerHeight" x="0" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="45e475f1-243c-4c6c-9b1f-15fe5842a909" stretchType="ContainerHeight" x="0" y="0" width="73" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas2Debit}]]></expression>
+									</element>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="9dd914f9-f8f9-478d-901b-d132c6d5122e" stretchType="ContainerHeight" x="81" y="0" width="80" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<element kind="textField" uuid="de384e3e-1e1d-458c-96e1-067200db7aba" stretchType="ContainerHeight" x="0" y="0" width="72" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas2Kredit}.abs()]]></expression>
+									</element>
+									<box padding="4">
+										<rightPen lineWidth="0.0"/>
+									</box>
+								</element>
+							</element>
+							<box>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+						</element>
+						<box>
+							<bottomPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="03202bc8-09e4-4f55-95e6-49d1b035532a" x="0" y="29" width="879" height="31">
+						<element kind="frame" uuid="1864e55f-2200-4b52-850f-4bf38ec7cd12" stretchType="ContainerHeight" x="0" y="0" width="232" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="staticText" uuid="1ba0568b-f171-49af-9a52-2fcd9414da0d" x="0" y="0" width="224" height="22" fontName="Roboto" fontSize="8.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+								<text><![CDATA[Sisa akhir bulan ( Debit - Kredit )]]></text>
+								<box leftPadding="0" rightPadding="3"/>
+							</element>
+							<box padding="4">
+								<leftPen lineWidth="0.0"/> 
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="1fcfc0e6-d43c-4ad6-a4ff-e923dbc50324" stretchType="ContainerHeight" x="233" y="1" width="646" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="frame" uuid="241fcf5d-0343-4544-930c-66a8bcaa05bd" stretchType="ContainerHeight" x="0" y="0" width="163" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="582d52bd-535b-48da-bd64-0bdd27dd9830" stretchType="ContainerHeight" x="0" y="0" width="82" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="74ce87a1-bd45-4eb2-ac34-d3369a34f0f4" stretchType="ContainerHeight" x="0" y="0" width="74" height="22" fontName="Roboto" fontSize="8.0" textAdjust="StretchHeight" pattern="###,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalAmountDebit}.add($V{totalAmountKredit})]]></expression>
+									</element>
+									<box padding="4">
+										<pen lineWidth="0.0"/>
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="b2f68a31-5223-485f-a6eb-064572d942dd" stretchType="ContainerHeight" x="82" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+							</element>
+							<element kind="frame" uuid="18649410-bd0f-4757-a673-c7d36982a9cd" stretchType="ContainerHeight" x="163" y="0" width="161" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="ece4d08c-f489-407f-b331-bba700106dca" stretchType="ContainerHeight" x="0" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="c5dcb368-086c-4704-9477-20c2f93330db" stretchType="ContainerHeight" x="0" y="0" width="73" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas0Debit}.add($V{totalKas0Kredit})]]></expression>
+									</element>
+									<box padding="4">
+										<pen lineWidth="0.0"/>
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="68d60ae5-da7d-4325-9cfd-bc8f35e28889" stretchType="ContainerHeight" x="81" y="0" width="80" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+							</element>
+							<element kind="frame" uuid="bb1f8760-8400-4f96-afe4-8703c1a136b6" stretchType="ContainerHeight" x="324" y="0" width="161" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="6f875de7-5143-4c50-9c04-766cd7ee507d" stretchType="ContainerHeight" x="0" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="05d55daf-39ec-4899-a751-a65fda747604" stretchType="ContainerHeight" x="0" y="0" width="73" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas1Debit}.add($V{totalKas1Kredit})]]></expression>
+									</element>
+									<box padding="4">
+										<pen lineWidth="0.0"/>
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="f6bd9168-bbeb-43ce-82c3-7d2838cc1627" stretchType="ContainerHeight" x="81" y="0" width="80" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+							</element>
+							<element kind="frame" uuid="a3407127-2f7d-4c71-ad1c-d6ef1631f312" stretchType="ContainerHeight" x="485" y="0" width="161" height="30">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+								<element kind="frame" uuid="613ad30d-5745-401f-aabb-21bd0198a52b" stretchType="ContainerHeight" x="0" y="0" width="81" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+									<element kind="textField" uuid="d19fbbf2-30ea-4e40-a647-79cb81adbcf3" stretchType="ContainerHeight" x="0" y="0" width="73" height="22" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+										<expression><![CDATA[$V{totalKas2Debit}.add($V{totalKas2Kredit})]]></expression>
+									</element>
+									<box padding="4">
+										<rightPen lineWidth="0.75"/>
+									</box>
+								</element>
+								<element kind="frame" uuid="6195445c-38c0-4ee8-b812-3f3d0a2b5160" stretchType="ContainerHeight" x="81" y="0" width="80" height="30">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+									<box padding="4">
+										<rightPen lineWidth="0.0"/>
+									</box>
+								</element>
+							</element>
+							<box>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+					</element>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="121" splitType="Stretch">
+		<element kind="frame" uuid="b8e36e01-7580-4948-86ea-30e2a6bf51ed" x="0" y="0" width="879" height="99">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+			<element kind="textField" uuid="7e53ce2e-f5fb-4de7-95fa-3dd769894999" x="0" y="0" width="879" height="33" fontName="Roboto" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{entitas}]]></expression>
+			</element>
+			<element kind="staticText" uuid="1b98dc70-ca88-4763-941f-27a04d3fbd81" x="0" y="33" width="879" height="33" fontName="Roboto" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Buku Kas Bank]]></text>
+			</element>
+			<element kind="textField" uuid="ccbba0ed-2604-4978-a9b7-18f2e02b285a" x="0" y="66" width="879" height="33" fontName="Roboto" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{periode}]]></expression>
+			</element>
+		</element>
+		<element kind="line" uuid="0b1704b9-51e9-4002-9b3f-62ad37ffdf76" x="0" y="110" width="879" height="1"/>
+		<element kind="frame" uuid="6c06fce6-c9b5-43ff-b3ab-08d1f168ad14" x="1" y="0" width="100" height="100">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<element kind="image" uuid="9169598d-8dfe-4a0a-8ce2-569595e891a7" x="0" y="0" width="100" height="100" scaleImage="RetainShape" onErrorType="Blank">
+				<expression><![CDATA[$P{logo}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+		</element>
+		<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+	</title>
+	<columnHeader height="60" splitType="Stretch">
+		<element kind="frame" uuid="7e097006-8a16-4713-a2af-b6614ba35752" x="0" y="0" width="879" height="60">
+			<element kind="frame" uuid="113b6e28-df63-4825-9062-ff15bec00562" x="0" y="0" width="233" height="60">
+				<element kind="frame" uuid="a80d6540-0c37-43cb-8dd1-33750e40b7c4" x="0" y="0" width="30" height="60">
+					<element kind="staticText" uuid="a795a67c-b3b8-4bae-8915-186b3eb75242" x="0" y="0" width="30" height="60" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Tgl]]></text>
+					</element>
+					<box>
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="821ce909-afe9-4045-98ca-48e5b8895d2e" x="30" y="0" width="173" height="60">
+					<element kind="staticText" uuid="7d7c5dcc-2120-4bc0-982d-fcbbc53cfbd0" x="0" y="0" width="173" height="60" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Uraian]]></text>
+					</element>
+					<box>
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="ef1a80f4-78eb-4394-aa88-a5be38679af4" x="202" y="0" width="30" height="60">
+					<element kind="staticText" uuid="8833aee0-8c07-4e03-b061-6662184b0259" x="0" y="0" width="29" height="60" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[BK]]></text>
+					</element>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+				</element>
+			</element>
+			<element kind="frame" uuid="dbcfc956-9ea7-4767-aee0-1c50c7a0d029" x="233" y="0" width="646" height="60">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+				<element kind="frame" uuid="781e4e0b-5ba1-4db6-a958-79171ae293a2" x="0" y="0" width="163" height="60">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="frame" uuid="d19b16be-89dd-4901-bc28-8f6cec10e8a3" x="0" y="0" width="163" height="60">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="dbde480b-1ac3-4ed6-a512-6adbfd42dad2" x="0" y="0" width="82" height="60">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="staticText" uuid="33efce84-85aa-40ff-8456-24927197386f" x="0" y="0" width="82" height="60" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Debit]]></text>
+							</element>
+							<box>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="70997fe4-8419-4c4f-9c59-9bf380791d48" x="82" y="0" width="81" height="60">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="staticText" uuid="ea7d441b-ea02-4fdc-9281-a029ba099442" x="0" y="0" width="81" height="60" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Kredit]]></text>
+							</element>
+							<box>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+					</element>
+				</element>
+				<element kind="frame" uuid="cdf4859f-c8a6-4c1e-acef-de163a5b84ce" x="163" y="0" width="161" height="60">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<element kind="frame" uuid="9cbf5d76-1775-4c15-8418-4b65309856b3" x="0" y="0" width="161" height="30">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="textField" uuid="d90946b8-1efb-468c-a7e0-d2f491c1ddfc" x="0" y="0" width="161" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+							<expression><![CDATA[$P{kas0}]]></expression>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+						</element>
+						<box>
+							<bottomPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="09703438-4bcf-4acc-8471-9f6e035418c2" x="0" y="30" width="161" height="30">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="8ee156bd-dce9-4d30-8e5e-a845bd40105c" x="0" y="0" width="81" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="staticText" uuid="60122372-c3f5-4634-9f9f-a736ba81d490" x="0" y="0" width="81" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Debit]]></text>
+							</element>
+							<box>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="18c69288-454d-426d-bff4-72751d59442c" x="81" y="0" width="80" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="staticText" uuid="e48c6ae5-0ebd-4b41-89c1-79f28e6c7b62" x="0" y="0" width="80" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Kredit]]></text>
+							</element>
+						</element>
+					</element>
+					<box>
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="cdf4859f-c8a6-4c1e-acef-de163a5b86ce" x="324" y="0" width="161" height="60">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<element kind="frame" uuid="1b172359-5e24-49f0-9569-6c387fa50627" x="0" y="0" width="161" height="30">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="textField" uuid="d638108c-40e2-4588-83b5-7ea1974e2797" x="0" y="0" width="161" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+							<expression><![CDATA[$P{kas1}]]></expression>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+						</element>
+						<box>
+							<bottomPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="09703438-4bcf-4acc-8471-9f6e035418c2" x="0" y="30" width="161" height="30">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="8ee156bd-dce9-4d30-8e5e-a845bd40105c" x="0" y="0" width="81" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="staticText" uuid="60122372-c3f5-4634-9f9f-a736ba81d490" x="0" y="0" width="81" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Debit]]></text>
+								<box>
+									<rightPen lineWidth="0.75"/>
+								</box>
+							</element>
+						</element>
+						<element kind="frame" uuid="18c69288-454d-426d-bff4-72751d59442c" x="81" y="0" width="80" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="staticText" uuid="e48c6ae5-0ebd-4b41-89c1-79f28e6c7b62" x="0" y="0" width="80" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Kredit]]></text>
+							</element>
+						</element>
+					</element>
+					<box>
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="062a2c23-cd16-4f9f-8f3d-b352c0a50623" x="485" y="0" width="161" height="60">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<element kind="frame" uuid="c3944763-87b2-4a69-a92a-4ccdc4f9545a" x="0" y="0" width="161" height="30">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="textField" uuid="392fea00-1b75-47f6-af91-5974c4cbdb87" x="0" y="0" width="161" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+							<expression><![CDATA[$P{kas2}]]></expression>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+						</element>
+						<box>
+							<bottomPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="13854402-9853-4f88-9fcd-06a4ab4a0e94" x="0" y="30" width="161" height="30">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="956551b0-031a-4a4e-a6c0-8948e221ca12" x="0" y="0" width="81" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="staticText" uuid="39c93ce0-d835-41e4-b3d1-017c86f11099" x="0" y="0" width="81" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Debit]]></text>
+							</element>
+							<box>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="5585f02d-a07c-4d11-8c5b-4b5f3aa5df29" x="81" y="0" width="80" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="staticText" uuid="5b0305a6-aadd-4976-ab3b-8c278ba3c21b" x="0" y="0" width="80" height="30" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Kredit]]></text>
+							</element>
+						</element>
+					</element>
+				</element>
+			</element>
+			<box>
+				<topPen lineWidth="0.75"/>
+				<leftPen lineWidth="0.75"/>
+				<bottomPen lineWidth="0.75"/>
+				<rightPen lineWidth="0.75"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<element kind="frame" uuid="41fb6e50-eb80-4705-9f9d-dd1dd5abbe37" x="0" y="0" width="879" height="20">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+				<element kind="frame" uuid="7c9e57bb-0833-45cf-85ec-f86909f388ed" stretchType="ContainerHeight" x="0" y="0" width="232" height="20">
+					<element kind="frame" uuid="a3a95880-bd7a-4467-8b19-c35720dd9549" stretchType="ContainerHeight" x="0" y="0" width="30" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="textField" uuid="aa1383dc-cb2d-4d8c-9ce2-236288b1ddf6" x="0" y="0" width="22" height="12" fontName="Roboto" fontSize="8.0" bold="false" hTextAlign="Center" vTextAlign="Top">
+							<expression><![CDATA[$F{trxDate}]]></expression>
+						</element>
+						<box padding="4">
+							<rightPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="002541fd-c9c7-43d0-ab12-be7e5f7f7d02" stretchType="ContainerHeight" x="30" y="0" width="173" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="textField" uuid="8b071b67-d7ef-4402-9d68-13da614e7e6d" x="0" y="0" width="165" height="12" fontName="Roboto" fontSize="8.0" textAdjust="StretchHeight" bold="false" hTextAlign="Left" vTextAlign="Top">
+							<expression><![CDATA[$F{uraian}]]></expression>
+						</element>
+						<box padding="4">
+							<rightPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="b7253b6d-b890-4ee1-98ac-14e9b086105c" stretchType="ContainerHeight" x="202" y="0" width="30" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="textField" uuid="bbb778e6-5bbe-4159-a70f-e0ef454ddcf9" x="0" y="0" width="22" height="12" fontName="Roboto" fontSize="8.0" blankWhenNull="true" bold="false" hTextAlign="Center" vTextAlign="Top">
+							<expression><![CDATA[$F{trxDocId}]]></expression>
+						</element>
+						<box padding="4">
+							<rightPen lineWidth="0.75"/>
+						</box>
+					</element>
+				</element>
+				<element kind="frame" uuid="af71dcc4-b8c2-4c20-879e-f5f0086a3102" stretchType="ContainerHeight" x="233" y="0" width="646" height="20">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="frame" uuid="fded27b8-0d3c-48e1-b6ee-8af9136078e7" stretchType="ContainerHeight" x="0" y="0" width="163" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="1fc59161-ee56-488d-bce0-b510e171e458" stretchType="ContainerHeight" x="0" y="0" width="82" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="textField" uuid="eeeeb211-2c29-42eb-bf3f-e2338b79d558" stretchType="ContainerHeight" x="0" y="0" width="74" height="12" fontName="Roboto" fontSize="8.0" textAdjust="StretchHeight" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$F{amountDebit}]]></expression>
+							</element>
+							<box padding="4">
+								<pen lineWidth="0.0"/>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="15e7bdc4-4771-43ff-985c-90bb11298a32" stretchType="ContainerHeight" x="82" y="0" width="81" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="textField" uuid="587e9363-e2c7-47b6-b355-dc07b4ba0c07" stretchType="NoStretch" x="0" y="0" width="73" height="12" fontName="Roboto" fontSize="8.0" textAdjust="StretchHeight" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$F{amountCredit}.abs()]]></expression>
+							</element>
+							<box padding="4">
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+					</element>
+					<element kind="frame" uuid="9b38cdf7-23f8-4e05-93ee-02cc934c8dc1" stretchType="ContainerHeight" x="163" y="0" width="161" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="2905d730-4990-4e14-91da-9e96e10e9e8c" stretchType="ContainerHeight" x="0" y="0" width="81" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="textField" uuid="94d05b62-61b5-4ed0-8b59-eacfdf010eef" stretchType="ContainerHeight" x="0" y="0" width="73" height="12" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$F{kasValues}.get(0)]]></expression>
+							</element>
+							<box padding="4">
+								<pen lineWidth="0.0"/>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="7ef9d4af-c03b-4c82-8a05-4f5cce28fab7" stretchType="ContainerHeight" x="81" y="0" width="80" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="textField" uuid="e99971bf-5955-481c-89b9-75089066551c" stretchType="ContainerHeight" x="0" y="0" width="72" height="12" fontName="Roboto" fontSize="8.0" textAdjust="ScaleFont" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[((BigDecimal)$F{kasValues}.get(1)).abs()]]></expression>
+							</element>
+							<box padding="4">
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+					</element>
+					<element kind="frame" uuid="4cb0fdc9-db3e-4151-8f1d-78814e50f8b8" stretchType="ContainerHeight" x="324" y="0" width="161" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="b3deaa2d-8d47-445a-a7d6-80b33bfbf42f" stretchType="ContainerHeight" x="0" y="0" width="81" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="textField" uuid="769b9bad-e431-4cae-a8a5-1940cd435b5b" stretchType="ContainerHeight" x="0" y="0" width="73" height="12" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$F{kasValues}.get(2)]]></expression>
+							</element>
+							<box padding="4">
+								<pen lineWidth="0.0"/>
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="e77c0746-bb38-4207-a7bc-088012b62898" stretchType="ContainerHeight" x="81" y="0" width="80" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="textField" uuid="49559f93-3f69-4d4b-870b-d49e1c2096f2" stretchType="ContainerHeight" x="0" y="0" width="72" height="12" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[((BigDecimal)$F{kasValues}.get(3)).abs()]]></expression>
+							</element>
+							<box padding="4">
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+					</element>
+					<element kind="frame" uuid="d2ff278c-4292-473b-9613-e898c3d898da" stretchType="ContainerHeight" x="485" y="0" width="161" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="ace1ba96-1a3a-4696-8cd1-54466ff7d873" stretchType="ContainerHeight" x="0" y="0" width="81" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+							<element kind="textField" uuid="99af552c-106c-4656-aa0e-7c54bbcc3e29" stretchType="ContainerHeight" x="0" y="0" width="73" height="12" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$F{kasValues}.get(4)]]></expression>
+							</element>
+							<box padding="4">
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="0ff3b02d-b32f-424c-a62b-21ee3e991d0a" stretchType="ContainerHeight" x="81" y="0" width="80" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+							<element kind="textField" uuid="830b01b2-89cd-44bf-a8d4-99d89104aab3" stretchType="ContainerHeight" x="0" y="0" width="72" height="12" fontName="Roboto" fontSize="8.0" pattern="###,##0.00" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[((BigDecimal)$F{kasValues}.get(5)).abs()]]></expression>
+							</element>
+							<box padding="4">
+								<rightPen lineWidth="0.0"/>
+							</box>
+						</element>
+					</element>
+				</element>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+			</element>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+		</band>
+	</detail>
+	<summary height="221" splitType="Prevent">
+		<element kind="frame" uuid="4af9e5a9-f7f8-41aa-ac6c-a126f4ac4608" stretchType="ElementGroupHeight" x="0" y="0" width="879" height="23">
+			<element kind="textField" uuid="51bc754c-0283-4f8d-9cc4-89095062c0ba" x="1" y="0" width="878" height="23" textAdjust="StretchHeight" vTextAlign="Middle">
+				<expression><![CDATA[$P{uraian}]]></expression>
+			</element>
+		</element>
+		<element kind="frame" uuid="401610e8-c328-49ea-a5f6-ed7aecd09934" x="0" y="35" width="879" height="107">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+			<element kind="frame" uuid="0a8128d3-49a5-4213-8cfc-e1fc94b47470" x="0" y="0" width="879" height="37">
+				<element kind="textField" uuid="7722cc5f-aeb8-4911-b339-65cbcae2e8c7" x="140" y="0" width="439" height="23" fontName="Courier New" fontSize="10.0" textAdjust="StretchHeight" pattern="¤ ###,##0.00" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$V{totalAmountDebit}.add($V{totalAmountKredit})]]></expression>
+				</element>
+				<element kind="staticText" uuid="5dc210d0-78f7-44bf-a8cc-478df361a421" x="0" y="0" width="129" height="23" fontName="Courier New" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Saldo Kas (Akumulasi)]]></text>
+				</element>
+				<element kind="staticText" uuid="493dfb52-f302-4b2c-a2b6-737cb563d2c2" x="129" y="0" width="11" height="23" fontName="Courier New" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[:]]></text>
+				</element>
+			</element>
+			<element kind="frame" uuid="31e0f915-3a21-4e77-899d-48eae3ae7591" x="0" y="37" width="879" height="35">
+				<element kind="textField" uuid="2232f636-0285-4d69-bc98-fa5ee7d757c8" x="140" y="0" width="439" height="23" fontName="Courier New" fontSize="10.0" textAdjust="StretchHeight" pattern="¤ ###,##0.00" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<expression><![CDATA[$V{terbilang}]]></expression>
+				</element>
+				<element kind="staticText" uuid="5e341de5-b965-4ec3-bf60-541c85fd7875" x="0" y="0" width="129" height="23" fontName="Courier New" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<text><![CDATA[Terbilang]]></text>
+				</element>
+				<element kind="staticText" uuid="4184e4ff-66a3-4695-9d17-d78785ac4ced" x="129" y="0" width="11" height="23" fontName="Courier New" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<text><![CDATA[:]]></text>
+				</element>
+			</element>
+			<element kind="frame" uuid="6ce91f23-d661-4c74-bcf9-229e839a5293" stretchType="ElementGroupHeight" x="0" y="72" width="879" height="35">
+				<element kind="subreport" uuid="996fd936-9915-444c-b4bf-2246451b6193" x="140" y="0" width="439" height="23">
+					<dataSourceExpression><![CDATA[$P{SaldoKasData}]]></dataSourceExpression>
+					<expression><![CDATA[$P{SaldoKas}]]></expression>
+				</element>
+				<element kind="staticText" uuid="44b07188-5be9-41be-99bf-f4b4e39014ec" x="0" y="0" width="129" height="23" fontName="Courier New" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<text><![CDATA[Rincian Saldo Kas]]></text>
+				</element>
+				<element kind="staticText" uuid="3d44fc0e-cf5d-4905-92a5-8a91a4a0a9b0" x="129" y="0" width="11" height="23" fontName="Courier New" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Top">
+					<text><![CDATA[:]]></text>
+				</element>
+			</element>
+		</element>
+		<element kind="frame" uuid="7f837982-7840-4fd0-af8d-e1395c996e83" positionType="Float" x="0" y="200" width="876" height="20">
+			<element kind="subreport" uuid="2a878b1e-1192-4745-ae16-4ca6f3b3dc3a" positionType="Float" stretchType="NoStretch" x="-3" y="0" width="879" height="20">
+				<dataSourceExpression><![CDATA[$P{PengesahanData}]]></dataSourceExpression>
+				<expression><![CDATA[$P{Pengesahan}]]></expression>
+				<parameter name="lokasi">
+					<expression><![CDATA[$P{lokasi}]]></expression>
+				</parameter>
+				<parameter name="periodeAkhir">
+					<expression><![CDATA[$P{periodeAkhir}]]></expression>
+				</parameter>
+				<parameter name="signerPosition1">
+					<expression><![CDATA[$P{signerPosition1}]]></expression>
+				</parameter>
+				<parameter name="signerEmployment1">
+					<expression><![CDATA[$P{signerEmployment1}]]></expression>
+				</parameter>
+				<parameter name="signerPosition2">
+					<expression><![CDATA[$P{signerPosition2}]]></expression>
+				</parameter>
+				<parameter name="signerEmployment2">
+					<expression><![CDATA[$P{signerEmployment2}]]></expression>
+				</parameter>
+				<parameter name="signerPosition3">
+					<expression><![CDATA[$P{signerPosition3}]]></expression>
+				</parameter>
+				<parameter name="signerEmployment3">
+					<expression><![CDATA[$P{signerEmployment3}]]></expression>
+				</parameter>
+				<parameter name="signerPosition4">
+					<expression><![CDATA[$P{signerPosition4}]]></expression>
+				</parameter>
+				<parameter name="signerEmployment4">
+					<expression><![CDATA[$P{signerEmployment4}]]></expression>
+				</parameter>
+			</element>
+		</element>
+		<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+	</summary>
+</jasperReport>

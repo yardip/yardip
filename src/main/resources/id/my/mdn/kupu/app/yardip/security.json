@@ -1,0 +1,49 @@
+{
+    "acls": [
+        {
+            "acl": {
+                "name": "manage_entitas_all",
+                "description": "Mengatur seluruh entitas bisnis"
+            }
+        },
+        {
+            "acl": {
+                "name": "manage_entitas",
+                "description": "Mengatur sebuah entitas bsinis"
+            }
+        },
+        {
+            "acl": {
+                "name": "manage_kas_all",
+                "description": "Mengatur seluruh kas"
+            }
+        },
+        {
+            "acl": {
+                "name": "manage_kas",
+                "description": "Mengatur sebuah kas"
+            }
+        }
+    ],
+
+    "groups": [
+        {
+            "group": {
+                "name": "Administrator Yardip",
+                "acls": [
+                    "manage_entitas_all",
+                    "manage_kas_all"
+                ]
+            }
+        },
+        {
+            "group": {
+                "name": "Administrator Entitas",
+                "acls": [
+                    "manage_entitas",
+                    "manage_kas"
+                ]
+            }
+        }
+    ]
+}
