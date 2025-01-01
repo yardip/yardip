@@ -11,6 +11,7 @@ import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;
 import id.my.mdn.kupu.core.base.view.widget.AbstractPagedValueList.DefaultCount;
 import static id.my.mdn.kupu.core.base.view.widget.Selector.CHECKBOX;
 import static id.my.mdn.kupu.core.base.view.widget.Selector.SINGLE;
+import id.my.mdn.kupu.core.base.view.widget.Selector.SelectionModeSelector;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PhaseId;
 import java.util.ArrayList;
@@ -59,7 +60,6 @@ public abstract class AbstractValueTree<E extends HierarchicalEntity<E>>
 
     @Override
     public void setSelections(List<E> selections) {
-        System.out.println("SELEK SET SELEKIONS: " + selections);
         selector.setSelectionsInternal(selections);
 
         if (rootNode == null) {
@@ -306,13 +306,18 @@ public abstract class AbstractValueTree<E extends HierarchicalEntity<E>>
     }
 
     @Override
-    protected void resetInternal() {
-        System.out.println("SELEK RESET INTERNAL: " + this.getClass().getSimpleName());
+    protected void resetInternal() {       
+        if(getSelectionMode().equals(SINGLE)) {
+            nodeSelection = null;
+        } else {
+            nodeSelections = null;
+        }
+        super.resetInternal();
         rootNode = null;
     }
 
     @Override
-    public void setSelectionMode(Selector.SelectionModeSelector mode) {
+    public void setSelectionMode(SelectionModeSelector mode) {
         selector.setSelectionMode(mode);
         if (getSelectionMode().equals(CHECKBOX)) {
             constructor = (data, parent) -> new LazyCheckboxTreeNode<>(data, parent,
