@@ -5,7 +5,7 @@
 package id.my.mdn.kupu.app.yardip.view.widget;
 
 import id.my.mdn.kupu.app.yardip.dao.PosTransaksiFacade;
-import id.my.mdn.kupu.app.yardip.entity.PosTransaksi;
+import id.my.mdn.kupu.app.yardip.model.PosTransaksi;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade.DefaultChecker;
 import id.my.mdn.kupu.core.base.view.widget.AbstractValueList;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;

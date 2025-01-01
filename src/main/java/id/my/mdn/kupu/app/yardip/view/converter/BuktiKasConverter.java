@@ -5,8 +5,8 @@
 package id.my.mdn.kupu.app.yardip.view.converter;
 
 import id.my.mdn.kupu.app.yardip.dao.BuktiKasFacade;
-import id.my.mdn.kupu.app.yardip.entity.BuktiKas;
-import id.my.mdn.kupu.app.yardip.entity.BuktiKasId;
+import id.my.mdn.kupu.app.yardip.model.BuktiKas;
+import id.my.mdn.kupu.app.yardip.model.BuktiKasId;
 import id.my.mdn.kupu.core.base.util.EntityUtil;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;

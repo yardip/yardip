@@ -4,7 +4,7 @@
  */
 package id.my.mdn.kupu.app.yardip.dao;
 
-import id.my.mdn.kupu.app.yardip.entity.BuktiKas;
+import id.my.mdn.kupu.app.yardip.model.BuktiKas;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;

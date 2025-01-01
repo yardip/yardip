@@ -5,7 +5,7 @@
 package id.my.mdn.kupu.app.yardip.view.converter;
 
 import id.my.mdn.kupu.app.yardip.dao.KasFacade;
-import id.my.mdn.kupu.app.yardip.entity.Kas;
+import id.my.mdn.kupu.app.yardip.model.Kas;
 import id.my.mdn.kupu.core.base.view.converter.SelectionsConverter;
 import id.my.mdn.kupu.core.common.util.K.KLong;
 import jakarta.faces.convert.FacesConverter;

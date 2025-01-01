@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package id.my.mdn.kupu.app.yardip.entity;
+package id.my.mdn.kupu.app.yardip.model;
 
 import id.my.mdn.kupu.core.base.util.EntityUtil;
 import jakarta.persistence.Embeddable;
@@ -14,47 +14,31 @@ import java.util.Objects;
  * @author Arief Prihasanto <aphasan57 at gmail.com>
  */
 @Embeddable
-public class TransaksiDetailId implements Serializable {
+public class BuktiKasId implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     private String transaksi;
     
-    private Long kas;
+    private Integer seq;
 
-    public TransaksiDetailId() {
+    public BuktiKasId() {
     }
 
-    public TransaksiDetailId(String transaksi, Long kas) {
+    public BuktiKasId(String transaksi, Integer seq) {
         this.transaksi = transaksi;
-        this.kas = kas;
+        this.seq = seq;
     }
 
-    public TransaksiDetailId(String... params) {
-        this(params[0], Long.valueOf(params[1]));
-    }
-
-    public String getTransaksi() {
-        return transaksi;
-    }
-
-    public void setTransaksi(String transaksi) {
-        this.transaksi = transaksi;
-    }
-
-    public Long getKas() {
-        return kas;
-    }
-
-    public void setKas(Long kas) {
-        this.kas = kas;
+    public BuktiKasId(String... params) {
+        this(params[0], Integer.valueOf(params[1]));
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.transaksi);
-        hash = 53 * hash + Objects.hashCode(this.kas);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.transaksi);
+        hash = 97 * hash + Objects.hashCode(this.seq);
         return hash;
     }
 
@@ -69,16 +53,34 @@ public class TransaksiDetailId implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TransaksiDetailId other = (TransaksiDetailId) obj;
+        final BuktiKasId other = (BuktiKasId) obj;
         if (!Objects.equals(this.transaksi, other.transaksi)) {
             return false;
         }
-        return Objects.equals(this.kas, other.kas);
+        return Objects.equals(this.seq, other.seq);
     }
 
     @Override
     public String toString() {
-        return EntityUtil.createStringId(transaksi, kas);
+        return EntityUtil.createStringId(transaksi, seq);
     }
+
+    public String getTransaksi() {
+        return transaksi;
+    }
+
+    public void setTransaksi(String transaksi) {
+        this.transaksi = transaksi;
+    }
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
+    
+    
     
 }

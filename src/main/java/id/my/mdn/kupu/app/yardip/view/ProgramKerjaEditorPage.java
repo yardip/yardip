@@ -5,8 +5,8 @@
 package id.my.mdn.kupu.app.yardip.view;
 
 import id.my.mdn.kupu.app.yardip.dao.PosTransaksiFacade;
-import id.my.mdn.kupu.app.yardip.entity.JenisTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.PosTransaksi;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
+import id.my.mdn.kupu.app.yardip.model.PosTransaksi;
 import id.my.mdn.kupu.app.yardip.view.widget.JenisTransaksiList;
 import id.my.mdn.kupu.app.yardip.view.widget.PosTransaksiList;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;

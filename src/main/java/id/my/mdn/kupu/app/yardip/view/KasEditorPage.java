@@ -5,7 +5,7 @@
 package id.my.mdn.kupu.app.yardip.view;
 
 import id.my.mdn.kupu.app.yardip.dao.KasFacade;
-import id.my.mdn.kupu.app.yardip.entity.Kas;
+import id.my.mdn.kupu.app.yardip.model.Kas;
 import id.my.mdn.kupu.core.base.util.Result;
 import id.my.mdn.kupu.core.base.view.FormPage;
 import id.my.mdn.kupu.core.party.dao.BusinessEntityFacade;

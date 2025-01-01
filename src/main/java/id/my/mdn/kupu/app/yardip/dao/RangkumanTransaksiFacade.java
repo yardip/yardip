@@ -4,15 +4,15 @@
  */
 package id.my.mdn.kupu.app.yardip.dao;
 
-import id.my.mdn.kupu.app.yardip.entity.JenisTransaksi;
-import static id.my.mdn.kupu.app.yardip.entity.JenisTransaksi.TRANSFER_SALDO;
-import id.my.mdn.kupu.app.yardip.entity.Kas;
-import id.my.mdn.kupu.app.yardip.entity.PosTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.RangkumanTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.RangkumanTransaksi.KasAmount;
-import id.my.mdn.kupu.app.yardip.entity.SaldoKas;
-import id.my.mdn.kupu.app.yardip.entity.Transaksi;
-import id.my.mdn.kupu.app.yardip.entity.TransaksiDetail;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
+import static id.my.mdn.kupu.app.yardip.model.JenisTransaksi.TRANSFER_SALDO;
+import id.my.mdn.kupu.app.yardip.model.Kas;
+import id.my.mdn.kupu.app.yardip.model.PosTransaksi;
+import id.my.mdn.kupu.app.yardip.model.RangkumanTransaksi;
+import id.my.mdn.kupu.app.yardip.model.RangkumanTransaksi.KasAmount;
+import id.my.mdn.kupu.app.yardip.model.SaldoKas;
+import id.my.mdn.kupu.app.yardip.model.Transaksi;
+import id.my.mdn.kupu.app.yardip.model.TransaksiDetail;
 import id.my.mdn.kupu.core.accounting.dao.AccountingPeriodFacade;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriod;
 import id.my.mdn.kupu.core.base.dao.AbstractSqlFacade;

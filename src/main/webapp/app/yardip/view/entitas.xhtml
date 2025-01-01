@@ -63,6 +63,18 @@
                 </ui:define>
 
                 <ui:define name="crud-update" />
+                
+                <ui:define name="context-menu">
+                    <p:menuitem value="Inisialisasi Entitas" 
+                                actionListener="#{viewPage.initializeEntity}"
+                                immediate="true" />
+                    <p:menuitem value="Persiapkan Periode Akuntansi" 
+                                actionListener="#{viewPage.prepareAccountingPeriod}"
+                                immediate="true" />
+                    <p:menuitem value="Perpanjang Program Kerja" 
+                                actionListener="#{viewPage.extendPrevYearPosTransaksi}"
+                                immediate="true" />
+                </ui:define>
             </ui:decorate>
         </h:form>
     </ui:define>

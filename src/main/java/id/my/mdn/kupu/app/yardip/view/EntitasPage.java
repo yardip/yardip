@@ -4,6 +4,13 @@
  */
 package id.my.mdn.kupu.app.yardip.view;
 
+import id.my.mdn.kupu.app.yardip.dao.KasFacade;
+import id.my.mdn.kupu.app.yardip.dao.PosTransaksiFacade;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
+import static id.my.mdn.kupu.app.yardip.model.JenisTransaksi.MUTASI_KAS;
+import static id.my.mdn.kupu.app.yardip.model.JenisTransaksi.TRANSFER_SALDO;
+import static id.my.mdn.kupu.app.yardip.model.PeriodFlag.BULANAN;
+import id.my.mdn.kupu.core.accounting.dao.AccountingPeriodFacade;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;
 import id.my.mdn.kupu.core.base.util.RequestedView;
 import id.my.mdn.kupu.core.base.view.Page;
@@ -81,6 +88,9 @@ public class EntitasPage extends Page implements Serializable {
 
     @Inject
     private PostalAddressFacade postalAddressFacade;
+
+    @Inject
+    private ApplicationSecurityGroupFacade groupFacade;
 
     @Override
     @PostConstruct
@@ -180,9 +190,6 @@ public class EntitasPage extends Page implements Serializable {
                 .open();
     }
 
-    @Inject
-    private ApplicationSecurityGroupFacade groupFacade;
-
     public void createAppUser(ActionEvent evt) {
         Employment employment = employmentFacade.getExclusiveEmployment(
                 positionTree.getSelected(), LocalDate.now()
@@ -251,6 +258,33 @@ public class EntitasPage extends Page implements Serializable {
     public void updatePostalAddress(ActionEvent evt) {
         BusinessEntity businessEntity = entityTree.getSelector().getSelection();
         postalAddressFacade.edit(businessEntity.getPostalAddress());
+    }
+
+    @Inject
+    private AccountingPeriodFacade periodFacade;
+
+    @Inject
+    private KasFacade kasFacade;
+
+    @Inject
+    private PosTransaksiFacade posFacade;
+
+    public void initializeEntity(ActionEvent evt) {
+        BusinessEntity businessEntity = entityTree.getSelection();
+
+        kasFacade.createKasIfNotExist(businessEntity, "Tunai", "", LocalDate.EPOCH);
+        posFacade.createUniquePosTransaksi(businessEntity, TRANSFER_SALDO, "Sisa bulan lalu");
+        posFacade.createUniquePosTransaksi(businessEntity, MUTASI_KAS, "Mutasi Kas");
+    }
+
+    public void prepareAccountingPeriod(ActionEvent evt) {
+        BusinessEntity businessEntity = entityTree.getSelection();
+
+        periodFacade.generateMonthlyCalendarPeriod(businessEntity, BULANAN.name());
+    }
+
+    public void extendPrevYearPosTransaksi(ActionEvent evt) {        
+        posFacade.extendPosTransaksi(entityTree.getSelection(), JenisTransaksi.PENERIMAAN, JenisTransaksi.PENGELUARAN);
     }
 
     public void onEntityEdit(AjaxBehaviorEvent evt) {

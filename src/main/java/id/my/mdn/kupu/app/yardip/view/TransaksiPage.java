@@ -7,8 +7,9 @@ package id.my.mdn.kupu.app.yardip.view;
 import id.my.mdn.kupu.app.yardip.dao.KasFacade;
 import id.my.mdn.kupu.app.yardip.dao.PosTransaksiFacade;
 import id.my.mdn.kupu.app.yardip.dao.RangkumanTransaksiFacade;
-import id.my.mdn.kupu.app.yardip.entity.JenisTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.PeriodFlag;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
+import id.my.mdn.kupu.app.yardip.model.PeriodFlag;
+import static id.my.mdn.kupu.app.yardip.model.PeriodFlag.BULANAN;
 import id.my.mdn.kupu.app.yardip.view.widget.JenisTransaksiList;
 import id.my.mdn.kupu.app.yardip.view.widget.TransaksiList;
 import id.my.mdn.kupu.core.accounting.dao.AccountingPeriodFacade;
@@ -98,15 +99,17 @@ public class TransaksiPage extends Page implements Serializable {
         if (businessEntity == null) {
             try {
                 externalContext.redirect("/app/yardip/view/entitas.xhtml");
+                return;
             } catch (IOException ex) {
                 Logger.getLogger(TransaksiPage.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            periodFacade.generateMonthlyCalendarPeriod(businessEntity, PeriodFlag.BULANAN.name());
-            kasFacade.createKasIfNotExist(businessEntity, "Tunai", "", LocalDate.EPOCH);
-            posFacade.createUniquePosTransaksi(businessEntity, JenisTransaksi.TRANSFER_SALDO, "Sisa bulan lalu");
-            posFacade.createUniquePosTransaksi(businessEntity, JenisTransaksi.MUTASI_KAS, "Mutasi Kas");
         }
+//        else {
+//            periodFacade.generateMonthlyCalendarPeriod(businessEntity, PeriodFlag.BULANAN.name());
+//            kasFacade.createKasIfNotExist(businessEntity, "Tunai", "", LocalDate.EPOCH);
+//            posFacade.createUniquePosTransaksi(businessEntity, JenisTransaksi.TRANSFER_SALDO, "Sisa bulan lalu");
+//            posFacade.createUniquePosTransaksi(businessEntity, JenisTransaksi.MUTASI_KAS, "Mutasi Kas");
+//        }
         super.init();
 
         periodList.setSelectionMode(() -> Selector.SINGLE);
@@ -126,6 +129,14 @@ public class TransaksiPage extends Page implements Serializable {
     public void postInit() {
         if (periodList.getSelection() == null) {
             AccountingPeriod currentPeriod = periodFacade.getCurrentPeriod(businessEntity);
+            if (currentPeriod == null) {
+                periodFacade.generateMonthlyCalendarPeriod(businessEntity, BULANAN.name());
+                posFacade.extendPosTransaksi(
+                        businessEntity, 
+                        JenisTransaksi.PENERIMAAN, 
+                        JenisTransaksi.PENGELUARAN);
+                currentPeriod = periodFacade.getCurrentPeriod(businessEntity);
+            }
             periodList.getSelector().setSelectionInternal(currentPeriod);
         }
 
@@ -163,13 +174,23 @@ public class TransaksiPage extends Page implements Serializable {
     }
 
     public void onChangeBusinessEntity(AjaxBehaviorEvent evt) {
+        AccountingPeriod currentPeriod = periodFacade.getPeriod(
+                businessEntity, 
+                periodList.getSelection().getFromDate().withYear(year)
+        );
         periodList.reset();
+        periodList.getSelector().setSelectionInternal(currentPeriod);
         dataList.reset();
         postInit();
     }
 
     public void onChangeYear(AjaxBehaviorEvent evt) {
+        AccountingPeriod currentPeriod = periodFacade.getPeriod(
+                businessEntity, 
+                periodList.getSelection().getFromDate().withYear(year)
+        );
         periodList.reset();
+        periodList.getSelector().setSelectionInternal(currentPeriod);
         dataList.reset();
     }
 
@@ -208,7 +229,7 @@ public class TransaksiPage extends Page implements Serializable {
     }
 
     public void copyTransaksi() {
-        
+
         gotoChild(TransaksiEditorPage.class)
                 .addParam("entity")
                 .withValues(dataList.getSelected())

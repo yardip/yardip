@@ -4,7 +4,7 @@
  */
 package id.my.mdn.kupu.app.yardip.view.widget;
 
-import id.my.mdn.kupu.app.yardip.entity.JenisTransaksi;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade;
 import id.my.mdn.kupu.core.base.view.widget.AbstractValueList;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;

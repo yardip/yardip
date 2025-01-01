@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
-package id.my.mdn.kupu.app.yardip.entity;
+package id.my.mdn.kupu.app.yardip.model;
 
 /**
  *
@@ -10,7 +10,12 @@ package id.my.mdn.kupu.app.yardip.entity;
  */
 public enum JenisLaporanTransaksi {
     RUTIN("Rutin"),
-    SERAH_TERIMA("Serah Terima");
+    SERAH_TERIMA("Serah Terima"),
+    REKAP_PENERIMAAN("Rekapitulasi Penerimaan"),
+    REKAP_PENGELUARAN("Rekapitulasi Pengeluaran"),
+    PROGRES_PENERIMAAN("Progres Penerimaan"),
+    PROGRES_PENGELUARAN("Progres Pengeluaran"),
+    REKAPITULASI("Rekapitulasi");
     
     private final String label;
 

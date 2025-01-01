@@ -4,13 +4,13 @@
  */
 package id.my.mdn.kupu.app.yardip.dao;
 
-import id.my.mdn.kupu.app.yardip.entity.JenisTransaksi;
-import static id.my.mdn.kupu.app.yardip.entity.JenisTransaksi.MUTASI_KAS;
-import static id.my.mdn.kupu.app.yardip.entity.JenisTransaksi.TRANSFER_SALDO;
-import id.my.mdn.kupu.app.yardip.entity.Kas;
-import id.my.mdn.kupu.app.yardip.entity.SaldoKas;
-import id.my.mdn.kupu.app.yardip.entity.Transaksi;
-import id.my.mdn.kupu.app.yardip.entity.TransaksiDetail;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
+import static id.my.mdn.kupu.app.yardip.model.JenisTransaksi.MUTASI_KAS;
+import static id.my.mdn.kupu.app.yardip.model.JenisTransaksi.TRANSFER_SALDO;
+import id.my.mdn.kupu.app.yardip.model.Kas;
+import id.my.mdn.kupu.app.yardip.model.SaldoKas;
+import id.my.mdn.kupu.app.yardip.model.Transaksi;
+import id.my.mdn.kupu.app.yardip.model.TransaksiDetail;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriod;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade;
 import id.my.mdn.kupu.core.base.util.Constants;

@@ -6,9 +6,9 @@ package id.my.mdn.kupu.app.yardip.view.widget;
 
 import id.my.mdn.kupu.app.yardip.dao.KasFacade;
 import id.my.mdn.kupu.app.yardip.dao.RangkumanTransaksiFacade;
-import id.my.mdn.kupu.app.yardip.entity.JenisTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.RangkumanTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.RangkumanTransaksi.KasAmount;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
+import id.my.mdn.kupu.app.yardip.model.RangkumanTransaksi;
+import id.my.mdn.kupu.app.yardip.model.RangkumanTransaksi.KasAmount;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriod;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade.DefaultChecker;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;

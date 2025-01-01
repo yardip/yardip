@@ -4,7 +4,7 @@
  */
 package id.my.mdn.kupu.app.yardip.view.converter;
 
-import id.my.mdn.kupu.app.yardip.entity.RangkumanTransaksi;
+import id.my.mdn.kupu.app.yardip.model.RangkumanTransaksi;
 import id.my.mdn.kupu.core.base.view.converter.SelectionsConverter;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Singleton;

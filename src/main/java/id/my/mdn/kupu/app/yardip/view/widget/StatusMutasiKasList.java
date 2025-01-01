@@ -4,7 +4,7 @@
  */
 package id.my.mdn.kupu.app.yardip.view.widget;
 
-import id.my.mdn.kupu.app.yardip.entity.StatusMutasiKas;
+import id.my.mdn.kupu.app.yardip.model.StatusMutasiKas;
 import id.my.mdn.kupu.core.base.view.widget.IValueList;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Named;

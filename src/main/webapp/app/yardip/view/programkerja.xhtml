@@ -56,8 +56,10 @@
     </ui:define>
 
     <ui:define name="other-tools">
+        <ui:remove>
         <p:commandButton icon="pi pi-print" actionListener="#{viewPage.prepareReport}"
                          immediate="true" class="ui-button-flat" />
+        </ui:remove>
 
         <p:selectOneMenu id="entity" value="#{viewPage.businessEntity}" converter="BusinessEntityConverter"
                          rendered="#{rolesChecker.isUserHasRoles('manage_entitas_all')}" >                    

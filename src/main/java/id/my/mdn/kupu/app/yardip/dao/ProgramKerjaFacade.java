@@ -4,8 +4,8 @@
  */
 package id.my.mdn.kupu.app.yardip.dao;
 
-import id.my.mdn.kupu.app.yardip.entity.PosTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.ProgramKerja;
+import id.my.mdn.kupu.app.yardip.model.PosTransaksi;
+import id.my.mdn.kupu.app.yardip.model.ProgramKerja;
 import id.my.mdn.kupu.core.accounting.dao.AccountingPeriodFacade;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriod;
 import id.my.mdn.kupu.core.base.dao.AbstractSqlFacade;

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package id.my.mdn.kupu.app.yardip.entity;
+package id.my.mdn.kupu.app.yardip.model;
 
 import id.my.mdn.kupu.core.party.entity.BusinessEntity;
 import jakarta.persistence.CascadeType;
@@ -32,24 +32,19 @@ import java.util.UUID;
 @Entity
 @Table(name = "YARDIP_TRANSAKSI")
 @SqlResultSetMappings({
-    //    @SqlResultSetMapping(
-    //            name = "RangkumanTransaksi",
-    //            classes = {
-    //                @ConstructorResult(
-    //                        targetClass = RangkumanTransaksi.class,
-    //                        columns = {
-    //                            @ColumnResult(name = "id", type = String.class),
-    //                            @ColumnResult(name = "trxdate", type = LocalDate.class),
-    //                            @ColumnResult(name = "uraian", type = String.class),
-    //                            @ColumnResult(name = "trxdocid", type = String.class),
-    //                            @ColumnResult(name = "amount", type = BigDecimal.class),
-    //                            @ColumnResult(name = "kas1", type = BigDecimal.class),
-    //                            @ColumnResult(name = "kas2", type = BigDecimal.class),
-    //                            @ColumnResult(name = "kas3", type = BigDecimal.class)
-    //                        }
-    //                )
-    //            }
-    //    ),
+        @SqlResultSetMapping(
+                name = "ProgresProgramKerja",
+                classes = {
+                    @ConstructorResult(
+                            targetClass = ProgresProgramKerja.class,
+                            columns = {
+                                @ColumnResult(name = "URAIAN", type = String.class),
+                                @ColumnResult(name = "PREV_TOTAL", type = BigDecimal.class),
+                                @ColumnResult(name = "CURR_MONTH", type = BigDecimal.class)
+                            }
+                    )
+                }
+        ),
     @SqlResultSetMapping(
             name = "SaldoKas",
             classes = {

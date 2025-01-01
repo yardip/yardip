@@ -1,0 +1,258 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="ProgramKerja" language="java" columnCount="1" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="14d4be08-ec1f-43a0-ae81-763a166aa5a0">
+	<parameter name="entitas" class="java.lang.String"/>
+	<parameter name="periode" class="java.lang.String"/>
+	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="ketua" class="java.lang.String"/>
+	<parameter name="parentEntitas" class="java.lang.String"/>
+	<parameter name="tanggalLaporan" class="java.lang.String"/>
+	<parameter name="lokasi" class="java.lang.String"/>
+	<parameter name="judulLaporan" class="java.lang.String"/>
+	<parameter name="prevPeriode" class="java.lang.String"/>
+	<field name="programKerja" class="java.lang.String"/>
+	<field name="currentYearAmount" class="java.math.BigDecimal"/>
+	<field name="currentMonthAmount" class="java.math.BigDecimal"/>
+	<variable name="totalCurrentYearAmount" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{currentYearAmount}]]></expression>
+	</variable>
+	<variable name="totalCurrentMonthAmount" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{currentMonthAmount}]]></expression>
+	</variable>
+	<variable name="totalAll" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$V{lineTotal}]]></expression>
+	</variable>
+	<variable name="lineTotal" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{currentYearAmount}.add( $F{currentMonthAmount})]]></expression>
+	</variable>
+	<group name="Group1">
+		<groupFooter>
+			<band height="20">
+				<element kind="frame" uuid="706fd39a-9ef5-4e54-adb7-1c42cdde9aad" x="0" y="0" width="539" height="20">
+					<element kind="frame" uuid="1ca3371a-9544-43cb-9a34-a6a9852d1c0d" x="0" y="0" width="224" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="staticText" uuid="48f683ee-ce19-4062-8383-17f6e69eac13" x="0" y="0" width="216" height="12" fontName="Roboto" bold="true" hTextAlign="Right" vTextAlign="Top">
+							<text><![CDATA[Jumlah]]></text>
+						</element>
+						<box padding="4">
+							<rightPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="7e234988-bfcf-4e7d-b285-db87e76f9093" x="224" y="0" width="314" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<element kind="frame" uuid="0ee88170-8dd3-474f-bd9b-ab279760164b" x="0" y="0" width="106" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<element kind="staticText" uuid="0b4c288c-6fe4-4ae3-bd40-47756e1a4bef" x="0" y="0" width="16" height="12" fontName="Roboto" bold="false" hTextAlign="Left" vTextAlign="Top">
+								<text><![CDATA[Rp. ]]></text>
+							</element>
+							<element kind="textField" uuid="d9b5ffed-e854-4854-b244-12b4f1e6aa2d" x="16" y="0" width="82" height="12" markup="none" fontName="Roboto" textAdjust="StretchHeight" pattern="###,##0" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$V{totalCurrentMonthAmount}.abs()]]></expression>
+							</element>
+							<box padding="4">
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="5717b31e-24b4-4822-b93c-628309caca90" x="106" y="0" width="104" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<element kind="staticText" uuid="de67a39e-6138-42e7-a60e-c7825f136a86" x="0" y="0" width="16" height="12" fontName="Roboto" bold="false" hTextAlign="Left" vTextAlign="Top">
+								<text><![CDATA[Rp. ]]></text>
+							</element>
+							<element kind="textField" uuid="4926f07a-1fc8-4edf-aedb-bfa5d73a0ef2" x="16" y="0" width="80" height="12" fontName="Roboto" textAdjust="StretchHeight" pattern="###,##0" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$V{totalCurrentYearAmount}.abs()]]></expression>
+							</element>
+							<box padding="4">
+								<rightPen lineWidth="0.75"/>
+							</box>
+						</element>
+						<element kind="frame" uuid="1594be01-f7ef-4bde-aed4-c5708aaef3a6" x="210" y="0" width="104" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<element kind="textField" uuid="bc8a3632-bfb5-4fe2-88c9-2b1748a9b399" x="16" y="0" width="80" height="12" fontName="Roboto" textAdjust="StretchHeight" pattern="###,##0" bold="false" hTextAlign="Right" vTextAlign="Top">
+								<expression><![CDATA[$V{totalAll}.abs()]]></expression>
+							</element>
+							<element kind="staticText" uuid="3065e7b8-509f-4c83-821c-6c72267a1e91" x="0" y="0" width="16" height="12" fontName="Roboto" bold="false" hTextAlign="Left" vTextAlign="Top">
+								<text><![CDATA[Rp. ]]></text>
+							</element>
+							<box padding="4"/>
+						</element>
+					</element>
+					<box>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<title height="123">
+		<element kind="frame" uuid="9485f36f-e7a5-4169-80ed-ba6c59ef36cb" x="0" y="0" width="539" height="100">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<element kind="image" uuid="ba4a3fb8-6686-49c4-894c-0562aca3ef5c" x="0" y="0" width="100" height="100" scaleImage="RetainShape" onErrorType="Blank">
+				<expression><![CDATA[$P{logo}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+		</element>
+		<element kind="frame" uuid="c7d059fc-d8ab-4756-b895-1b79887b275d" x="100" y="0" width="339" height="99">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+			<element kind="textField" uuid="bb98ce05-175c-4fb1-af06-d3ce10a97c99" x="0" y="0" width="339" height="27" fontName="Roboto" fontSize="16.0" removeLineWhenBlank="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{parentEntitas}]]></expression>
+			</element>
+			<element kind="textField" uuid="86f5c2dd-dbd2-499c-854c-582042d933bf" x="0" y="27" width="339" height="24" fontName="Roboto" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{judulLaporan}]]></expression>
+			</element>
+			<element kind="textField" uuid="d5426ab3-a57d-4c97-ab18-ee6725296c20" x="0" y="51" width="339" height="24" fontName="Roboto" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{entitas}]]></expression>
+			</element>
+			<element kind="textField" uuid="f9ef6c0c-9eb3-451c-ab9b-02b9247deeab" x="0" y="75" width="339" height="24" fontName="Roboto" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{periode}]]></expression>
+			</element>
+		</element>
+		<element kind="line" uuid="1f0ae6e0-66d9-43de-8794-75270978927d" x="0" y="110" width="539" height="1"/>
+	</title>
+	<columnHeader height="20">
+		<element kind="frame" uuid="eaa1d8eb-815a-4dfc-b921-4b07e8459c24" x="0" y="0" width="539" height="20">
+			<element kind="frame" uuid="5fc9124b-6670-4b87-9ab7-241e79e3432b" x="0" y="0" width="30" height="20">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+				<element kind="staticText" uuid="fc13c935-24de-4264-abe8-e5efb13757a6" x="0" y="0" width="22" height="12" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[No.]]></text>
+				</element>
+				<box padding="4">
+					<rightPen lineWidth="0.75"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="874cfa56-c383-4e30-bea2-665b679e7c9d" x="30" y="0" width="194" height="20">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+				<element kind="staticText" uuid="1d18b570-ae30-4617-9506-ada80af20094" x="0" y="0" width="186" height="12" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Program Kerja]]></text>
+				</element>
+				<box padding="4">
+					<rightPen lineWidth="0.75"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="4feaed86-975c-4c2a-855f-4e323649a9d6" x="224" y="0" width="314" height="20">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+				<element kind="frame" uuid="1e59850a-140a-457a-bcc7-d1137feb886e" x="0" y="0" width="106" height="20">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="textField" uuid="010a5d48-0679-40c2-af40-298ace013f0e" x="0" y="0" width="98" height="12" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$P{periode}]]></expression>
+					</element>
+					<box padding="4">
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="4307743a-c9ae-4319-9c34-20b49e5a7b28" x="106" y="0" width="104" height="20">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="textField" uuid="5a87781b-cdef-4d77-b089-ada11ea2a013" x="0" y="0" width="96" height="12" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA["s.d. " + $P{prevPeriode}]]></expression>
+					</element>
+					<box padding="4">
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="e48a17a1-58c5-43c3-b14f-f7c123c5f0d4" x="210" y="0" width="104" height="20">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="textField" uuid="8dff8ed4-c4ec-4826-9189-5791a34bfae0" x="0" y="0" width="96" height="12" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA["s.d. " + $P{periode}]]></expression>
+					</element>
+					<box padding="4"/>
+				</element>
+			</element>
+			<box>
+				<topPen lineWidth="0.75"/>
+				<leftPen lineWidth="0.75"/>
+				<bottomPen lineWidth="0.75"/>
+				<rightPen lineWidth="0.75"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<element kind="frame" uuid="2b0e4c27-3ab9-418d-be8c-517c8819a68b" stretchType="ContainerHeight" x="0" y="0" width="539" height="20">
+				<element kind="frame" uuid="eabf5de2-8907-4dec-b797-dce703696a17" stretchType="ContainerHeight" x="0" y="0" width="30" height="20">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="textField" uuid="db14bb51-8294-4c98-ae95-8f98265fc31f" x="0" y="0" width="22" height="12" fontName="Roboto" bold="false" hTextAlign="Center" vTextAlign="Top">
+						<expression><![CDATA[$V{REPORT_COUNT}]]></expression>
+					</element>
+					<box padding="4">
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="962a61ca-7f11-46b2-90cc-9e16a5131d3e" stretchType="ContainerHeight" x="30" y="0" width="194" height="20">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="textField" uuid="cc2e027a-ceb0-4f1d-9527-7cf31d91ac72" x="0" y="0" width="186" height="12" fontName="Roboto" textAdjust="StretchHeight" bold="false" hTextAlign="Left" vTextAlign="Top">
+						<expression><![CDATA[$F{programKerja}]]></expression>
+					</element>
+					<box padding="4">
+						<rightPen lineWidth="0.75"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="ec9f708b-befa-420d-9c53-92e46ba02bf1" stretchType="ContainerHeight" x="224" y="0" width="314" height="20">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					<element kind="frame" uuid="84f8225f-9311-4706-b4c4-5d341aaddc54" stretchType="ContainerHeight" x="0" y="0" width="106" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<element kind="staticText" uuid="62fcefac-3d7a-4754-826f-c4ebee79e824" x="0" y="0" width="16" height="12" fontName="Roboto" bold="false" hTextAlign="Left" vTextAlign="Top">
+							<text><![CDATA[Rp. ]]></text>
+						</element>
+						<element kind="textField" uuid="abbcf245-63e8-40c8-ad12-0fb73c0cffdd" x="16" y="0" width="82" height="12" fontName="Roboto" textAdjust="StretchHeight" pattern="###,##0" bold="false" hTextAlign="Right" vTextAlign="Top">
+							<expression><![CDATA[$F{currentMonthAmount}.abs()]]></expression>
+						</element>
+						<box padding="4">
+							<rightPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="23f5b1c6-a494-4b21-a0ba-44636d35260b" stretchType="ContainerHeight" x="106" y="0" width="104" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<element kind="staticText" uuid="030f0c99-4434-431c-916d-1aed82792d4a" x="0" y="0" width="16" height="12" fontName="Roboto" bold="false" hTextAlign="Left" vTextAlign="Top">
+							<text><![CDATA[Rp. ]]></text>
+						</element>
+						<element kind="textField" uuid="8eb91dce-1df2-4002-a3d4-030143772d30" x="16" y="0" width="80" height="12" fontName="Roboto" textAdjust="StretchHeight" pattern="###,##0" bold="false" hTextAlign="Right" vTextAlign="Top">
+							<expression><![CDATA[$F{currentYearAmount}.abs()]]></expression>
+						</element>
+						<box padding="4">
+							<rightPen lineWidth="0.75"/>
+						</box>
+					</element>
+					<element kind="frame" uuid="02db46d0-b6b2-4df4-94c4-09f49d096727" stretchType="ContainerHeight" x="210" y="0" width="104" height="20">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<element kind="textField" uuid="59d41b4e-f651-4222-a0de-8b474ffa1adb" x="16" y="0" width="80" height="12" fontName="Roboto" textAdjust="StretchHeight" pattern="###,##0" bold="false" hTextAlign="Right" vTextAlign="Top">
+							<expression><![CDATA[$V{lineTotal}.abs()]]></expression>
+						</element>
+						<element kind="staticText" uuid="a39a5364-13c8-4889-8ebc-72484285f28e" x="0" y="0" width="16" height="12" fontName="Roboto" bold="false" hTextAlign="Left" vTextAlign="Top">
+							<text><![CDATA[Rp. ]]></text>
+						</element>
+						<box padding="4"/>
+					</element>
+				</element>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<summary height="150">
+		<element kind="frame" uuid="dfdff927-13f6-483c-bcaa-b4237f0e1b58" x="288" y="34" width="251" height="115">
+			<element kind="frame" uuid="6d74e541-1bde-4341-b6e4-3a52c3bec5a8" x="0" y="0" width="230" height="24">
+				<element kind="textField" uuid="e56575d3-2e93-4914-a19a-a427c6a7dad6" x="0" y="0" width="100" height="24" fontName="Roboto" bold="true" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA[$P{lokasi}]]></expression>
+				</element>
+				<element kind="textField" uuid="e3f974b8-1a84-4a6a-8195-0c2c95b5b7bf" x="110" y="0" width="120" height="24" fontName="Roboto" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$P{tanggalLaporan}]]></expression>
+				</element>
+				<element kind="staticText" uuid="f8fe561b-56fe-4da5-93b0-8cf6ba1b3290" x="100" y="0" width="10" height="24" fontName="Roboto" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[,]]></text>
+				</element>
+			</element>
+			<element kind="frame" uuid="592121db-e0e1-486e-a440-9393aa3d1901" x="0" y="24" width="250" height="91">
+				<element kind="textField" uuid="bdb3558a-d84a-44e5-a5f9-58abef4bb06e" x="0" y="67" width="250" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$P{ketua}]]></expression>
+				</element>
+				<element kind="staticText" uuid="254f2f4f-e3e5-4b5e-a2bb-0210cf7bcff7" x="0" y="0" width="250" height="24" fontName="Roboto" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[An. Pengurus]]></text>
+				</element>
+			</element>
+		</element>
+	</summary>
+</jasperReport>

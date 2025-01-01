@@ -4,8 +4,8 @@
  */
 package id.my.mdn.kupu.app.yardip.view;
 
-import id.my.mdn.kupu.app.yardip.entity.JenisTransaksi;
-import id.my.mdn.kupu.app.yardip.entity.PeriodFlag;
+import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
+import id.my.mdn.kupu.app.yardip.model.PeriodFlag;
 import id.my.mdn.kupu.app.yardip.view.widget.JenisTransaksiList;
 import id.my.mdn.kupu.app.yardip.view.widget.ProgramKerjaFilter;
 import id.my.mdn.kupu.app.yardip.view.widget.ProgramKerjaList;
@@ -59,12 +59,12 @@ public class ProgramKerjaPage extends Page implements Serializable {
 
     @Inject
     private BusinessEntityFacade entityFacade;
-    
+
     @Inject
     private BusinessEntityList businessEntityList;
 
     private BusinessEntity businessEntity;
-    
+
     @Inject
     private SecurityContext securityContext;
 
@@ -74,12 +74,11 @@ public class ProgramKerjaPage extends Page implements Serializable {
     @PostConstruct
     @Override
     protected void init() {
-        String username = securityContext.getCallerPrincipal().getName();        
+        String username = securityContext.getCallerPrincipal().getName();
         businessEntity = entityFacade.getByAppUsername(username);
-        
+
         super.init();
         dataView.setParameters(this::parameters);
-
         dataView.setHiddenParameters(this::parameters);
 
         periodList.setSelectionMode(() -> SINGLE);
@@ -98,7 +97,9 @@ public class ProgramKerjaPage extends Page implements Serializable {
             periodList.getSelector().setSelectionInternal(currentPeriod);
         }
         JenisTransaksi jenisTransaksi = dataView.getFilter().<ProgramKerjaFilter>getContent().getJenisTransaksi();
-        if(jenisTransaksi == null) jenisTransaksi = JenisTransaksi.PENERIMAAN;
+        if (jenisTransaksi == null) {
+            jenisTransaksi = JenisTransaksi.PENERIMAAN;
+        }
         dataView.getFilter()
                 .<ProgramKerjaFilter>getContent()
                 .setJenisTransaksi(jenisTransaksi);
@@ -131,7 +132,7 @@ public class ProgramKerjaPage extends Page implements Serializable {
     }
 
     @Editor(of = "dataView")
-    public void openProgramKerjaEditor() { 
+    public void openProgramKerjaEditor() {
         gotoChild(ProgramKerjaEditorPage.class)
                 .addParam("entity")
                 .withValues(dataView.getSelected())
@@ -155,13 +156,23 @@ public class ProgramKerjaPage extends Page implements Serializable {
     }
 
     public void onChangeBusinessEntity(AjaxBehaviorEvent evt) {
+        AccountingPeriod currentPeriod = periodFacade.getPeriod(
+                businessEntity, 
+                periodList.getSelection().getFromDate().withYear(year)
+        );
         periodList.reset();
+        periodList.getSelector().setSelectionInternal(currentPeriod);
         dataView.reset();
         postInit();
     }
 
     public void onChangeYear(AjaxBehaviorEvent evt) {
+        AccountingPeriod currentPeriod = periodFacade.getPeriod(
+                businessEntity, 
+                periodList.getSelection().getFromDate().withYear(year)
+        );
         periodList.reset();
+        periodList.getSelector().setSelectionInternal(currentPeriod);
         doFilter(null);
     }
 

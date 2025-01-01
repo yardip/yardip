@@ -4,9 +4,9 @@
  */
 package id.my.mdn.kupu.app.yardip.view;
 
-import id.my.mdn.kupu.app.yardip.entity.BuktiKas;
-import id.my.mdn.kupu.app.yardip.entity.BuktiKasId;
-import id.my.mdn.kupu.app.yardip.entity.Transaksi;
+import id.my.mdn.kupu.app.yardip.model.BuktiKas;
+import id.my.mdn.kupu.app.yardip.model.BuktiKasId;
+import id.my.mdn.kupu.app.yardip.model.Transaksi;
 import id.my.mdn.kupu.app.yardip.view.widget.BuktiKasList;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;
 import id.my.mdn.kupu.core.base.view.ChildPage;

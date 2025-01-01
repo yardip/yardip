@@ -4,7 +4,7 @@
  */
 package id.my.mdn.kupu.app.yardip.view.converter;
 
-import id.my.mdn.kupu.app.yardip.entity.ProgramKerja;
+import id.my.mdn.kupu.app.yardip.model.ProgramKerja;
 import id.my.mdn.kupu.core.common.util.K;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;

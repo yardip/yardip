@@ -4,7 +4,7 @@
  */
 package id.my.mdn.kupu.app.yardip.dao;
 
-import id.my.mdn.kupu.app.yardip.entity.Kas;
+import id.my.mdn.kupu.app.yardip.model.Kas;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriod;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;

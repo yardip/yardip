@@ -5,7 +5,7 @@
 package id.my.mdn.kupu.app.yardip.view.widget;
 
 import id.my.mdn.kupu.app.yardip.dao.KasFacade;
-import id.my.mdn.kupu.app.yardip.entity.Kas;
+import id.my.mdn.kupu.app.yardip.model.Kas;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade.DefaultChecker;
 import id.my.mdn.kupu.core.base.view.widget.AbstractMutablePagedValueList;
 import id.my.mdn.kupu.core.base.view.widget.AbstractPagedValueList.DefaultCount;

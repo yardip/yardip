@@ -5,7 +5,7 @@
 package id.my.mdn.kupu.app.yardip.view.converter;
 
 import id.my.mdn.kupu.app.yardip.dao.TransaksiFacade;
-import id.my.mdn.kupu.app.yardip.entity.Transaksi;
+import id.my.mdn.kupu.app.yardip.model.Transaksi;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;

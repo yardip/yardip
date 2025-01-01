@@ -4,9 +4,9 @@
  */
 package id.my.mdn.kupu.app.yardip.dao;
 
-import id.my.mdn.kupu.app.yardip.entity.BuktiKasSerial;
-import id.my.mdn.kupu.app.yardip.entity.BuktiKasSerialId;
-import id.my.mdn.kupu.app.yardip.entity.Transaksi;
+import id.my.mdn.kupu.app.yardip.model.BuktiKasSerial;
+import id.my.mdn.kupu.app.yardip.model.BuktiKasSerialId;
+import id.my.mdn.kupu.app.yardip.model.Transaksi;
 import id.my.mdn.kupu.core.accounting.dao.AccountingPeriodFacade;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriod;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriodId;

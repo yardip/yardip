@@ -4,7 +4,7 @@
  */
 package id.my.mdn.kupu.app.yardip.dao;
 
-import id.my.mdn.kupu.app.yardip.entity.TransaksiDetail;
+import id.my.mdn.kupu.app.yardip.model.TransaksiDetail;
 import id.my.mdn.kupu.core.base.dao.AbstractFacade;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
