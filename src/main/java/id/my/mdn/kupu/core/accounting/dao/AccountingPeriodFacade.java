@@ -103,10 +103,15 @@ public class AccountingPeriodFacade extends AbstractHierarchicalFacade<Accountin
     public AccountingPeriod getCurrentPeriod(BusinessEntity businessEntity) {
 
         LocalDate currentDate = LocalDate.now();
+        return getPeriod(businessEntity, currentDate);
+
+    }
+
+    public AccountingPeriod getPeriod(BusinessEntity businessEntity, LocalDate date) {
 
         AccountingPeriod result = findSingleByAttributes(List.of(
                 FilterData.by("businessEntity", businessEntity),
-                FilterData.by("date", currentDate)
+                FilterData.by("date", date)
         ));
 
         return result;
