@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public enum JenisTransaksi {
     
     PENERIMAAN(new BigDecimal(1), "Pendapatan"),
-    PENGELUARAN(new BigDecimal(-1), "Belanja"),
+    PENGELUARAN(new BigDecimal(-1), "Pengeluaran"),
     MUTASI_KAS(new BigDecimal(0), "Mutasi Kas"),
     TRANSFER_SALDO(new BigDecimal(1), "Transfer Saldo");
     

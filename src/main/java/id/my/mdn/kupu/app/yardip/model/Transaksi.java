@@ -32,19 +32,47 @@ import java.util.UUID;
 @Entity
 @Table(name = "YARDIP_TRANSAKSI")
 @SqlResultSetMappings({
-        @SqlResultSetMapping(
-                name = "ProgresProgramKerja",
-                classes = {
-                    @ConstructorResult(
-                            targetClass = ProgresProgramKerja.class,
-                            columns = {
-                                @ColumnResult(name = "URAIAN", type = String.class),
-                                @ColumnResult(name = "PREV_TOTAL", type = BigDecimal.class),
-                                @ColumnResult(name = "CURR_MONTH", type = BigDecimal.class)
-                            }
-                    )
-                }
-        ),
+    @SqlResultSetMapping(
+            name = "ProgresProgramKerja",
+            classes = {
+                @ConstructorResult(
+                        targetClass = ProgresProgramKerja.class,
+                        columns = {
+                            @ColumnResult(name = "URAIAN", type = String.class),
+                            @ColumnResult(name = "PREV_TOTAL", type = BigDecimal.class),
+                            @ColumnResult(name = "CURR_MONTH", type = BigDecimal.class)
+                        }
+                )
+            }
+    ),
+    @SqlResultSetMapping(
+            name = "RekapitulasiLaporan",
+            classes = {
+                @ConstructorResult(
+                        targetClass = RekapitulasiLaporan.class,
+                        columns = {
+                            @ColumnResult(name = "NAME", type = String.class),
+                            @ColumnResult(name = "PENERIMAAN_PREV", type = BigDecimal.class),
+                            @ColumnResult(name = "PENERIMAAN_CURR", type = BigDecimal.class),
+                            @ColumnResult(name = "PENGELUARAN_PREV", type = BigDecimal.class),
+                            @ColumnResult(name = "PENGELUARAN_CURR", type = BigDecimal.class)
+                        }
+                )
+            }
+    ),
+    @SqlResultSetMapping(
+            name = "RekapitulasiLaba",
+            classes = {
+                @ConstructorResult(
+                        targetClass = RekapitulasiLaba.class,
+                        columns = {
+                            @ColumnResult(name = "NAME", type = String.class),
+                            @ColumnResult(name = "JML_PENERIMAAN", type = BigDecimal.class),
+                            @ColumnResult(name = "JML_PENGELUARAN", type = BigDecimal.class)
+                        }
+                )
+            }
+    ),
     @SqlResultSetMapping(
             name = "SaldoKas",
             classes = {

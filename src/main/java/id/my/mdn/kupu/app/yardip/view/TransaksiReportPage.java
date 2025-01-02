@@ -8,6 +8,8 @@ import id.my.mdn.kupu.app.yardip.dao.KasFacade;
 import id.my.mdn.kupu.app.yardip.dao.ProgramKerjaFacade;
 import id.my.mdn.kupu.app.yardip.dao.ProgresProgramKerjaFacade;
 import id.my.mdn.kupu.app.yardip.dao.RangkumanTransaksiFacade;
+import id.my.mdn.kupu.app.yardip.dao.RekapLabaFacade;
+import id.my.mdn.kupu.app.yardip.dao.RekapitulasiLaporanFacade;
 import id.my.mdn.kupu.app.yardip.model.JenisLaporanTransaksi;
 import static id.my.mdn.kupu.app.yardip.model.JenisLaporanTransaksi.PROGRES_PENGELUARAN;
 import static id.my.mdn.kupu.app.yardip.model.JenisLaporanTransaksi.REKAP_PENGELUARAN;
@@ -20,6 +22,8 @@ import id.my.mdn.kupu.app.yardip.model.PeriodFlag;
 import id.my.mdn.kupu.app.yardip.model.ProgramKerja;
 import id.my.mdn.kupu.app.yardip.model.ProgresProgramKerja;
 import id.my.mdn.kupu.app.yardip.model.RangkumanTransaksi;
+import id.my.mdn.kupu.app.yardip.model.RekapitulasiLaba;
+import id.my.mdn.kupu.app.yardip.model.RekapitulasiLaporan;
 import id.my.mdn.kupu.app.yardip.model.SaldoKas;
 import id.my.mdn.kupu.core.accounting.dao.AccountingPeriodFacade;
 import id.my.mdn.kupu.core.accounting.entity.AccountingPeriod;
@@ -186,8 +190,10 @@ public class TransaksiReportPage extends ReportingChildPage implements Serializa
             case PROGRES_PENERIMAAN:
             case PROGRES_PENGELUARAN:
                 return prepareLaporanProgram(businessEntity, jenisLaporan, period);
+            case REKAPITULASI_LABA:
+                return prepareLaporanRekapitulasiLaba(businessEntity, jenisLaporan, period);
             case REKAPITULASI:
-                return prepareLaporanRekapitulasi(businessEntity, period);
+                return prepareLaporanRekapitulasiLaporan(businessEntity, jenisLaporan, period);
             default:
                 return null;
         }
@@ -227,8 +233,8 @@ public class TransaksiReportPage extends ReportingChildPage implements Serializa
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("parentEntitas", parentEntity != null ? parentEntity.getOrganization().getName() : null);
-        parameters.put("entitas", entity.getOrganization().getName());
-        parameters.put("logo", logo);
+        parameters.put("entitas", parentEntity != null ? entity.getOrganization().getName() : "");
+        parameters.put("logo", new ByteArrayInputStream(logo));
         parameters.put("judulLaporan", jenisLaporan.getLabel());
         parameters.put("periode", period.getName());
         parameters.put("prevPeriode", prevPeriode.getName());
@@ -243,9 +249,90 @@ public class TransaksiReportPage extends ReportingChildPage implements Serializa
         );
 
     }
+    
+    @Inject
+    private RekapLabaFacade rekapLabaFacade;
+    
+    private ReportingJob prepareLaporanRekapitulasiLaba(BusinessEntity entity, JenisLaporanTransaksi jenisLaporan, AccountingPeriod period) {
+        
+        List<RekapitulasiLaba> data = rekapLabaFacade.findAll(
+                Map.of(
+                        "businessEntity", entity,
+                        "year", period.getFromDate().getYear())
+        );
+        
+        BusinessEntity parentEntity = entity.getParent();
+        
+        Position signerPosition1 = positionFacade.findSingleByAttributes(List.of(
+                FilterData.by("businessEntity", parentEntity != null ? parentEntity : entity),
+                FilterData.by("top", null)
+        ));
 
-    private ReportingJob prepareLaporanRekapitulasi(BusinessEntity entity, AccountingPeriod period) {
-        return null;
+        Employment ketua = getEmployment(signerPosition1);
+
+        Organization org = parentEntity != null ? parentEntity.getOrganization() : entity.getOrganization();
+        byte[] logo = organizationFacade.getLogo(org.getId());
+
+        String tanggalLaporan = LocalDate.now()
+                .format(DateTimeFormatter.ofPattern("EEEE d MMM yyyy", new Locale("ID")));
+        
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("parentEntitas", parentEntity != null ? parentEntity.getOrganization().getName() : entity.getOrganization().getName());
+        parameters.put("entitas", parentEntity != null ? entity.getOrganization().getName() : "");
+        parameters.put("logo", new ByteArrayInputStream(logo));
+        parameters.put("judulLaporan", jenisLaporan.getLabel());
+        parameters.put("periode", period.getName());
+        parameters.put("tanggalLaporan", tanggalLaporan);
+        parameters.put("lokasi", "Semarang");
+        parameters.put("ketua", ketua.getEmployee().getPerson().getName());
+        
+        return new ReportingJob(
+                data,
+                parameters,
+                "RekapitulasiLaba"
+        );
+    }
+    
+    @Inject
+    private RekapitulasiLaporanFacade rekapitulasiLaporanFacade;
+
+    private ReportingJob prepareLaporanRekapitulasiLaporan(BusinessEntity entity, JenisLaporanTransaksi jenisLaporan, AccountingPeriod period) {
+        
+        List<RekapitulasiLaporan> data = rekapitulasiLaporanFacade.findAll(
+                Map.of(
+                        "year", period.getFromDate().getYear(),
+                        "period", period)
+        );
+        
+        BusinessEntity parentEntity = entity.getParent();
+        
+        Position signerPosition1 = positionFacade.findSingleByAttributes(List.of(
+                FilterData.by("businessEntity", parentEntity != null ? parentEntity : entity),
+                FilterData.by("top", null)
+        ));
+
+        Employment ketua = getEmployment(signerPosition1);
+
+        Organization org = parentEntity != null ? parentEntity.getOrganization() : entity.getOrganization();
+        byte[] logo = organizationFacade.getLogo(org.getId());
+
+        String tanggalLaporan = LocalDate.now()
+                .format(DateTimeFormatter.ofPattern("EEEE d MMM yyyy", new Locale("ID")));
+        
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("entitas", entity.getOrganization().getName());
+        parameters.put("logo", logo);
+        parameters.put("judulLaporan", jenisLaporan.getLabel());
+        parameters.put("periode", period.getName());
+        parameters.put("tanggalLaporan", tanggalLaporan);
+        parameters.put("lokasi", "Semarang");
+        parameters.put("ketua", ketua.getEmployee().getPerson().getName());
+        
+        return new ReportingJob(
+                data,
+                parameters,
+                "RekapitulasiLaporan"
+        );
     }
 
     private ReportingJob prepareLaporanProgram(BusinessEntity entity, JenisLaporanTransaksi jenisLaporan, AccountingPeriod period) {
@@ -263,13 +350,22 @@ public class TransaksiReportPage extends ReportingChildPage implements Serializa
                 List.of(FilterData.by("jenisTransaksi", jenisTransaksi)),
                 List.of(SorterData.by("id"))
         );
+        
+        BusinessEntity parentEntity = entity.getParent();
+        
+        Position signerPosition1 = positionFacade.findSingleByAttributes(List.of(
+                FilterData.by("businessEntity", parentEntity != null ? parentEntity : entity),
+                FilterData.by("top", null)
+        ));
+
+        Employment ketua = getEmployment(signerPosition1);
 
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("parentEntitas", "Yayasan Rumpun Diponegoro");
-        parameters.put("entitas", entity.getOrganization().getName());
+        parameters.put("parentEntitas", parentEntity != null ? parentEntity.getOrganization().getName() : entity.getOrganization().getName());
+        parameters.put("entitas", parentEntity != null ? entity.getOrganization().getName() : "");
         parameters.put("periode", period.getName());
-        byte[] parentLogo = organizationFacade.getLogo(entity.getParent().getOrganization().getId());
+        byte[] parentLogo = parentEntity != null ? organizationFacade.getLogo(entity.getParent().getOrganization().getId()) : null;
         parameters.put("parentLogo", parentLogo != null ? new ByteArrayInputStream(parentLogo) : null);
         byte[] logo = organizationFacade.getLogo(entity.getOrganization().getId());
         parameters.put("logo", logo != null ? new ByteArrayInputStream(logo) : null);
@@ -280,7 +376,7 @@ public class TransaksiReportPage extends ReportingChildPage implements Serializa
                 .format(DateTimeFormatter.ofPattern("EEEE d MMM yyyy", new Locale("ID")));
         parameters.put("tanggalLaporan", tanggalLaporan);
         parameters.put("lokasi", "Semarang");
-        parameters.put("ketua", "Nana Patriatna, S.Sos");
+        parameters.put("ketua", ketua.getEmployee().getPerson().getName());
 
         return new ReportingJob(listProgramKerja, parameters, "ProgramKerja");
     }

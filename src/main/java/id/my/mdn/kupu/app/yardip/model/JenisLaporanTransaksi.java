@@ -13,9 +13,10 @@ public enum JenisLaporanTransaksi {
     SERAH_TERIMA("Serah Terima"),
     REKAP_PENERIMAAN("Rekapitulasi Penerimaan"),
     REKAP_PENGELUARAN("Rekapitulasi Pengeluaran"),
-    PROGRES_PENERIMAAN("Progres Penerimaan"),
-    PROGRES_PENGELUARAN("Progres Pengeluaran"),
-    REKAPITULASI("Rekapitulasi");
+    PROGRES_PENERIMAAN("Realisasi Penerimaan"),
+    PROGRES_PENGELUARAN("Realisasi Pengeluaran"),
+    REKAPITULASI_LABA("Rekapitulasi Penerimaan dan Pengeluaran"),
+    REKAPITULASI("Rekapitulasi Laporan Keuangan");
     
     private final String label;
 

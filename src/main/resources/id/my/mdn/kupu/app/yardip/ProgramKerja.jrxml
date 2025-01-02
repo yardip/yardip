@@ -1,4 +1,4 @@
-<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="ProgramKerja" language="java" columnCount="1" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="14d4be08-ec1f-43a0-ae81-763a166aa5a0">
 	<scriptlet name="ProgramKerjaScriptlet" class="id.my.mdn.kupu.app.yardip.report.ProgramKerjaScriptlet"/>
 	<parameter name="entitas" class="java.lang.String"/>
@@ -78,24 +78,21 @@
 		<element kind="frame" uuid="9485f36f-e7a5-4169-80ed-ba6c59ef36cb" x="0" y="0" width="539" height="100">
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<element kind="image" uuid="ba4a3fb8-6686-49c4-894c-0562aca3ef5c" x="0" y="0" width="100" height="100" scaleImage="RetainShape" onErrorType="Blank">
 				<expression><![CDATA[$P{parentLogo}]]></expression>
-				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			</element>
-			<element kind="image" uuid="15664da2-5a2d-4f01-b1f7-c8f48b6b388e" x="439" y="0" width="100" height="100" scaleImage="RetainShape" onErrorType="Blank">
-				<expression><![CDATA[$P{logo}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 		</element>
 		<element kind="frame" uuid="c7d059fc-d8ab-4756-b895-1b79887b275d" x="100" y="0" width="339" height="99">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-			<element kind="textField" uuid="bb98ce05-175c-4fb1-af06-d3ce10a97c99" x="0" y="0" width="339" height="27" fontName="Roboto" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="bb98ce05-175c-4fb1-af06-d3ce10a97c99" x="0" y="0" width="339" height="27" fontName="Roboto" fontSize="16.0" removeLineWhenBlank="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$P{parentEntitas}]]></expression>
 			</element>
 			<element kind="textField" uuid="86f5c2dd-dbd2-499c-854c-582042d933bf" x="0" y="27" width="339" height="24" fontName="Roboto" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$P{judulLaporan}]]></expression>
 			</element>
-			<element kind="textField" uuid="d5426ab3-a57d-4c97-ab18-ee6725296c20" x="0" y="51" width="339" height="24" fontName="Roboto" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="d5426ab3-a57d-4c97-ab18-ee6725296c20" x="0" y="51" width="339" height="24" fontName="Roboto" fontSize="14.0" removeLineWhenBlank="true" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$P{entitas}]]></expression>
 			</element>
 			<element kind="textField" uuid="f9ef6c0c-9eb3-451c-ab9b-02b9247deeab" x="0" y="75" width="339" height="24" fontName="Roboto" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
