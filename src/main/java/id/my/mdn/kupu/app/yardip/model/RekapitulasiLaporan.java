@@ -15,6 +15,8 @@ public class RekapitulasiLaporan implements Serializable{
     
     private final String entitas;
     
+    private final BigDecimal initialBalance;
+    
     private final BigDecimal currentYearIncome;
 
     private final BigDecimal currentMonthIncome;
@@ -23,12 +25,17 @@ public class RekapitulasiLaporan implements Serializable{
 
     private final BigDecimal currentMonthExpense;
 
-    public RekapitulasiLaporan(String entitas, BigDecimal currentYearIncome, BigDecimal currentMonthIncome, BigDecimal currentYearExpense, BigDecimal currentMonthExpense) {
+    public RekapitulasiLaporan(String entitas, BigDecimal initialBalance, BigDecimal currentYearIncome, BigDecimal currentMonthIncome, BigDecimal currentYearExpense, BigDecimal currentMonthExpense) {
         this.entitas = entitas;
+        this.initialBalance = initialBalance;
         this.currentYearIncome = currentYearIncome;
         this.currentMonthIncome = currentMonthIncome;
         this.currentYearExpense = currentYearExpense;
         this.currentMonthExpense = currentMonthExpense;
+    }
+
+    public BigDecimal getInitialBalance() {
+        return initialBalance;
     }
 
     public String getEntitas() {

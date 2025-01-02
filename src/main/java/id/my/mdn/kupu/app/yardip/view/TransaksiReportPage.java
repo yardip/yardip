@@ -297,11 +297,13 @@ public class TransaksiReportPage extends ReportingChildPage implements Serializa
     private RekapitulasiLaporanFacade rekapitulasiLaporanFacade;
 
     private ReportingJob prepareLaporanRekapitulasiLaporan(BusinessEntity entity, JenisLaporanTransaksi jenisLaporan, AccountingPeriod period) {
+        AccountingPeriod previousPeriod = periodFacade.getPreviousPeriod(businessEntity, period);
         
         List<RekapitulasiLaporan> data = rekapitulasiLaporanFacade.findAll(
                 Map.of(
                         "year", period.getFromDate().getYear(),
-                        "period", period)
+                        "period", period,
+                        "previousPeriod", previousPeriod)
         );
         
         BusinessEntity parentEntity = entity.getParent();
@@ -320,8 +322,9 @@ public class TransaksiReportPage extends ReportingChildPage implements Serializa
                 .format(DateTimeFormatter.ofPattern("EEEE d MMM yyyy", new Locale("ID")));
         
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("entitas", entity.getOrganization().getName());
-        parameters.put("logo", logo);
+        parameters.put("parentEntitas", parentEntity != null ? parentEntity.getOrganization().getName() : entity.getOrganization().getName());
+        parameters.put("entitas", parentEntity != null ? entity.getOrganization().getName() : "");
+        parameters.put("logo", new ByteArrayInputStream(logo));
         parameters.put("judulLaporan", jenisLaporan.getLabel());
         parameters.put("periode", period.getName());
         parameters.put("tanggalLaporan", tanggalLaporan);

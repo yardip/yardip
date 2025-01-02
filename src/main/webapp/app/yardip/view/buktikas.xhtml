@@ -20,9 +20,10 @@
         <ui:param name="masterFilterUi" value="/WEB-INF/components/core/base/filterui.xhtml" />
         <ui:param name="masterFilterListener" value="#{masterContentId} :master-pager-frm" />
 
-        <f:viewParam name="ms" value="#{masterDataView.selections}" converter="BuktiKasListConverter" />
+        <f:viewParam name="ms" value="#{masterDataView.selection}" converter="BuktiKasConverter" />
 
         <ui:param name="detail_notitle" value="true" />
+        <ui:param name="detailContentId" value=":detail-frm" />
         <ui:param name="detail_notool" 
                   value="#{(masterDataView.selection.contentType eq 'application/pdf') or (masterDataView.selection.contentType eq null)}" />
 

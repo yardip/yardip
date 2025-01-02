@@ -56,7 +56,7 @@ public class BuktiKasPage extends ChildPage implements Serializable {
 
     @Deleter(of = "masterDataView")
     public void deleteBuktiKas() {
-        masterDataView.deleteSelections();
+        masterDataView.deleteSelected();
     }
 
     public void onUploadBuktiKas(FilesUploadEvent event) {

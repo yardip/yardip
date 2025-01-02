@@ -116,8 +116,11 @@ public class RekapitulasiLaporanFacade extends AbstractSqlFacade<RekapitulasiLap
 
         String strCurrentFromDate = fmt.format(currentPeriod.getFromDate());
         String strCurrentThruDate = fmt.format(currentPeriod.getThruDate());
+        
+        AccountingPeriod previousPeriod = (AccountingPeriod) parameters.get("previousPeriod");
+        String strPrevThruDateDate = fmt.format(previousPeriod.getThruDate());
 
-        q.setParameter(3, strCurrentThruDate);
+        q.setParameter(3, strPrevThruDateDate);
         
         q.setParameter(4, strCurrentFromDate);
         q.setParameter(5, strCurrentThruDate);

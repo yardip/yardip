@@ -1,4 +1,4 @@
-<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Buku" language="java" columnCount="1" pageWidth="935" pageHeight="595" columnWidth="879" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="9ae5a6aa-6eab-4432-bd6c-870ce170089d" summaryNewPage="true">
 	<scriptlet name="BukuKasScriptlet" class="id.my.mdn.kupu.app.yardip.report.BukuKasScriptlet"/>
 	<parameter name="kas0" class="java.lang.String"/>
@@ -492,7 +492,7 @@
 		</element>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="20" splitType="Prevent">
 			<element kind="frame" uuid="41fb6e50-eb80-4705-9f9d-dd1dd5abbe37" x="0" y="0" width="879" height="20">
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 				<element kind="frame" uuid="7c9e57bb-0833-45cf-85ec-f86909f388ed" stretchType="ContainerHeight" x="0" y="0" width="232" height="20">

@@ -52,6 +52,7 @@ import java.util.UUID;
                         targetClass = RekapitulasiLaporan.class,
                         columns = {
                             @ColumnResult(name = "NAME", type = String.class),
+                            @ColumnResult(name = "SISA_AWAL", type = BigDecimal.class),
                             @ColumnResult(name = "PENERIMAAN_PREV", type = BigDecimal.class),
                             @ColumnResult(name = "PENERIMAAN_CURR", type = BigDecimal.class),
                             @ColumnResult(name = "PENGELUARAN_PREV", type = BigDecimal.class),
