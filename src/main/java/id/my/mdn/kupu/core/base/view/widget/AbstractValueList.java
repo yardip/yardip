@@ -8,6 +8,7 @@ import id.my.mdn.kupu.core.base.dao.AbstractFacade.DefaultChecker;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterData;
 import id.my.mdn.kupu.core.base.util.FilterTypes.FilterListener;
 import id.my.mdn.kupu.core.base.view.util.ConverterUtil;
+import static id.my.mdn.kupu.core.base.view.widget.Selector.SINGLE;
 import id.my.mdn.kupu.core.base.view.widget.Selector.SelectionModeSelector;
 import id.my.mdn.kupu.core.base.view.widget.Selector.SelectorListener;
 import jakarta.enterprise.inject.spi.CDI;
@@ -215,6 +216,11 @@ public abstract class AbstractValueList<E>
     }
 
     protected void resetInternal() {
+        if(getSelectionMode().equals(SINGLE)) {
+            selector.setSelectionInternal(null);
+        } else {
+            selector.setSelectionsInternal(null);
+        }
     }
 
     @Override
@@ -223,7 +229,6 @@ public abstract class AbstractValueList<E>
     }
 
     public void onFilter(Object obj) {
-        System.out.println("SELEK NOTIPAI KONTEK: " + obj);
         doFilter();
     }
 

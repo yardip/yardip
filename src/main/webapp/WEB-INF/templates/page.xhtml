@@ -60,6 +60,8 @@
                                   oncomplete="addressBarUpdate(args.url);resizeContainer();" 
                                   update="#{contentId} :tools-frm :pager-frm" />
             </h:form>
+            
+            <ui:insert name="other-nonview" />
 
             <div class="flex flex-column justify-content-between align-items-stretch h-screen">
 
@@ -91,7 +93,7 @@
                     </h:form>
                 </div>
                 <div class="#{nofilter ? 'hidden' : ''}">
-                    <h:form id="filter-frm" class="flex flex-grow-1 flex-wrap justify-content-start border-bottom-1 border-gray-300 align-items-center surface-200 gap-1 p-1">
+                    <h:form id="filter-frm" class="flex flex-grow-1 flex-wrap justify-content-start border-bottom-1 border-gray-300 align-items-center surface-200 gap-2 p-1">
                         <ui:insert name="filter"/>
                     </h:form>
                 </div>         

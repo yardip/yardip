@@ -8,7 +8,9 @@ package id.my.mdn.kupu.core.base.view;
 import id.my.mdn.kupu.core.base.util.Result;
 import id.my.mdn.kupu.core.base.view.widget.Toast;
 import jakarta.enterprise.context.Conversation;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.PhaseId;
 import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -53,7 +55,7 @@ public abstract class FormPage<T> extends ChildPage implements Serializable {
             conversation.begin();
         }
         if (entity == null) {
-            entity = newEntity();
+            setEntity(newEntity());
             createNew = true;
         } else {
             loadEntity();
@@ -148,7 +150,11 @@ public abstract class FormPage<T> extends ChildPage implements Serializable {
     }
 
     public void setEntity(T entity) {
-        this.entity = entity;
+        PhaseId currentPhaseId = FacesContext.getCurrentInstance().getCurrentPhaseId();
+        if (!currentPhaseId.equals(PhaseId.UPDATE_MODEL_VALUES)
+                || (currentPhaseId.equals(PhaseId.UPDATE_MODEL_VALUES) && !createNew)) {
+            this.entity = entity;
+        }
     }
 
     public boolean isCreateNew() {

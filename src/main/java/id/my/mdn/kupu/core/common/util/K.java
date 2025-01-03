@@ -40,4 +40,15 @@ public final class K {
             return Boolean.valueOf(value);
         }
     }
+
+    public static final class KEnum {
+
+        public static final <K extends Enum<K>> K valueOf(Class<K> enumClass, String v) {
+            try {
+                return K.valueOf(enumClass, v);
+            } catch (Exception ex) {
+                return null;
+            }
+        }
+    }
 }

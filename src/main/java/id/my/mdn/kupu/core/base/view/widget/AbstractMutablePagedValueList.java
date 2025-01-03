@@ -11,10 +11,10 @@ import org.primefaces.event.CellEditEvent;
 /**
  *
  * @author aphasan
- * @param <V>
+ * @param <E>
  */
-public abstract class AbstractMutablePagedValueList<V>
-        extends AbstractPagedValueList<V> implements ICreate<V>, IEdit<V>, IDelete<V> {
+public abstract class AbstractMutablePagedValueList<E>
+        extends AbstractPagedValueList<E> implements ICreate<E>, IEdit<E>, IDelete<E> {
 
     private PageCaller creator;
 
@@ -26,9 +26,17 @@ public abstract class AbstractMutablePagedValueList<V>
         super();
     }
 
+    public E getSelected() {
+        if (getSelectionMode().equals(Selector.SINGLE)) {
+            return getSelection();
+        } else {
+            return getSelections() != null ? getSelections().getLast() : null;
+        }
+    }
+
     public void onCellEdit(CellEditEvent event) {
         int index = event.getRowIndex();
-        V entity = getFetchedItems().get(index);
+        E entity = getFetchedItems().get(index);
 
         if (entity != null) {
 
@@ -40,16 +48,16 @@ public abstract class AbstractMutablePagedValueList<V>
         }
     }
 
-    private V update(V entity, String field, Object newValue) {
+    private E update(E entity, String field, Object newValue) {
         updateInternal(entity, field, newValue);
         return entity;
     }
 
-    protected void updateInternal(V entity, String field, Object newValue) {
+    protected void updateInternal(E entity, String field, Object newValue) {
 
     }
 
-    protected V findEntity(String id) {
+    protected E findEntity(String id) {
         return null;
     }
 
@@ -77,7 +85,7 @@ public abstract class AbstractMutablePagedValueList<V>
     }
 
     @Override
-    public void create(V entity) {
+    public void create(E entity) {
         createInternal(entity);
         if (selector.getSelectionMode().equals(SINGLE)) {
             selector.setSelection(entity);
@@ -87,7 +95,7 @@ public abstract class AbstractMutablePagedValueList<V>
         invalidate();
     }
 
-    protected abstract void createInternal(V entity);
+    protected abstract void createInternal(E entity);
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="IEdit implementation">
@@ -114,7 +122,7 @@ public abstract class AbstractMutablePagedValueList<V>
     }
 
     @Override
-    public void delete(V entity) {
+    public void delete(E entity) {
         deleteInternal(entity);
         invalidate();
     }
@@ -139,6 +147,6 @@ public abstract class AbstractMutablePagedValueList<V>
 
     }
 
-    protected abstract void deleteInternal(V entity);
+    protected abstract void deleteInternal(E entity);
 //</editor-fold>
 }
