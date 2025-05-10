@@ -41,8 +41,8 @@ public class EmploymentEditorPage extends FormPage<Employment> {
     @Bookmark
     private Employee employee;
 
-    @Bookmark
-    private Person person;
+//    @Bookmark
+//    private Person person;
 
     @Override
     public void load() {
@@ -70,9 +70,9 @@ public class EmploymentEditorPage extends FormPage<Employment> {
         employment.setFromDate(LocalDate.now());
 
         if (employee == null) {
-            if (person == null) {
-                person = Person.builder().get();
-            }
+//            if (person == null) {
+                Person person = Person.builder().get();
+//            }
 
             employee = Employee.builder()
                     .forBusinessEntity(businessEntity)
@@ -103,13 +103,13 @@ public class EmploymentEditorPage extends FormPage<Employment> {
         return form;
     }
 
-    public Person getPerson() {
-        return person;
-    }
+//    public Person getPerson() {
+//        return person;
+//    }
 
-    public void setPerson(Person person) {
-        this.person = person;
-    }
+//    public void setPerson(Person person) {
+//        this.person = person;
+//    }
 
     public Position getPosition() {
         return position;

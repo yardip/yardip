@@ -13,6 +13,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
@@ -74,8 +75,8 @@ public class RekapLabaFacade extends AbstractSqlFacade<RekapitulasiLaba> {
 
         int year = (Integer) parameters.get("year");
 
-        String yearBegin = fmt.format(LocalDate.now().withDayOfMonth(1).withMonth(1).withYear(year));
-        String yearEnd = fmt.format(LocalDate.now().withDayOfMonth(31).withMonth(12).withYear(year));
+        String yearBegin = fmt.format(LocalDate.of(year, Month.JANUARY, 1));
+        String yearEnd = fmt.format(LocalDate.of(year, Month.DECEMBER, 31));
 
         q.setParameter(2, yearBegin);
         q.setParameter(3, yearEnd);

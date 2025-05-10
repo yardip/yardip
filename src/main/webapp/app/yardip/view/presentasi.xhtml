@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/page.xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:h="jakarta.faces.html" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <ui:param name="title" value="Presentasi" />
+
+        <ui:param name="viewPage" value="#{presentasiPage}" /> 
+
+        <ui:include src="/WEB-INF/components/core/base/meta/page.xhtml"/>
+
+        <ui:param name="nofilter" value="true" />
+        
+        <ui:param name="contentId" value=":data-frm" />
+
+    </f:metadata>
+
+    <ui:define name="module-menu">
+        <ui:include src="/WEB-INF/components/app/yardip/module-menu.xhtml" />
+    </ui:define>
+
+    <ui:define name="other-tools">
+        <p:selectOneMenu id="entity" value="#{viewPage.businessEntity}" converter="BusinessEntityConverter"
+                         rendered="#{rolesChecker.isUserHasRoles('manage_entitas_all')}" >                    
+            <f:selectItem itemLabel="Pilih Entitas" itemValue="#{null}" />
+            <f:selectItems value="#{viewPage.businessEntityList.fetchedItems}" var="item"
+                           itemLabel="#{item.organization.name}" itemValue="#{item}" />
+            <p:ajax event="valueChange" process="@this" 
+                    listener="#{viewPage.onChangeBusinessEntity}" 
+                    oncomplete="refreshContent()" />
+        </p:selectOneMenu> 
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="data-frm" class="flex-grow-1 flex align-items-stretch">
+        </h:form>
+    </ui:define>
+
+</ui:composition>

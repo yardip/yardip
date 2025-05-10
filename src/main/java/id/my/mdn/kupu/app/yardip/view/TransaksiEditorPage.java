@@ -40,6 +40,8 @@ import jakarta.inject.Named;
 import jakarta.security.enterprise.SecurityContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -98,13 +100,14 @@ public class TransaksiEditorPage extends FormPage<Transaksi> {
         super.load();
 
         posList.getFilter().setStaticFilter(this::getPosTransaksiFilters);
+        posList.setSelectionInternal(entity.getTrxType());
     }
     
     private List<FilterData> getPosTransaksiFilters() {
         return List.of(
                 new FilterData("entity", businessEntity),
                 new FilterData("trxType", jenisTransaksi),
-                new FilterData("date", LocalDate.now())
+                new FilterData("date", entity.getTrxDate())
         );
     }
 
@@ -154,10 +157,10 @@ public class TransaksiEditorPage extends FormPage<Transaksi> {
                 TransaksiDetailId id = new TransaksiDetailId(entity.getId(), kas.getId());
                 TransaksiDetail tmp = new TransaksiDetail(id);
                 int idxDetail = listDetail.indexOf(tmp);
-                TransaksiDetail detail = idxDetail > -1
+                TransaksiDetail d = idxDetail > -1
                         ? listDetail.get(idxDetail)
                         : new TransaksiDetail(entity, kas, BigDecimal.ZERO);
-                return detail;
+                return d;
             })
                     .collect(Collectors.toList());
 
@@ -166,15 +169,24 @@ public class TransaksiEditorPage extends FormPage<Transaksi> {
 
         if (entity.getTrxType() != null && entity.getTrxType().getTrxType().equals(JenisTransaksi.MUTASI_KAS)) {
             for (int i = 0; i < detail.size(); i++) {
-                if (detail.get(i).getAmount().compareTo(BigDecimal.ZERO) == -1) {
-                    detail.get(i).setStatusMutasi(StatusMutasiKas.SOURCE);
-                } else if (detail.get(i).getAmount().compareTo(BigDecimal.ZERO) == 1) {
-                    detail.get(i).setStatusMutasi(StatusMutasiKas.DESTINATION);
+                switch (detail.get(i).getAmount().compareTo(BigDecimal.ZERO)) {
+                    case -1:
+                        detail.get(i).setStatusMutasi(StatusMutasiKas.SOURCE);
+                        break;
+                    case 1:
+                        detail.get(i).setStatusMutasi(StatusMutasiKas.DESTINATION);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
-
+        
         jenisTransaksi = entity.getTrxType().getTrxType();
+    }
+    
+    public PosTransaksi getTrxType() {
+        return entity.getTrxType();
     }
 
     @Override
@@ -232,6 +244,7 @@ public class TransaksiEditorPage extends FormPage<Transaksi> {
 
         if (jenisTransaksi.equals(JenisTransaksi.TRANSFER_SALDO)) {
             PosTransaksi posTransferSaldo = posTrxFacade.findSingleByAttributes(getPosTransaksiFilters());
+            entity.setCreated(LocalDateTime.of(period.getFromDate(), LocalTime.of(0, 0, 0)));
             entity.setTrxDate(period.getFromDate());
             entity.setTrxType(posTransferSaldo);
             entity.setUraian(posTransferSaldo.getUraian());

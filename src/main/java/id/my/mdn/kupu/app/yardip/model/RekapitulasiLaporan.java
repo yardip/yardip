@@ -28,10 +28,10 @@ public class RekapitulasiLaporan implements Serializable{
     public RekapitulasiLaporan(String entitas, BigDecimal initialBalance, BigDecimal currentYearIncome, BigDecimal currentMonthIncome, BigDecimal currentYearExpense, BigDecimal currentMonthExpense) {
         this.entitas = entitas;
         this.initialBalance = initialBalance;
-        this.currentYearIncome = currentYearIncome;
-        this.currentMonthIncome = currentMonthIncome;
-        this.currentYearExpense = currentYearExpense;
-        this.currentMonthExpense = currentMonthExpense;
+        this.currentYearIncome = currentYearIncome != null ? currentYearIncome : BigDecimal.ZERO;
+        this.currentMonthIncome = currentMonthIncome != null ? currentMonthIncome : BigDecimal.ZERO;
+        this.currentYearExpense = currentYearExpense != null ? currentYearExpense : BigDecimal.ZERO;
+        this.currentMonthExpense = currentMonthExpense != null ? currentMonthExpense : BigDecimal.ZERO;
     }
 
     public BigDecimal getInitialBalance() {

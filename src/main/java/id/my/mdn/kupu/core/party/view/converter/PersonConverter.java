@@ -5,23 +5,22 @@
  */
 package id.my.mdn.kupu.core.party.view.converter;
 
+import id.my.mdn.kupu.core.common.util.K.KLong;
 import id.my.mdn.kupu.core.party.dao.PersonFacade;
 import id.my.mdn.kupu.core.party.entity.Person;
-import jakarta.enterprise.context.Dependent;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
-import id.my.mdn.kupu.core.common.util.K.KLong;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 
 /**
  *
  * @author aphasan
  */
-@Named("PersonConverter")
-@Dependent @FacesConverter(value = "PersonConverter", managed = true)
+@Singleton
+@FacesConverter(value = "PersonConverter", managed = true)
 public class PersonConverter implements Converter<Person> {
     
     @Inject

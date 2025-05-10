@@ -63,7 +63,7 @@
                 </ui:define>
 
                 <ui:define name="crud-update" />
-                
+
                 <ui:define name="context-menu">
                     <p:menuitem value="Inisialisasi Entitas" 
                                 actionListener="#{viewPage.initializeEntity}"
@@ -188,10 +188,12 @@
                                                         immediate="true"
                                                         actionListener="#{viewPage.removeAppUser}"
                                                         update=":messages" />
-                                            <p:menuitem icon="pi pi-star-fill" 
-                                                        value="Pejabat Baru" 
-                                                        immediate="true"
-                                                        actionListener="#{viewPage.addEmployment}" />
+                                            <ui:remove>
+                                                <p:menuitem icon="pi pi-star-fill" 
+                                                            value="Pejabat Baru" 
+                                                            immediate="true"
+                                                            actionListener="#{viewPage.addEmployment}" />
+                                            </ui:remove>
                                             <p:menuitem icon="pi pi-history" 
                                                         value="Daftar Pejabat" 
                                                         immediate="true"

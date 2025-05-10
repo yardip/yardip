@@ -18,6 +18,7 @@ import jakarta.persistence.criteria.From;
 import jakarta.persistence.criteria.Predicate;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +134,7 @@ public class PosTransaksiFacade extends AbstractFacade<PosTransaksi> {
     }
 
     public void extendPosTransaksi(BusinessEntity entity, LocalDate now, JenisTransaksi... jenisTransaksi) { 
-        LocalDate endOfPrevYear = now.minusYears(1).withMonth(12).withDayOfMonth(31);
+        LocalDate endOfPrevYear = LocalDate.of(now.minusYears(1).getYear(), Month.DECEMBER, 31);
 
         List<FilterData> filters = new ArrayList<>();
         filters.add(FilterData.by("entity", entity));

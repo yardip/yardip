@@ -44,7 +44,7 @@ public class EmploymentPage extends ChildPage implements Serializable {
         RequestedView creatorPage = gotoChild(EmploymentEditorPage.class);
 
         Position position = employmentList.getFilter().<EmploymentFilter>getContent().getPosition();
-        creatorPage.addParam("pos").withValues(position);
+        creatorPage.addParam("position").withValues(position);
 
         creatorPage.open();
     }
@@ -54,14 +54,14 @@ public class EmploymentPage extends ChildPage implements Serializable {
         
         RequestedView creatorPage = gotoChild(EmploymentEditorPage.class);
 
-        creatorPage.addParam("entity").withValues(employmentList.getSelection());
+        creatorPage.addParam("entity").withValues(employmentList.getSelected());
 
         creatorPage.open();
     }
 
     @Deleter(of = "employmentList")
     public void openEmploymentDeleter() {
-        employmentList.deleteSelections();
+        employmentList.deleteSelected();;
     }
 
     public EmploymentList getEmploymentList() {

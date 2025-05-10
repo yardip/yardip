@@ -14,7 +14,7 @@
         <ui:param name="notool" value="true" />
         <ui:param name="nofilter" value="true"/>
 
-        <f:viewParam name="entity" value="#{viewPage.entity}" converter="TransaksiConverter" />
+        <f:viewParam name="entity" value="#{viewPage.entity}" converter="TransaksiConverter" transient="true" />
         <f:viewParam name="period" value="#{viewPage.period}" converter="AccountingPeriodConverter" />
         <f:viewParam name="cp" value="#{viewPage.copy}" converter="BooleanConverter" />
         
@@ -60,17 +60,15 @@
                             <div class="field ui-fluid">
                                 <p:outputLabel for="pos" value="Kegiatan" />
                                 <p:selectOneMenu id="pos"  style="min-width: auto!important"
-                                                 value="#{viewPage.entity.trxType}" var="i"
+                                                 value="#{viewPage.entity.trxType}" dynamic="false"
                                                  converter="PosTransaksiConverter" 
                                                  disabled="#{viewPage.jenisTransaksi eq null}" 
                                                  filter="true" filterMatchMode="contains"
                                                  required="true" requiredMessage="Pilih Kegiatan" >                      
                                     <f:selectItem itemLabel="Pilih Kegiatan" itemValue="#{null}" />                      
-                                    <f:selectItems value="#{viewPage.posList.fetchedItems}" var="item" itemLabel="#{item.uraian}" itemValue="#{item}" />
-                                    <p:column>
-                                        <h:outputText value="#{i.uraian}" />
-                                    </p:column>
-                                </p:selectOneMenu>  
+                                    <f:selectItems value="#{viewPage.posList.fetchedItems}" 
+                                                   var="item" itemLabel="#{item.uraian}" itemValue="#{item}" />
+                                </p:selectOneMenu> 
                             </div>
 
                             <div class="field ui-fluid">

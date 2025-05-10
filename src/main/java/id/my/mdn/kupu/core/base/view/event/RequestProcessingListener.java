@@ -8,6 +8,8 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,15 +18,16 @@ import jakarta.faces.event.PhaseListener;
 @Dependent
 public class RequestProcessingListener implements PhaseListener{
 
+    protected static Logger LOG = Logger.getLogger("Lifecycle");
+
     @Override
     public void beforePhase(PhaseEvent event) {
-        System.out.println("SELEK BIPOR " + event.getPhaseId().getName());
+       LOG.log(Level.INFO, "BEFORE {0}", event.getPhaseId().getName());
     }
 
     @Override
     public void afterPhase(PhaseEvent event) {
-        System.out.println("SELEK APTER " + event.getPhaseId().getName());
-        System.out.println("SELEK===========================================SELEK");
+        LOG.log(Level.INFO, "AFTER {0}", event.getPhaseId().getName());
     }
 
     @Override

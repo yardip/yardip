@@ -1,11 +1,11 @@
 
 package id.my.mdn.kupu.core.base.view.converter;
 
+import id.my.mdn.kupu.core.common.util.K.KBoolean;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
-import id.my.mdn.kupu.core.common.util.K.KBoolean;
 import jakarta.inject.Singleton;
 
 /**
@@ -23,7 +23,7 @@ public class BooleanConverter implements Converter<Boolean> {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Boolean value) {
-        return Boolean.toString(value);
+        return value != null ? Boolean.toString(value) : "false";
     }
     
 }

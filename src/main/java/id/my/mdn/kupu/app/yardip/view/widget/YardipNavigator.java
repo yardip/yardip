@@ -5,6 +5,7 @@
 package id.my.mdn.kupu.app.yardip.view.widget;
 
 import id.my.mdn.kupu.app.yardip.view.KasPage;
+import id.my.mdn.kupu.app.yardip.view.PresentasiPage;
 import id.my.mdn.kupu.app.yardip.view.ProgramKerjaPage;
 import id.my.mdn.kupu.core.base.view.Page;
 import id.my.mdn.kupu.core.base.view.widget.PageNavigator;
@@ -16,9 +17,9 @@ import java.io.Serializable;
  *
  * @author Arief Prihasanto <aphasan57 at gmail.com>
  */
-@Named(value = "kasNavigator")
+@Named(value = "yardipNavigator")
 @ApplicationScoped
-public class KasNavigator extends PageNavigator implements Serializable {
+public class YardipNavigator extends PageNavigator implements Serializable {
 
     @Override
     protected Class<? extends Page> pageMap(String pageId) {
@@ -26,7 +27,9 @@ public class KasNavigator extends PageNavigator implements Serializable {
             case "ProgramKerja":
                 return ProgramKerjaPage.class;            
             case "Kas":
-                return KasPage.class;
+                return KasPage.class;            
+            case "Presentasi":
+                return PresentasiPage.class;
             default:
                 return null;
         }

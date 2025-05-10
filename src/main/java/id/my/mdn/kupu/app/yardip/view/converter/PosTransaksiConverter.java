@@ -27,7 +27,8 @@ public class PosTransaksiConverter implements Converter<PosTransaksi> {
 
     @Override
     public PosTransaksi getAsObject(FacesContext context, UIComponent component, String value) {
-        return dao.find(KLong.valueOf(value));
+        PosTransaksi find = dao.find(KLong.valueOf(value));
+        return find;
     }
 
     @Override

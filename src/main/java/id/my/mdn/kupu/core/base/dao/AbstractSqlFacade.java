@@ -52,6 +52,7 @@ public abstract class AbstractSqlFacade<T extends Serializable> extends Abstract
             final Map<String, Object> parameters, final List<FilterData> filters,
             final List<SorterData> sorters, final List<T> defaultReturn,
             final DefaultChecker defaultChecker) {
+        
         String filter = applyFilters(filters);
 
         DefaultChecker usedDefaultChecker
@@ -64,15 +65,18 @@ public abstract class AbstractSqlFacade<T extends Serializable> extends Abstract
         QueryGenerator usedQueryGenerator = (queryGenerator != null
                 ? queryGenerator : (this::getFindAllQuery));
 
+        String queryString = usedQueryGenerator.get();
+        
+        if(startPosition != null && maxResult != null && maxResult > 0) {
+            queryString = queryString.replaceFirst("(SELECT)", "SELECT LIMIT %d %d".formatted(startPosition, maxResult));
+        }
+
         Query q = getEntityManager().createNativeQuery(
-                Stream.of(usedQueryGenerator.get(), filter, orderBy(sorters))
+                Stream.of(queryString, filter, orderBy(sorters))
                         .collect(Collectors.joining(" ")).trim(),
                 entityClass.getSimpleName());
 
         setParameters(q, parameters);
-
-        q.setFirstResult(startPosition);
-        q.setMaxResults(maxResult);
 
         return q.getResultList();
     }

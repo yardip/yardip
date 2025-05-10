@@ -60,7 +60,8 @@ public class EmploymentFacade extends PartyRelationshipFacade<Employment> {
 
     @Override
     public Result<String> edit(Employment entity) {
-        return partyFacade.edit(entity.getEmployee().getPerson());
+        partyFacade.edit(entity.getEmployee().getPerson());
+        return super.edit(entity);
     }
 
     public Employment getExclusiveEmployment(Position position, LocalDate date) {

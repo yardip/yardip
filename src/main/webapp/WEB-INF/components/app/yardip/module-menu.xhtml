@@ -4,15 +4,20 @@
                 xmlns:h="jakarta.faces.html">
 
     <p:menuitem value="Buku Kas" immediate="true"
-                actionListener="#{kasNavigator.open('BukuKas', '')}"
+                actionListener="#{yardipNavigator.open('BukuKas', '')}"
                 icon="pi pi-money" />
     
     <p:menuitem value="Program Kerja" immediate="true"
-                actionListener="#{kasNavigator.open('ProgramKerja', '')}"
+                actionListener="#{yardipNavigator.open('ProgramKerja', '')}"
                 icon="pi pi-gear" /> 
     
     <p:menuitem value="Daftar Kas" immediate="true"
-                actionListener="#{kasNavigator.open('Kas', '')}"
+                actionListener="#{yardipNavigator.open('Kas', '')}"
+                icon="pi pi-gear" /> 
+    
+    <p:menuitem value="Presentasi" immediate="true"
+                actionListener="#{yardipNavigator.open('Presentasi', '')}"                
+                rendered="#{rolesChecker.isUserHasRoles('manage_entitas_all')}"
                 icon="pi pi-gear" /> 
 </ui:composition>
 

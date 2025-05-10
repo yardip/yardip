@@ -8,6 +8,7 @@ import id.my.mdn.kupu.app.yardip.dao.TransaksiFacade;
 import id.my.mdn.kupu.app.yardip.model.JenisTransaksi;
 import id.my.mdn.kupu.app.yardip.model.Kas;
 import id.my.mdn.kupu.app.yardip.model.SaldoKas;
+import id.my.mdn.kupu.app.yardip.model.StatusMutasiKas;
 import id.my.mdn.kupu.app.yardip.model.Transaksi;
 import id.my.mdn.kupu.app.yardip.model.TransaksiDetail;
 import id.my.mdn.kupu.core.accounting.dao.AccountingPeriodFacade;
@@ -30,12 +31,24 @@ import java.util.List;
 public class TransaksiService {
 
     @Inject
-    private TransaksiFacade dao;    
+    private TransaksiFacade dao;
 
     @Inject
     private AccountingPeriodFacade periodFacade;
 
     public Result<String> create(Transaksi transaksi) {
+        List<TransaksiDetail> details = transaksi.getDetailTransaksi();
+
+        if (details == null) {
+            return new Result<>(false, "Data tidak lengkap!");
+        }
+
+        int step = details.size();
+
+        if (step == 0) {
+            return new Result<>(false, "Data tidak lengkap!");
+        }
+
         BusinessEntity businessEntity = transaksi.getBusinessEntity();
 
         AccountingPeriod period = periodFacade.findSingleByAttributes(List.of(FilterData.by("businessEntity", businessEntity),
@@ -44,17 +57,23 @@ public class TransaksiService {
         );
 
         BigDecimal sumDetail = BigDecimal.ZERO;
-        int step = transaksi.getDetailTransaksi().size();
 
         Result<String> result = new Result<>(true, "Data telah disimpan!");
 
         synchronized (businessEntity.getId()) {
 
-            for (TransaksiDetail detail : transaksi.getDetailTransaksi()) {
-
-                BigDecimal detailAmount;
+            for (TransaksiDetail detail : details) {
 
                 JenisTransaksi jenisTransaksi = transaksi.getTrxType().getTrxType();
+
+                if (jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)
+                        && detail.getStatusMutasi() == null) {
+                    result = new Result(false,
+                            "Periksa kembali sumber dan tujuan mutasi!");
+                    break;
+                }
+
+                BigDecimal detailAmount;
 
                 if (!jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)) {
                     detailAmount = detail.getTmpAmount().multiply(jenisTransaksi.getSign());
@@ -66,9 +85,15 @@ public class TransaksiService {
 
                 SaldoKas saldoKas = dao.calculateSaldoKas(businessEntity, period, detail.getKas());
 
-                if (step == 1 && jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS) && (sumDetail.compareTo(BigDecimal.ZERO) != 0)) {
+                if (step == 1 && jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)
+                        && (sumDetail.compareTo(BigDecimal.ZERO) != 0)) {
                     result = new Result(false,
-                            "Periksa kas sumber dan tujuan!");
+                            "Periksa kembali besaran sumber dan tujuan mutasi!");
+                    break;
+                }
+
+                if (jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)
+                        && detail.getStatusMutasi().equals(StatusMutasiKas.DESTINATION)) {
                     break;
                 }
 
@@ -94,6 +119,18 @@ public class TransaksiService {
     }
 
     public Result<String> edit(Transaksi transaksi) {
+        List<TransaksiDetail> details = transaksi.getDetailTransaksi();
+
+        if (details == null) {
+            return new Result<>(false, "Data tidak lengkap!");
+        }
+
+        int step = details.size();
+
+        if (step == 0) {
+            return new Result<>(false, "Data tidak lengkap!");
+        }
+
         BusinessEntity businessEntity = transaksi.getBusinessEntity();
 
         AccountingPeriod period = periodFacade.findSingleByAttributes(List.of(FilterData.by("businessEntity", businessEntity),
@@ -102,7 +139,6 @@ public class TransaksiService {
         );
 
         BigDecimal sumDetail = BigDecimal.ZERO;
-        int step = transaksi.getDetailTransaksi().size();
 
         Result<String> result = new Result<>(true, "Data telah disimpan!");
 
@@ -110,15 +146,25 @@ public class TransaksiService {
 
             for (TransaksiDetail detail : transaksi.getDetailTransaksi()) {
 
-                BigDecimal detailAmount = BigDecimal.ZERO;
-
                 JenisTransaksi jenisTransaksi = transaksi.getTrxType().getTrxType();
+
+                if (jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)
+                        && (detail.getTmpAmount().compareTo(BigDecimal.ZERO) != 0)
+                        && detail.getStatusMutasi() == null) {
+                    result = new Result(false,
+                            "Periksa kembali sumber dan tujuan mutasi!");
+                    break;
+                }
+
+                BigDecimal detailAmount;
 
                 if (!jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)) {
                     detailAmount = detail.getTmpAmount().multiply(jenisTransaksi.getSign());
                 } else {
                     if (detail.getTmpAmount().compareTo(BigDecimal.ZERO) != 0) {
                         detailAmount = detail.getTmpAmount().multiply(detail.getStatusMutasi().getSign());
+                    } else {
+                        detailAmount = detail.getTmpAmount();
                     }
                 }
 
@@ -126,9 +172,16 @@ public class TransaksiService {
 
                 SaldoKas saldoKas = dao.calculateSaldoKas(businessEntity, period, detail.getKas());
 
-                if (step == 1 && jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS) && (sumDetail.compareTo(BigDecimal.ZERO) != 0)) {
+                if (step == 1 && jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)
+                        && (sumDetail.compareTo(BigDecimal.ZERO) != 0)) {
                     result = new Result(false,
-                            "Periksa kas sumber dan tujuan!");
+                            "Periksa kembali besaran sumber dan tujuan mutasi!");
+                    break;
+                }
+
+                if (jenisTransaksi.equals(JenisTransaksi.MUTASI_KAS)
+                        && ((detail.getTmpAmount().compareTo(BigDecimal.ZERO) == 0)
+                        || detail.getStatusMutasi().equals(StatusMutasiKas.DESTINATION))) {
                     break;
                 }
 
@@ -147,7 +200,6 @@ public class TransaksiService {
 
             if (result.isSuccess()) {
                 dao.edit(transaksi);
-                
             }
         }
 
